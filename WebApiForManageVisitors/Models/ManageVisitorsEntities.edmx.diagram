@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3e2ff771dc874c27af6c53dac55fca1b" Name="Diagram1">
+        <EntityTypeShape EntityType="ManageVisitorsModel.sysdiagram" Width="1.5" PointX="5.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManageVisitorsModel.tbl_DepartmentEmployeeRegistration" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManageVisitorsModel.tbl_DepartmentMaster" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManageVisitorsModel.tbl_DesignationMaster" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManageVisitorsModel.tbl_RequestProcess" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManageVisitorsModel.tbl_VisitorUserRegistration" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <AssociationConnector Association="ManageVisitorsModel.FK_tbl_DepartmentEmployeeRegistration_tbl_DepartmentMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="ManageVisitorsModel.FK_tbl_DepartmentEmployeeRegistration_tbl_DesignationMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="ManageVisitorsModel.FK_tbl_RequestProcess_tbl_DepartmentEmployeeRegistration" ManuallyRouted="false" />
+        <AssociationConnector Association="ManageVisitorsModel.FK_tbl_RequestProcess_tbl_VisitorUserRegistration" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
