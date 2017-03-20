@@ -104,6 +104,26 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
 
         }
 
+        [HttpGet]
+        public JsonResult GetVisitorUserMaxSrNo()
+        {
+            try
+            {
+                tbl_VisitorUserRegistrationModel VisitorUserMaxSrNo = new tbl_VisitorUserRegistrationModel();
+                var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Max(p => p.VisitorSrNo);
+                VisitorUserMaxSrNo.VisitorSrNo = _objVisitorUserRegistration + 1;
+                return Json(VisitorUserMaxSrNo, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ResultModel _objResult = new ResultModel();
+                _objResult.success = 0;
+                _objResult.msg = ex.ToString();
+                return Json(_objResult, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
 
         [HttpPost]
         public JsonResult AddVisitorUserRegistration(tbl_VisitorUserRegistration collection)
