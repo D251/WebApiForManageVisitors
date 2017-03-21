@@ -2,28 +2,11 @@
 
 @{
     ViewBag.Title = "Create";
- }
-<script src="~/plugins/jQuery/jquery-2.2.3.min.js"></script>
-@*<script>
-    $(function () {
-        $("#EmployeeDepartmentID").change(function () {
-            $.get(url: '@Url.Action("GetDesignationByID", "EmployeeRegistration")', { ID: $("#EmployeeDepartmentID").val() }, function (data) {
-                $("#st").empty();
-                $.each(data, function (index, row) {
-                    $("#st").append("<option value='" + row.DesignationID + "'>"+row.DesignationName+"</option>")
-                });
-             });
-        });
-    });
-</script>*@
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-
-<script src="~/plugins/jQuery/jquery-2.2.3.min.js"></script>
-  
-
-    <script>
-        function getDesignation()
-    {
+<script>
+    function getDesignation() {
         debugger;
         var stateId = $("#DepartmentDropDown").val();
         $.ajax({
@@ -36,83 +19,71 @@
                 $("#DesignationDropDown").html("");
                 $("#DesignationDropDown").append
                 ($('<option></option>').val(null).html("---Select Designation---"));
-                $.each($.parseJSON(result), function (i, Designation)
-                {
+                $.each($.parseJSON(result), function (i, Designation) {
                     $("#DesignationDropDown").append($('<option></option>').val(Designation.DesignationID).html(Designation.DesignationName))
                 })
 
             },
-            error: function(){alert("Whooaaa! Something went wrong..")},
+            error: function () { alert("Whooaaa! Something went wrong..") },
         });
     }
-    </script>
+</script>
 
-<h2>Registration</h2>
+
 @using (Html.BeginForm("Create", "EmployeeRegistration", FormMethod.Post))
 {
-    <div class="box box-info">
-        <div class="box-body">
-            <form action="#" method="post">
-
-                <div class="form-group">
-                    <input type="text" class="form-control" name="EmployeeTokenNo" style="width:50%;" placeholder="Token No.">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="EmployeeName" style="width:50%;" placeholder="Employee Name">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="EmployeeAddress" style="width:50%;" placeholder="Employee Address">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="EmployeeContactNo" style="width:50%;" placeholder="Contact No.">
-                </div>
-                <div class="form-group">
-                    <input type="email" class="form-control" name="EmployeeEmailID" style="width:50%;" placeholder="Email ID">
-                </div>
-                @*<div class="form-group">
-                    SELECT DEPARTMENT
-                    <select id="DepartmentDropDown" onchange="getDesignation()">
-                        <option>---Select Department---</option>
-                        @foreach (var item in ViewBag.DepartmentCombo as SelectList)
-                        {
-                            <text>
-                                <option value="@item.Value">@item.Text</option>
-                            </text>
-                        }
-                    </select>
-                </div>*@
-
-                                @*<div class="form-group">
-                            <select id="DesignationDropDown">
-                                <option>---Select Designation---</option>
-                            </select>
-                        </div>*@
-                <style>
-                    .MakeWide {
-                        width: 300px;
-                        height:30px;
-                    }
-                </style>
-                <div class="form-group">
-                    @Html.DropDownListFor(model =>model.EmployeeDepartmentID, (ViewBag.DepartmentCombo) as SelectList, "--Select Department--", new { id = "DepartmentDropDown",onchange="getDesignation()", @class = "MakeWide" } )
-               </div>
-
-                <div class="form-group" >
-                    @Html.DropDownList("DesignationCombo", (ViewBag.DesignationCombo) as SelectList, "--Select Designation--", new { id = "DesignationDropDown" , @class = "MakeWide"})
-                </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="EmployeePassword" style="width:50%;" placeholder="Password">
-                    </div>
-                    <div class="box-footer clearfix">
-                        <input type="submit" class="pull-left btn btn-default" style="width:15%;" value="submit">
-
-                        <i class="fa fa-arrow-circle-right"></i>
-                    </div>
-</form>
+    @Html.AntiForgeryToken()
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            Employee Registration
+            <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink("  Back to List", "Index")</small>
+        </h1>
+        <div class="pull-right">
+            <button type="submit" name="save" class="btn bg-blue">
+                <i class="fa fa-floppy-o"></i>
+                SUBMIT
+            </button>
         </div>
     </div>
-}
+        <div class="content-header clearfix">
+            <div class="box box-info">
+                <div class="box-body">
+                    <form action="#" method="post">
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="EmployeeTokenNo" style="width:50%;" placeholder="Token No.">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="EmployeeName" style="width:50%;" placeholder="Employee Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="EmployeeAddress" style="width:50%;" placeholder="Employee Address">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="EmployeeContactNo" style="width:50%;" placeholder="Contact No.">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="EmployeeEmailID" style="width:50%;" placeholder="Email ID">
+                        </div>
+                        <style>
+                            .MakeWide {
+                                width: 300px;
+                                height: 30px;
+                            }
+                        </style>
+                        <div class="form-group">
+                            @Html.DropDownListFor(model => model.EmployeeDepartmentID, (ViewBag.DepartmentCombo) as SelectList, "--Select Department--", new { id = "DepartmentDropDown", onchange = "getDesignation()", @class = "MakeWide" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.DropDownList("DesignationCombo", (ViewBag.DesignationCombo) as SelectList, "--Select Designation--", new { id = "DesignationDropDown", @class = "MakeWide" })
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="EmployeePassword" style="width:50%;" placeholder="Password">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+}

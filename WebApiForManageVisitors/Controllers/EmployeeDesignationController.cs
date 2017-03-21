@@ -12,8 +12,16 @@ namespace WebApiForManageVisitors.Controllers
     {
         ManageVisitorsEntities _DbManageVisitorsEntities = new ManageVisitorsEntities();
         // GET: EmployeeDesignation
+        public void CheckViewBagData()
+        {
+            @ViewBag.EmployeeRegistration = false;
+            @ViewBag.EmployeeDepartment = false;
+            @ViewBag.EmployeeDesignation = true;
+        }
+
         public ActionResult Index()
         {
+            CheckViewBagData();
             var Designation = _DbManageVisitorsEntities.tbl_DesignationMaster;
             return View(Designation.ToList());
         }
@@ -21,6 +29,7 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeDesignation/Details/5
         public ActionResult Details(int id)
         {
+            CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
             return View(model);
         }
@@ -28,6 +37,7 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeDesignation/Create
         public ActionResult Create()
         {
+            CheckViewBagData();
             ViewBag.DepartmentCombo = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
             return View();
         }
@@ -38,8 +48,9 @@ namespace WebApiForManageVisitors.Controllers
         {
             try
             {
+                CheckViewBagData();
                 // TODO: Add insert logic here
-                 collection.DepartmentID = DepartmentCombo;
+                collection.DepartmentID = DepartmentCombo;
                 _DbManageVisitorsEntities.tbl_DesignationMaster.Add(collection);
                 _DbManageVisitorsEntities.SaveChanges();
                 return RedirectToAction("Index");
@@ -54,6 +65,7 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeDesignation/Edit/5
         public ActionResult Edit(int id)
         {
+            CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
             return View(model);
         }
@@ -64,6 +76,7 @@ namespace WebApiForManageVisitors.Controllers
         {
             try
             {
+                CheckViewBagData();
                 // TODO: Add update logic here
                 var data = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(b => b.DesignationID == id).FirstOrDefault();
                 data.DepartmentID = collection.DepartmentID;
@@ -81,6 +94,7 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeDesignation/Delete/5
         public ActionResult Delete(int id)
         {
+            CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
             return View(model);
         }
@@ -91,6 +105,7 @@ namespace WebApiForManageVisitors.Controllers
         {
             try
             {
+                CheckViewBagData();
                 // TODO: Add delete logic here
                 var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
                 _DbManageVisitorsEntities.tbl_DesignationMaster.Remove(model);

@@ -8,8 +8,16 @@ namespace WebApiForManageVisitors.Controllers
 {
     public class HomeController : Controller
     {
+        public void CheckViewBagData()
+        {
+            @ViewBag.EmployeeRegistration = false;
+            @ViewBag.EmployeeDepartment = false;
+            @ViewBag.EmployeeDesignation = false;
+        }
+
         public ActionResult Index()
         {
+            CheckViewBagData();
             return View();
         }
 
