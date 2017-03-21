@@ -1,0 +1,50 @@
+﻿@model WebApiForManageVisitors.Models.tbl_DesignationMaster
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbl_DesignationMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DesignationID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DesignationID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DesignationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DesignationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DesignationCreateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DesignationCreateDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.DesignationID  }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
