@@ -12,8 +12,17 @@ namespace WebApiForManageVisitors.Controllers
     {
         ManageVisitorsEntities _DbManageVisitorsEntities = new ManageVisitorsEntities();
         // GET: EmployeeDepartment
+
+        public void CheckViewBagData()
+        {
+            @ViewBag.EmployeeRegistration = false;
+            @ViewBag.EmployeeDepartment = true;
+            @ViewBag.EmployeeDesignation = false;
+        }
+
         public ActionResult Index()
         {
+            CheckViewBagData();
             var Department = _DbManageVisitorsEntities.tbl_DepartmentMaster;
             return View(Department.ToList());
            
@@ -22,6 +31,7 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeDepartment/Details/5
         public ActionResult Details(int id)
         {
+            CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
             return View(model);
         }
@@ -29,6 +39,7 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeDepartment/Create
         public ActionResult Create()
         {
+            CheckViewBagData();
             return View();
         }
 
@@ -38,6 +49,7 @@ namespace WebApiForManageVisitors.Controllers
         {
             try
             {
+                CheckViewBagData();
                 // TODO: Add insert logic here
                 _DbManageVisitorsEntities.tbl_DepartmentMaster.Add(collection);
                 _DbManageVisitorsEntities.SaveChanges();
@@ -52,6 +64,7 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeDepartment/Edit/5
         public ActionResult Edit(int id)
         {
+            CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
             return View(model);
 
@@ -63,6 +76,7 @@ namespace WebApiForManageVisitors.Controllers
         {
             try
             {
+                CheckViewBagData();
                 // TODO: Add update logic here
                 var data = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(b => b.DepartmentID == id).FirstOrDefault();
                 data.DepartmentName = collection.DepartmentName;
@@ -79,6 +93,7 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeDepartment/Delete/5
         public ActionResult Delete(int id)
         {
+            CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
             return View(model);
 
@@ -91,6 +106,7 @@ namespace WebApiForManageVisitors.Controllers
         {
             try
             {
+                CheckViewBagData();
                 // TODO: Add delete logic here
                 var model = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
                 _DbManageVisitorsEntities.tbl_DepartmentMaster.Remove(model);

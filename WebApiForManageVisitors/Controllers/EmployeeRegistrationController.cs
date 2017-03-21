@@ -16,6 +16,7 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeRegistration
         public ActionResult Index()
         {
+            CheckViewBagData();
             var Employees = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration;
             return View(Employees.ToList());
         }
@@ -23,6 +24,7 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeRegistration/Details/5
         public ActionResult Details(int id)
         {
+            CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(a => a.EmployeeSrNo == id).FirstOrDefault();
             return View(model);
         }
@@ -30,7 +32,7 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeRegistration/Create
         public ActionResult Create()
         {
-           
+            CheckViewBagData();
             ViewBag.DepartmentCombo = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
             ViewBag.DesignationCombo = new SelectList(_DbManageVisitorsEntities.tbl_DesignationMaster, "DesignationID", "DesignationName");
             return View();
@@ -39,6 +41,7 @@ namespace WebApiForManageVisitors.Controllers
 
         public JsonResult GetDesignationByID(int id)
         {
+            CheckViewBagData();
             _DbManageVisitorsEntities.Configuration.ProxyCreationEnabled = false;
             //var R = Json(_DbManageVisitorsEntities.tbl_DesignationMaster.Where(P => P.DepartmentID == id), JsonRequestBehavior.AllowGet);
             var Designationlist =(_DbManageVisitorsEntities.tbl_DesignationMaster.Where(P => P.DepartmentID == id));
@@ -50,6 +53,7 @@ namespace WebApiForManageVisitors.Controllers
 
         public JsonResult GetDepartmentNameByID(int id)
         {
+            CheckViewBagData();
             _DbManageVisitorsEntities.Configuration.ProxyCreationEnabled = false;
             //var R = Json(_DbManageVisitorsEntities.tbl_DesignationMaster.Where(P => P.DepartmentID == id), JsonRequestBehavior.AllowGet);
             var Departmentname = (_DbManageVisitorsEntities.tbl_DepartmentMaster.Where(P => P.DepartmentID == id));
@@ -76,7 +80,8 @@ namespace WebApiForManageVisitors.Controllers
         {
             try
             {
-                 collection.EmployeeDesignationID = DesignationCombo;
+                CheckViewBagData();
+                collection.EmployeeDesignationID = DesignationCombo;
                 _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Add(collection);
                 _DbManageVisitorsEntities.SaveChanges();
                 return RedirectToAction("Index");
@@ -95,7 +100,8 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeRegistration/Edit/5
         public ActionResult Edit(int id)
         {
-           tbl_DepartmentEmployeeRegistration employee = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Find(id);
+            CheckViewBagData();
+            tbl_DepartmentEmployeeRegistration employee = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Find(id);
             ViewBag.DepartmentCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName",employee.EmployeeDepartmentID);
            // var model = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(a => a.EmployeeSrNo == id).FirstOrDefault();
             return View(employee);
@@ -109,8 +115,8 @@ namespace WebApiForManageVisitors.Controllers
             try
             {
                 // TODO: Add update logic here
-                
-                    var data = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(b => b.EmployeeSrNo == id).FirstOrDefault();
+                CheckViewBagData();
+                var data = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(b => b.EmployeeSrNo == id).FirstOrDefault();
                        //data.EmployeeSrNo = collection.EmployeeSrNo;
                        data.EmployeeName = collection.EmployeeName;
                        data.EmployeeTokenNo = collection.EmployeeTokenNo;
@@ -133,6 +139,7 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeRegistration/Delete/5
         public ActionResult Delete(int EmployeeSrNo)
         {
+            CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(a => a.EmployeeSrNo == EmployeeSrNo).FirstOrDefault();
             return View(model);
         }
@@ -143,6 +150,7 @@ namespace WebApiForManageVisitors.Controllers
         {
             try
             {
+                CheckViewBagData();
                 var model = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(a => a.EmployeeSrNo == id).FirstOrDefault();
                 _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Remove(model);
                 _DbManageVisitorsEntities.SaveChanges();
@@ -152,6 +160,14 @@ namespace WebApiForManageVisitors.Controllers
             {
                 return View();
             }
+        }
+
+
+        public void CheckViewBagData()
+        {
+            @ViewBag.EmployeeRegistration = true;
+            @ViewBag.EmployeeDepartment = false;
+            @ViewBag.EmployeeDesignation = false;
         }
     }
 }
