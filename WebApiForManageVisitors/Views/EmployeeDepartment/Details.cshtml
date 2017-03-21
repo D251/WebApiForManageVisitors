@@ -1,0 +1,42 @@
+﻿@model WebApiForManageVisitors.Models.tbl_DepartmentMaster
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbl_DepartmentMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentName)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.DepartmentCreateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentCreateDate)
+        </dd>*@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DepartmentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
