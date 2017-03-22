@@ -86,6 +86,7 @@
                     <li class="header">MAIN NAVIGATION</li>
                     @{ 
                         string EmployeeRegistration = @ViewBag.EmployeeRegistration ? "active" : "";
+                        string VisitorRegistration = @ViewBag.VisitorRegistration ? "active" : "";
                         string EmployeeDepartment = @ViewBag.EmployeeDepartment ? "active" : "";
                         string EmployeeDesignation = @ViewBag.EmployeeDesignation ? "active" : "";
 
@@ -99,7 +100,8 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li class="active"><a href="~/EmployeeRegistration/Index"><i class="fa fa-circle-o"></i>Employee Registration</a></li>
+                                <li class="@EmployeeRegistration"><a href="~/EmployeeRegistration/Index"><i class="fa fa-circle-o"></i>Employee Registration</a></li>
+                                <li class="@VisitorRegistration"><a href="~/VisitorRegistration/Index"><i class="fa fa-circle-o"></i>Visitor Registration</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
