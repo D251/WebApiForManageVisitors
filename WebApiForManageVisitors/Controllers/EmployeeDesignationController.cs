@@ -51,6 +51,7 @@ namespace WebApiForManageVisitors.Controllers
                 CheckViewBagData();
                 // TODO: Add insert logic here
                 collection.DepartmentID = DepartmentCombo;
+                collection.DesignationCreateDate = DateTime.Now;
                 _DbManageVisitorsEntities.tbl_DesignationMaster.Add(collection);
                 _DbManageVisitorsEntities.SaveChanges();
                 return RedirectToAction("Index");
@@ -94,14 +95,14 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeDesignation/Delete/5
         public ActionResult Delete(int id)
         {
-            CheckViewBagData();
+             CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
             return View(model);
         }
 
         // POST: EmployeeDesignation/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, tbl_DesignationMaster collection)
+        
+        public ActionResult DeleteNow(int id)
         {
             try
             {
