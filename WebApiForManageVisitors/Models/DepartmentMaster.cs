@@ -17,5 +17,8 @@ namespace WebApiForManageVisitors.Models
 
         [Display(Name = "Department ID")]
         public string DepartmentID { get; set; }
+
+        [Display(Name = "Department Create Date")]
+        public Nullable<System.DateTime> DepartmentCreateDate { get; set; }
     }
 }
