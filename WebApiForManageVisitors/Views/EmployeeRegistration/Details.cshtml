@@ -9,10 +9,12 @@
         <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink("  Back to List", "Index")</small>
     </h1>
     <div class="pull-right">
-        <a href="@Url.Action("Edit", new { id = Model.EmployeeSrNo })" class="btn bg-blue">
-            <i class="fa fa-plus-square"></i>
+       
+        <a href="@Url.Action("Edit", new { id = Model.EmployeeSrNo ,id1 = Model.EmployeeDepartmentID} )" class="btn bg-blue">
+           <i class="fa fa-plus-square"></i>
             Edit
-        </a>
+     </a>
+      
     </div>
 </div>
 <div>

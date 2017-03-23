@@ -16,7 +16,7 @@
             contentType: 'application/json',
             data: JSON.stringify({ id: +stateId }),
             success: function (result) {
-                $("#DesignationDropDown").html("");
+                $("#DesignationDropDown").empty();
                 $("#DesignationDropDown").append
                 ($('<option></option>').val(null).html("---Select Designation---"));
                 $.each($.parseJSON(result), function (i, Designation) {
@@ -76,8 +76,31 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.DropDownList("DesignationCombo", (ViewBag.DesignationCombo) as SelectList, "--Select Designation--", new { id = "DesignationDropDown", @class = "MakeWide" })
+                            @Html.DropDownList("DesignationCombo",( Enumerable.Empty<SelectListItem>())  , "--Select Designation--", new { id = "DesignationDropDown", @class = "MakeWide" })
                         </div>
+
+@*lect id="DesignationDropDown">
+    <option>---Select City---</option>
+</select>                  Enumerable.Empty< SelectListItem >(),null)*@     
+                         @*<div class="form-group">
+                            @Html.DropDownList("DesignationCombo1", (ViewBag.DesignationCombo) as SelectList, "--Select Designation--", new { id = "DesignationDropDown", @class = "MakeWide" })
+                        </div>*@
+
+                        @*Select State
+                        <select id="DepartmentDropDown" onchange="getDesignation()">
+                            <option>---Select State---</option>
+                            @foreach (var item in ViewBag.DepartmentCombo)
+                            {
+                                <text>
+                                    <option value="DepartmentID">DepartmentName</option>
+                                </text>
+                            }
+                        </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        Select City
+                        <select id="DesignationDropDown">
+                            <option>---Select City---</option>
+                        </select>*@
+
                         <div class="form-group">
                             <input type="password" class="form-control" name="EmployeePassword" style="width:50%;" placeholder="Password">
                         </div>

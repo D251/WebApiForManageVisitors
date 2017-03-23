@@ -90,8 +90,8 @@
                                     @Html.DisplayFor(modelItem => item.Date)
                                 </td>*@
                             <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeSrNo }) | 
-                                @Html.ActionLink("Details", "Details", new { id = item.EmployeeSrNo }) | 
+                                @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeSrNo ,id1 =item.EmployeeDepartmentID }) | 
+                                @Html.ActionLink("Details", "Details", new { id = item.EmployeeSrNo ,id1= item.EmployeeDepartmentID }) | 
                                 @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeSrNo })
                             </td>
                         </tr>
