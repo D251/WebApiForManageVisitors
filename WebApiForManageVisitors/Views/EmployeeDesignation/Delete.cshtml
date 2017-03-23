@@ -4,53 +4,52 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<div class="content-header clearfix">
+    <h4 class="pull-left">
+        Are you sure you want to delete this?
+        <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink("  Back to List", "Index")</small>
+    </h4>
+    <div class="pull-right">
+        <a href="@Url.Action("DeleteNow", new { id = Model.DesignationID })" class="btn bg-red">
+            <i class="fa fa-trash-o"></i>
+            Delete
+        </a>
+    </div>
+</div>
 <div>
-    <h4>Designation Master</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DesignationID)
-        </dt>
+    <div class="content-header clearfix">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DesignationID)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DesignationID)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.DesignationID)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DepartmentID)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.DepartmentID)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DepartmentID)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.DepartmentID)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DesignationName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.DesignationName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DesignationName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.DesignationName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DesignationCreateDate)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.DesignationCreateDate)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DesignationCreateDate)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+            <dd>
+                @Html.DisplayFor(model => model.DesignationCreateDate)
+            </dd>
+        </dl>
+    </div>
 </div>

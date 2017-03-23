@@ -1,0 +1,103 @@
+﻿@model WebApiForManageVisitors.Models.tbl_VisitorUserRegistration
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        Visitor Registration Details
+        <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink("  Back to List", "Index")</small>
+    </h1>
+    <div class="pull-right">
+        <a href="@Url.Action("Edit", new { id = Model.VisitorSrNo })" class="btn bg-blue">
+            <i class="fa fa-plus-square"></i>
+            Edit
+        </a>
+    </div>
+</div>
+<div>
+    <div class="content-header clearfix">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitorUserID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitorUserID)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitorName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitorName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitorAddress)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitorAddress)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitorContactNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitorContactNo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitorEmailID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitorEmailID)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitorNatureOfWork)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitorNatureOfWork)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitorContractor)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitorContractor)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitorContractorCoNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitorContractorCoNo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitorPassword)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitorPassword)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitorRegistrationDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitorRegistrationDate)
+            </dd>
+
+        </dl>
+    </div>
+</div>

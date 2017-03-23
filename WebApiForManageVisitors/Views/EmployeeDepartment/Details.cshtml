@@ -4,11 +4,19 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>tbl_DepartmentMaster</h4>
-    <hr />
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        Department Master Details
+        <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink("  Back to List", "Index")</small>
+    </h1>
+    <div class="pull-right">
+        <a href="@Url.Action("Edit", new { id = Model.DepartmentID })" class="btn bg-blue">
+            <i class="fa fa-plus-square"></i>
+            Edit
+        </a>
+    </div>
+</div>
+<div class="content-header clearfix">
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.DepartmentID)
@@ -26,17 +34,14 @@
             @Html.DisplayFor(model => model.DepartmentName)
         </dd>
 
-        @*<dt>
+        <dt>
             @Html.DisplayNameFor(model => model.DepartmentCreateDate)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.DepartmentCreateDate)
-        </dd>*@
+        </dd>
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.DepartmentID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</div>

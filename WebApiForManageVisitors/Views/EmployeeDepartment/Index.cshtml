@@ -4,42 +4,57 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        Employee Registration Details
+    </h1>
+    <div class="pull-right">
+        <a href="@Url.Action("Create")" class="btn bg-blue">
+            <i class="fa fa-plus-square"></i>
+            Create New
+        </a>
+    </div>
+</div>
+<div class="content-header clearfix">
+    <div class="box box-info">
+        <div class="box-body">
+            <div class="content-header clearfix">
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DepartmentID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DepartmentName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DepartmentCreateDate)
+                        </th>
+                    </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentName)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.DepartmentCreateDate)
-        </th>*@
-        <th></th>
-    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DepartmentID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DepartmentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DepartmentCreateDate)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.DepartmentID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.DepartmentID })
+                            </td>
+                        </tr>
+                    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentName)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.DepartmentCreateDate)
-        </td>*@
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DepartmentID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DepartmentID  }) |
-            @Html.ActionLink("Delete", "Delete", new {  id=item.DepartmentID  })
-        </td>
-    </tr>
-}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-</table>

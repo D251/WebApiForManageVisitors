@@ -142,16 +142,16 @@ namespace WebApiForManageVisitors.Controllers
         }
 
         // GET: EmployeeRegistration/Delete/5
-        public ActionResult Delete(int EmployeeSrNo)
+        public ActionResult Delete(int id)
         {
             CheckViewBagData();
-            var model = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(a => a.EmployeeSrNo == EmployeeSrNo).FirstOrDefault();
+            var model = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(a => a.EmployeeSrNo == id).FirstOrDefault();
             return View(model);
         }
 
         // POST: EmployeeRegistration/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, tbl_DepartmentEmployeeRegistration collection)
+      
+        public ActionResult DeleteNow(int id)
         {
             try
             {
@@ -171,6 +171,7 @@ namespace WebApiForManageVisitors.Controllers
         public void CheckViewBagData()
         {
             @ViewBag.EmployeeRegistration = true;
+            @ViewBag.VisitorRegistration = false;
             @ViewBag.EmployeeDepartment = false;
             @ViewBag.EmployeeDesignation = false;
         }

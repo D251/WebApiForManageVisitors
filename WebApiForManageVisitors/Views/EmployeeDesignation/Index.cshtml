@@ -3,49 +3,64 @@
 @{
     ViewBag.Title = "Index";
 }
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        Designation Details
+    </h1>
+    <div class="pull-right">
+        <a href="@Url.Action("Create")" class="btn bg-blue">
+            <i class="fa fa-plus-square"></i>
+            Create New
+        </a>
+    </div>
+</div>
+<div class="content-header clearfix">
+    <div class="box box-info">
+        <div class="box-body">
+            <div class="content-header clearfix">
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DesignationID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DepartmentID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DesignationName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DesignationCreateDate)
+                        </th>
+                        <th></th>
+                    </tr>
 
-<h2>Index</h2>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DesignationID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DepartmentID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DesignationName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DesignationCreateDate)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.DesignationID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.DesignationID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.DesignationID })
+                            </td>
+                        </tr>
+                    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DesignationID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DesignationName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DesignationCreateDate)
-        </th>
-        <th></th>
-    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DesignationID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DesignationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DesignationCreateDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new {  id=item.DesignationID }) |
-            @Html.ActionLink("Details", "Details", new {  id=item.DesignationID }) |
-            @Html.ActionLink("Delete", "Delete", new {  id=item.DesignationID })
-        </td>
-    </tr>
-}
-
-</table>

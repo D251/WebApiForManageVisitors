@@ -236,6 +236,7 @@
     <Compile Include="Controllers\EmployeeRegistrationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\VisitorRegistrationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1433,6 +1434,11 @@
     <Content Include="Views\EmployeeDesignation\Details.cshtml" />
     <Content Include="Views\EmployeeDesignation\Edit.cshtml" />
     <Content Include="Views\EmployeeDesignation\Delete.cshtml" />
+    <Content Include="Views\VisitorRegistration\Create.cshtml" />
+    <Content Include="Views\VisitorRegistration\Index.cshtml" />
+    <Content Include="Views\VisitorRegistration\Edit.cshtml" />
+    <Content Include="Views\VisitorRegistration\Delete.cshtml" />
+    <Content Include="Views\VisitorRegistration\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1465,7 +1471,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55633</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

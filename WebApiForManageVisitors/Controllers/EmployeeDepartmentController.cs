@@ -16,6 +16,7 @@ namespace WebApiForManageVisitors.Controllers
         public void CheckViewBagData()
         {
             @ViewBag.EmployeeRegistration = false;
+            @ViewBag.VisitorRegistration = false;
             @ViewBag.EmployeeDepartment = true;
             @ViewBag.EmployeeDesignation = false;
         }
@@ -25,7 +26,7 @@ namespace WebApiForManageVisitors.Controllers
             CheckViewBagData();
             var Department = _DbManageVisitorsEntities.tbl_DepartmentMaster;
             return View(Department.ToList());
-           
+
         }
 
         // GET: EmployeeDepartment/Details/5
@@ -51,6 +52,7 @@ namespace WebApiForManageVisitors.Controllers
             {
                 CheckViewBagData();
                 // TODO: Add insert logic here
+                collection.DepartmentCreateDate = DateTime.Now;
                 _DbManageVisitorsEntities.tbl_DepartmentMaster.Add(collection);
                 _DbManageVisitorsEntities.SaveChanges();
                 return RedirectToAction("Index");
@@ -80,7 +82,7 @@ namespace WebApiForManageVisitors.Controllers
                 // TODO: Add update logic here
                 var data = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(b => b.DepartmentID == id).FirstOrDefault();
                 data.DepartmentName = collection.DepartmentName;
-               _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
+                _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
                 _DbManageVisitorsEntities.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -96,13 +98,11 @@ namespace WebApiForManageVisitors.Controllers
             CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
             return View(model);
-
-            
         }
 
         // POST: EmployeeDepartment/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, tbl_DepartmentMaster collection)
+  
+        public ActionResult DeleteNow(int id)
         {
             try
             {

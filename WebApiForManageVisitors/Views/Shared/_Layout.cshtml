@@ -41,7 +41,7 @@
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
-            <a href="index.cshtml" class="logo">
+            <a href="~/Home/Index" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>A</b>M</span>
                 <!-- logo for regular state and mobile devices -->
@@ -86,6 +86,7 @@
                     <li class="header">MAIN NAVIGATION</li>
                     @{ 
                         string EmployeeRegistration = @ViewBag.EmployeeRegistration ? "active" : "";
+                        string VisitorRegistration = @ViewBag.VisitorRegistration ? "active" : "";
                         string EmployeeDepartment = @ViewBag.EmployeeDepartment ? "active" : "";
                         string EmployeeDesignation = @ViewBag.EmployeeDesignation ? "active" : "";
 
@@ -93,13 +94,14 @@
                         
 
                             <a href="#">
-                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                                <i class="fa fa-dashboard"></i> <span>Registration</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li class="active"><a href="~/EmployeeRegistration/Create"><i class="fa fa-circle-o"></i>Employee Registration</a></li>
+                                <li class="@EmployeeRegistration"><a href="~/EmployeeRegistration/Index"><i class="fa fa-circle-o"></i>Employee Registration</a></li>
+                                <li class="@VisitorRegistration"><a href="~/VisitorRegistration/Index"><i class="fa fa-circle-o"></i>Visitor Registration</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -111,8 +113,8 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li class="@EmployeeDepartment"><a href="~/EmployeeDepartment/Create"><i class="fa fa-circle-o"></i>Department</a></li>
-                                <li  class="@EmployeeDesignation"><a href="~/EmployeeDesignation/Create"><i class="fa fa-circle-o"></i>Designation</a></li>
+                                <li class="@EmployeeDepartment"><a href="~/EmployeeDepartment/Index"><i class="fa fa-circle-o"></i>Department</a></li>
+                                <li  class="@EmployeeDesignation"><a href="~/EmployeeDesignation/Index"><i class="fa fa-circle-o"></i>Designation</a></li>
                             </ul>
                         </li>
                     }

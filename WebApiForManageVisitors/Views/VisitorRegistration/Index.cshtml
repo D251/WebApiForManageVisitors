@@ -1,0 +1,101 @@
+﻿@model IEnumerable<WebApiForManageVisitors.Models.tbl_VisitorUserRegistration>
+
+@{
+    ViewBag.Title = "Index";
+}
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            Visitor Registration Details
+        </h1>
+        <div class="pull-right">
+            <a href="@Url.Action("Create")" class="btn bg-blue">
+                <i class="fa fa-plus-square"></i>
+                Create New
+            </a>
+        </div>
+    </div>
+    <div class="content-header clearfix">
+        <div class="box box-info">
+            <div class="box-body">
+                <div class="content-header clearfix">
+                    <table class="table">
+                        <tr style="width:inherit">
+                            <th>
+                                @Html.DisplayNameFor(model => model.VisitorUserID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.VisitorName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.VisitorAddress)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.VisitorContactNo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.VisitorEmailID)
+                            </th>
+                            @*<th>
+                                @Html.DisplayNameFor(model => model.VisitorNatureOfWork)
+                            </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.VisitorContractor)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.VisitorContractorCoNo)
+                            </th>
+                            @*<th>
+                                @Html.DisplayNameFor(model => model.VisitorPassword)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.VisitorRegistrationDate)
+                            </th>*@
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VisitorUserID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VisitorName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VisitorAddress)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VisitorContactNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VisitorEmailID)
+                                </td>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.VisitorNatureOfWork)
+                                </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VisitorContractor)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VisitorContractorCoNo)
+                                </td>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.VisitorPassword)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VisitorRegistrationDate)
+                                </td>*@
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.VisitorSrNo }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.VisitorSrNo }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.VisitorSrNo })
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="content-header clearfix"></div>
+    </div>
