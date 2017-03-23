@@ -67,7 +67,8 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Edit(int id)
         {
             CheckViewBagData();
-            return View();
+            tbl_VisitorUserRegistration data = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Find(id);
+            return View(data);
         }
 
         // POST: VisitorRegistration/Edit/5
