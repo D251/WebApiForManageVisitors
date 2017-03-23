@@ -17,6 +17,7 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Index()
         {
             CheckViewBagData();
+            ViewBag.DepartmentCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
             var Employees = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration;
             return View(Employees.ToList());
         }
@@ -41,7 +42,7 @@ namespace WebApiForManageVisitors.Controllers
 
         public JsonResult GetDesignationByID(int id)
         {
-            CheckViewBagData();
+             CheckViewBagData();
             _DbManageVisitorsEntities.Configuration.ProxyCreationEnabled = false;
             //var R = Json(_DbManageVisitorsEntities.tbl_DesignationMaster.Where(P => P.DepartmentID == id), JsonRequestBehavior.AllowGet);
             var Designationlist =(_DbManageVisitorsEntities.tbl_DesignationMaster.Where(P => P.DepartmentID == id));
@@ -51,16 +52,16 @@ namespace WebApiForManageVisitors.Controllers
         }
 
 
-        public JsonResult GetDepartmentNameByID(int id)
-        {
-            CheckViewBagData();
-            _DbManageVisitorsEntities.Configuration.ProxyCreationEnabled = false;
-            //var R = Json(_DbManageVisitorsEntities.tbl_DesignationMaster.Where(P => P.DepartmentID == id), JsonRequestBehavior.AllowGet);
-            var Departmentname = (_DbManageVisitorsEntities.tbl_DepartmentMaster.Where(P => P.DepartmentID == id));
-            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
-            string result = javaScriptSerializer.Serialize(Departmentname);
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult GetDepartmentNameByID(int id)
+        //{
+        //    CheckViewBagData();
+        //    _DbManageVisitorsEntities.Configuration.ProxyCreationEnabled = false;
+        //    //var R = Json(_DbManageVisitorsEntities.tbl_DesignationMaster.Where(P => P.DepartmentID == id), JsonRequestBehavior.AllowGet);
+        //    var Departmentname = (_DbManageVisitorsEntities.tbl_DepartmentMaster.Where(P => P.DepartmentID == id));
+        //    JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+        //    string result = javaScriptSerializer.Serialize(Departmentname);
+        //    return Json(result, JsonRequestBehavior.AllowGet);
+        //}
 
         //public JsonResult GetDesignationByID(int id)
         //{
@@ -98,22 +99,26 @@ namespace WebApiForManageVisitors.Controllers
         }
 
         // GET: EmployeeRegistration/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id,int id1)
         {
             CheckViewBagData();
             tbl_DepartmentEmployeeRegistration employee = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Find(id);
             ViewBag.DepartmentCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName",employee.EmployeeDepartmentID);
-           // var model = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(a => a.EmployeeSrNo == id).FirstOrDefault();
+            var c = employee.EmployeeDepartmentID;
+          
+            ViewBag.DesignationCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DesignationMaster.Where(e=>e.DepartmentID==id1), "DesignationID", "DesignationName",employee.EmployeeDesignationID);
+            // var model = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(a => a.EmployeeSrNo == id).FirstOrDefault();
             return View(employee);
           
         }
 
         // POST: EmployeeRegistration/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, tbl_DepartmentEmployeeRegistration collection)
+        public ActionResult Edit(int id, tbl_DepartmentEmployeeRegistration collection,int DesignationCombo1)
         {
             try
             {
+              
                 // TODO: Add update logic here
                 CheckViewBagData();
                 var data = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(b => b.EmployeeSrNo == id).FirstOrDefault();
@@ -124,7 +129,7 @@ namespace WebApiForManageVisitors.Controllers
                        data.EmployeeContactNo = collection.EmployeeContactNo;
                        data.EmployeeEmailID = collection.EmployeeEmailID;
                        data.EmployeeDepartmentID = collection.EmployeeDepartmentID;
-                       data.EmployeeDesignationID = collection.EmployeeDesignationID;
+                       data.EmployeeDesignationID = DesignationCombo1;
                        data.EmployeePassword = collection.EmployeePassword;
                       _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
                       _DbManageVisitorsEntities.SaveChanges();
