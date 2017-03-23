@@ -83,6 +83,7 @@ namespace WebApiForManageVisitors.Controllers
             {
                 CheckViewBagData();
                 collection.EmployeeDesignationID = DesignationCombo;
+                collection.Date = DateTime.Now;
                 _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Add(collection);
                 _DbManageVisitorsEntities.SaveChanges();
                 return RedirectToAction("Index");
