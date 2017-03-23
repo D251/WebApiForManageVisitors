@@ -7,33 +7,33 @@
 @using (Html.BeginForm())
 {
     <script>
-    function getDesignation() {
-        debugger;
-        var stateId = $("#DepartmentDropDown").val();
+        function getDesignation() {
+            debugger;
+            var stateId = $("#DepartmentDropDown").val();
 
-        $.ajax({
-            url: '@Url.Action("GetDesignationByID", "EmployeeRegistration")',
-            type: 'POST',
-            datatype: 'application/json',
-            contentType: 'application/json',
-            data: JSON.stringify({ id: +stateId }),
-            success: function (result) {
-                $("#DesignationDropDown").empty();
-                //$("#DesignationDropDown").html("");
-                $("#DesignationDropDown").append
-                ($('<option></option>').val(null).html("---Select Designation---"));
-                $.each($.parseJSON(result), function (i, Designation) {
-                $("#DesignationDropDown ").append($('<option></option>').val(Designation.DesignationID).html(Designation.DesignationName))
-               
-                })
+            $.ajax({
+                url: '@Url.Action("GetDesignationByID", "EmployeeRegistration")',
+                type: 'POST',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: +stateId }),
+                success: function (result) {
+                    $("#DesignationDropDown").empty();
+                    //$("#DesignationDropDown").html("");
+                    $("#DesignationDropDown").append
+                    ($('<option></option>').val(null).html("---Select Designation---"));
+                    $.each($.parseJSON(result), function (i, Designation) {
+                        $("#DesignationDropDown ").append($('<option></option>').val(Designation.DesignationID).html(Designation.DesignationName))
 
-            },
-            error: function () { alert("Whooaaa! Something went wrong..") },
-        });
-    }
+                    })
+
+                },
+                error: function () { alert("Whooaaa! Something went wrong..") },
+            });
+        }
     </script>
 
-  
+
 
     @Html.AntiForgeryToken()
     <div class="content-header clearfix">
@@ -101,12 +101,12 @@
                             @Html.ValidationMessageFor(model => model.EmployeeEmailID, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                       <style>
-                            .MakeWide {
-                                width: 422px;
-                                height: 30px;
-                            }
-                        </style>
+                    <style>
+                        .MakeWide {
+                            width: 422px;
+                            height: 30px;
+                        }
+                    </style>
                     <div class="form-group">
                         @Html.LabelFor(model => model.EmployeeDepartmentID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
@@ -120,8 +120,18 @@
                             @Html.DropDownList("DesignationCombo1", (ViewBag.DesignationCombo) as SelectList, "--Select Designation--", new { id = "DesignationDropDown", @class = "MakeWide" })
                         </div>
                     </div>
-                 </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeePassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.EmployeePassword, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EmployeePassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
+  
 }
