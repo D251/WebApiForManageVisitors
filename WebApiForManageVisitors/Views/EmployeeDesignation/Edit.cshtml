@@ -32,11 +32,17 @@
                         </div>
                     </div>
 
+
+                    <style>
+                        .MakeWide {
+                            width: 435px;
+                            height: 30px;
+                        }
+                    </style>
                     <div class="form-group">
                         @Html.LabelFor(model => model.DepartmentID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
-                            @Html.EditorFor(model => model.DepartmentID, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
+                            @Html.DropDownListFor(model => model.DepartmentID, (ViewBag.DepartmentCombo1) as SelectList, "--Select Department--", new { id = "DepartmentDropDown", @class = "MakeWide" })
                         </div>
                     </div>
 

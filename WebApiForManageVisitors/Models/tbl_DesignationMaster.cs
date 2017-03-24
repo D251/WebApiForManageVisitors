@@ -22,6 +22,7 @@ namespace WebApiForManageVisitors.Models
     
         public long DesignationID { get; set; }
         public long DepartmentID { get; set; }
+        public string DepartmentName { get; set; }
         public string DesignationName { get; set; }
         public Nullable<System.DateTime> DesignationCreateDate { get; set; }
     
