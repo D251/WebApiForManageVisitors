@@ -18,7 +18,7 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             ViewBag.DepartmentCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
-            var Employees = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration;
+            var Employees = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList();
             return View(Employees.ToList());
         }
 
@@ -52,30 +52,6 @@ namespace WebApiForManageVisitors.Controllers
         }
 
 
-        //public JsonResult GetDepartmentNameByID(int id)
-        //{
-        //    CheckViewBagData();
-        //    _DbManageVisitorsEntities.Configuration.ProxyCreationEnabled = false;
-        //    //var R = Json(_DbManageVisitorsEntities.tbl_DesignationMaster.Where(P => P.DepartmentID == id), JsonRequestBehavior.AllowGet);
-        //    var Departmentname = (_DbManageVisitorsEntities.tbl_DepartmentMaster.Where(P => P.DepartmentID == id));
-        //    JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
-        //    string result = javaScriptSerializer.Serialize(Departmentname);
-        //    return Json(result, JsonRequestBehavior.AllowGet);
-        //}
-
-        //public JsonResult GetDesignationByID(int id)
-        //{
-        //    List<tbl_DesignationMaster> lstcity = new List<tbl_DesignationMaster>();
-
-        //    var desgignationList = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(P => P.DepartmentID == id).ToList();
-
-        //    lstcity = desgignationList;
-        //    JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
-        //    string result = javaScriptSerializer.Serialize(lstcity);
-        //    return Json(result, JsonRequestBehavior.AllowGet);
-        //}
-
-        // POST: EmployeeRegistration/Create
         [HttpPost]
         public ActionResult Create(tbl_DepartmentEmployeeRegistration collection,int DesignationCombo)
         {
@@ -175,6 +151,7 @@ namespace WebApiForManageVisitors.Controllers
             @ViewBag.VisitorRegistration = false;
             @ViewBag.EmployeeDepartment = false;
             @ViewBag.EmployeeDesignation = false;
+            @ViewBag.RequestDetails = false;
         }
     }
 }
