@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApiForManageVisitors.Models.tbl_DesignationMaster>
+﻿@model IEnumerable<WebApiForManageVisitors.Models.tbl_DesignationMasterModel>
 
 @{
     ViewBag.Title = "Index";
@@ -24,7 +24,7 @@
                             @Html.DisplayNameFor(model => model.DesignationID)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.DepartmentID)
+                            @Html.DisplayNameFor(model => model.DepartmentName)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.DesignationName)
@@ -42,7 +42,7 @@
                                 @Html.DisplayFor(modelItem => item.DesignationID)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.DepartmentID)
+                                @Html.DisplayFor(modelItem => item.DepartmentName)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.DesignationName)

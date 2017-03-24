@@ -23,8 +23,27 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Index()
         {
             CheckViewBagData();
-            var Designation = _DbManageVisitorsEntities.tbl_DesignationMaster;
-            return View(Designation.ToList());
+            //var Designation = _DbManageVisitorsEntities.tbl_DesignationMaster;
+            //return View(Designation.ToList());
+            List<tbl_DesignationMasterModel> _objListRequestProcessModel = new List<tbl_DesignationMasterModel>();
+
+
+            var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_DesignationMaster.ToList();
+
+            foreach (var item in _objAllRequestProcessModel)
+            {
+                tbl_DesignationMasterModel _class = new tbl_DesignationMasterModel();
+
+                var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == item.DepartmentID).FirstOrDefault();
+
+                _class.DesignationID = item.DesignationID;
+                _class.DepartmentID = item.DepartmentID;
+                _class.DepartmentName = _objDepartmentEmployeeRegistration.DepartmentName;
+                _class.DesignationName = (item.DesignationName);
+                _class.DesignationCreateDate = (item.DesignationCreateDate);
+                _objListRequestProcessModel.Add(_class);
+            }
+            return View(_objListRequestProcessModel.ToList());
         }
 
         // GET: EmployeeDesignation/Details/5
@@ -32,7 +51,17 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
+
+            var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
+
+            model.DesignationID = model.DesignationID;
+            model.DepartmentID = model.DepartmentID;
+            model.DepartmentName = _objDepartmentEmployeeRegistration.DepartmentName;
+            model.DesignationName = (model.DesignationName);
+            model.DesignationCreateDate = (model.DesignationCreateDate);
+            
             return View(model);
+          
         }
 
         // GET: EmployeeDesignation/Create
@@ -69,6 +98,17 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
+
+            var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
+
+            model.DesignationID = model.DesignationID;
+            model.DepartmentID = model.DepartmentID;
+            model.DepartmentName = _objDepartmentEmployeeRegistration.DepartmentName;
+            model.DesignationName = (model.DesignationName);
+            model.DesignationCreateDate = (model.DesignationCreateDate);
+
+            ViewBag.DepartmentCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName", model.DepartmentID);
+
             return View(model);
         }
 
@@ -98,6 +138,14 @@ namespace WebApiForManageVisitors.Controllers
         {
              CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
+            var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
+
+            model.DesignationID = model.DesignationID;
+            model.DepartmentID = model.DepartmentID;
+            model.DepartmentName = _objDepartmentEmployeeRegistration.DepartmentName;
+            model.DesignationName = (model.DesignationName);
+            model.DesignationCreateDate = (model.DesignationCreateDate);
+
             return View(model);
         }
 
