@@ -89,6 +89,7 @@
                         string VisitorRegistration = @ViewBag.VisitorRegistration ? "active" : "";
                         string EmployeeDepartment = @ViewBag.EmployeeDepartment ? "active" : "";
                         string EmployeeDesignation = @ViewBag.EmployeeDesignation ? "active" : "";
+                        string RequestDetails = @ViewBag.RequestDetails ? "active" : "";
 
                         <li class="@EmployeeRegistration treeview">
                         
@@ -115,6 +116,19 @@
                             <ul class="treeview-menu">
                                 <li class="@EmployeeDepartment"><a href="~/EmployeeDepartment/Index"><i class="fa fa-circle-o"></i>Department</a></li>
                                 <li  class="@EmployeeDesignation"><a href="~/EmployeeDesignation/Index"><i class="fa fa-circle-o"></i>Designation</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-files-o"></i>
+                                <span>Reports</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="@RequestDetails"><a href="~/RequestDetails/Index"><i class="fa fa-circle-o"></i>Request Details</a></li>
                             </ul>
                         </li>
                     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -121,27 +122,68 @@ namespace WebApiForManageVisitors.Models
 
 
     public class ProcessRequestDetailsByRequestIDModel
-    {
+    {  
+        [Display(Name = "Request Process SrNo")]
         public long RequestProcessSrNo { get; set; }
+
+        [Display(Name = "Employee Token No")]
         public string EmployeeTokenNo { get; set; }
+
+        [Display(Name = "Employee Name")]
         public string EmployeeName { get; set; }
+
+        [Display(Name = "Department Name")]
         public string EmployeeDepartmentName { get; set; }
+
+        [Display(Name = "Visitor Name")]
         public string VisitorName { get; set; }
+
+        [Display(Name = "Contractor Name")]
         public string ContractorName { get; set; }
+
+        [Display(Name = "Nature Of Work")]
         public string NatureOfWork { get; set; }
+
+        [Display(Name = "Visit Start Time")]
         public Nullable<System.DateTime> VisitStartTime { get; set; }
+
+        [Display(Name = "Visit End Time")]
         public Nullable<System.DateTime> VisitEndTime { get; set; }
+
+        [Display(Name = "N.O.V")]
         public Nullable<long> NoOfVisitors { get; set; }
+
+        [Display(Name = "Visitor Visit Resons")]
         public string VisitorVisitResons { get; set; }
+
+        [Display(Name = "Request Status")]
         public string RequestStatus { get; set; }
+
+        [Display(Name = "Employee Id")]
         public Nullable<long> EmployeeId { get; set; }
+
+        [Display(Name = "Visitor SrNo")]
         public Nullable<long> VisitorSrNo { get; set; }
+
+        [Display(Name = "Employee Department ID")]
         public Nullable<long> EmployeeDepartmentID { get; set; }
+
+        [Display(Name = "Visitor Accessories")]
         public string VisitorAccessories { get; set; }
+
+        [Display(Name = "Request Process Date")]
         public Nullable<System.DateTime> RequestProcessDate { get; set; }
+
+        [Display(Name = "Activity Owner Status")]
         public string ActivityOwnerStatus { get; set; }
+
+        [Display(Name = "AreaOwner Status")]
         public string AreaOwnerStatus { get; set; }
+
+        [Display(Name = "Safety Status")]
         public string SafetyStatus { get; set; }
+
+        [Display(Name = "Contractor Status")]
         public string ContractorStatus { get; set; }
     }
 

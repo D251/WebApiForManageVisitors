@@ -1,0 +1,130 @@
+﻿@model WebApiForManageVisitors.Models.ProcessRequestDetailsByRequestIDModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        Request Process Details
+        <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink("  Back to List", "Index")</small>
+    </h1>
+    <div class="pull-right">
+
+        <a href="@Url.Action("Edit", new { id = Model.RequestProcessSrNo} )" class="btn bg-blue">
+            <i class="fa fa-plus-square"></i>
+            Edit
+        </a>
+
+    </div>
+</div>
+<div>
+    <div class="content-header clearfix">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.EmployeeDepartmentName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EmployeeDepartmentName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitStartTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitStartTime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitEndTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitEndTime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitorAccessories)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitorAccessories)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NoOfVisitors)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NoOfVisitors)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitorVisitResons)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitorVisitResons)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RequestProcessDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RequestProcessDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ActivityOwnerStatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ActivityOwnerStatus)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AreaOwnerStatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AreaOwnerStatus)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SafetyStatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SafetyStatus)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ContractorStatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ContractorStatus)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EmployeeName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EmployeeName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitorName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitorName)
+            </dd>
+
+        </dl>
+    </div>
+</div>

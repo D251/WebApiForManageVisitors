@@ -17,6 +17,7 @@ namespace WebApiForManageVisitors.Controllers
             @ViewBag.VisitorRegistration = true;
             @ViewBag.EmployeeDepartment = false;
             @ViewBag.EmployeeDesignation = false;
+            @ViewBag.RequestDetails = false;
         }
         // GET: VisitorRegistration
         public ActionResult Index()

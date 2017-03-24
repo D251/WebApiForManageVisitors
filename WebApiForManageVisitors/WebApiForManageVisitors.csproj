@@ -236,6 +236,7 @@
     <Compile Include="Controllers\EmployeeRegistrationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RequestDetailsController.cs" />
     <Compile Include="Controllers\VisitorRegistrationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1439,6 +1440,11 @@
     <Content Include="Views\VisitorRegistration\Edit.cshtml" />
     <Content Include="Views\VisitorRegistration\Delete.cshtml" />
     <Content Include="Views\VisitorRegistration\Details.cshtml" />
+    <Content Include="Views\RequestDetails\Index.cshtml" />
+    <Content Include="Views\RequestDetails\Details.cshtml" />
+    <Content Include="Views\RequestDetails\Create.cshtml" />
+    <Content Include="Views\RequestDetails\Edit.cshtml" />
+    <Content Include="Views\RequestDetails\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
