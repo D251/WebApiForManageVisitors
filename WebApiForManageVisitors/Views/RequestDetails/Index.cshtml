@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<div class="content-header clearfix">
+<section class="content-header">
     <h1 class="pull-left">
         Request Process Details
     </h1>
@@ -14,108 +14,112 @@
             Create New
         </a>
     </div>
-</div>
-<div class="content-header clearfix">
-    <div class="box box-info">
-        <div class="box-body">
-            <div class="content-header clearfix">
-                <table class="table">
-                    <tr style="width:inherit">
-                        <th>
-                            @Html.DisplayNameFor(model => model.EmployeeDepartmentName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.VisitStartTime)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.VisitEndTime)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.VisitorAccessories)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.NoOfVisitors)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.VisitorVisitResons)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.RequestProcessDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ActivityOwnerStatus)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.AreaOwnerStatus)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.SafetyStatus)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ContractorStatus)
-                        </th>
-                        <th>
-                                @Html.DisplayNameFor(model => model.EmployeeName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.VisitorName)
-                            </th>
-                        <th></th>
-                    </tr>
-
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EmployeeDepartmentName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.VisitStartTime)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.VisitEndTime)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.VisitorAccessories)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NoOfVisitors)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.VisitorVisitResons)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.RequestProcessDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ActivityOwnerStatus)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AreaOwnerStatus)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SafetyStatus)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ContractorStatus)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EmployeeName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.VisitorName)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.RequestProcessSrNo }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.RequestProcessSrNo }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.RequestProcessSrNo })
-                            </td>
-                        </tr>
-                    }
-
-                </table>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EmployeeDepartmentName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.VisitStartTime)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.VisitEndTime)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.VisitorAccessories)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.NoOfVisitors)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.VisitorVisitResons)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.RequestProcessDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ActivityOwnerStatus)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.AreaOwnerStatus)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SafetyStatus)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ContractorStatus)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EmployeeName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.VisitorName)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            <thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EmployeeDepartmentName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.VisitStartTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.VisitEndTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.VisitorAccessories)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NoOfVisitors)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.VisitorVisitResons)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.RequestProcessDate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ActivityOwnerStatus)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AreaOwnerStatus)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SafetyStatus)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ContractorStatus)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EmployeeName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.VisitorName)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.RequestProcessSrNo }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.RequestProcessSrNo }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.RequestProcessSrNo })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="content-header clearfix"></div>
-</div>
+    </section>
