@@ -16,32 +16,38 @@
         </a>
     </div>
 </div>
-    <div>
-        <div class="content-header clearfix">
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.DepartmentID)
-                </dt>
+   <div class="content-header clearfix">
+    <div class="box box-info">
+        <div class="box-body">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DepartmentID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.DepartmentID, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                        @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-                <dd>
-                    @Html.DisplayFor(model => model.DepartmentID)
-                </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.DepartmentName)
-                </dt>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DepartmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                        @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-                <dd>
-                    @Html.DisplayFor(model => model.DepartmentName)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.DepartmentCreateDate)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.DepartmentCreateDate)
-                </dd>
-            </dl>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DepartmentCreateDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.DepartmentCreateDate, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                        @Html.ValidationMessageFor(model => model.DepartmentCreateDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+}
+

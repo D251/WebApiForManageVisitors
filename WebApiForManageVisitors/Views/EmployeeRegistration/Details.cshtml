@@ -9,97 +9,96 @@
         <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink("  Back to List", "Index")</small>
     </h1>
     <div class="pull-right">
-       
+
         <a href="@Url.Action("Edit", new { id = Model.EmployeeSrNo ,id1 = Model.EmployeeDepartmentID} )" class="btn bg-blue">
-           <i class="fa fa-plus-square"></i>
+            <i class="fa fa-plus-square"></i>
             Edit
-     </a>
-      
+        </a>
+
     </div>
 </div>
-<div>
-    <div class="content-header clearfix">
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.EmployeeSrNo)
-            </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.EmployeeSrNo)
-            </dd>
+<div class="content-header clearfix">
+    <div class="box box-info">
+        <div class="box-body">
+            <div class="form-horizontal">
 
-            <dt>
-                @Html.DisplayNameFor(model => model.EmployeeTokenNo)
-            </dt>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmployeeSrNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.EmployeeSrNo, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                        @Html.ValidationMessageFor(model => model.EmployeeSrNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.EmployeeTokenNo)
-            </dd>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmployeeTokenNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.EmployeeTokenNo, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                        @Html.ValidationMessageFor(model => model.EmployeeTokenNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.EmployeeName)
-            </dt>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                        @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.EmployeeName)
-            </dd>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmployeeAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.EmployeeAddress, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                        @Html.ValidationMessageFor(model => model.EmployeeAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.EmployeeAddress)
-            </dt>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmployeeContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.EmployeeContactNo, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                        @Html.ValidationMessageFor(model => model.EmployeeContactNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.EmployeeAddress)
-            </dd>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmployeeEmailID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.EmployeeEmailID, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                        @Html.ValidationMessageFor(model => model.EmployeeEmailID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    @Html.LabelFor(model => model.tbl_DepartmentMaster.DepartmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.tbl_DepartmentMaster.DepartmentName, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                        @Html.ValidationMessageFor(model => model.tbl_DepartmentMaster.DepartmentName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.tbl_DesignationMaster.DesignationName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.tbl_DesignationMaster.DesignationName, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                        @Html.ValidationMessageFor(model => model.tbl_DesignationMaster.DesignationName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.EmployeeContactNo)
-            </dt>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmployeePassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.EmployeePassword, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                        @Html.ValidationMessageFor(model => model.EmployeePassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.EmployeeContactNo)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.EmployeeEmailID)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EmployeeEmailID)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.EmployeeDepartmentID)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.tbl_DepartmentMaster.DepartmentName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.EmployeeDesignationID)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.tbl_DesignationMaster.DesignationName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.EmployeePassword)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EmployeePassword)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Date)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Date)
-            </dd>
-
-        </dl>
+            </div>
+        </div>
     </div>
 </div>
+
+}
