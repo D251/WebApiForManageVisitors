@@ -21,7 +21,7 @@
                 <div class="box">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="example1" class="table table-bordered table-hover">
+                         <table id="example1" class="display" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>
@@ -65,7 +65,50 @@
                                     </th>
                                     <th></th>
                                 </tr>
-                            <thead>
+                            </thead>
+                             <tfoot>
+                                 <tr>
+                                     <th>
+                                         @Html.DisplayNameFor(model => model.EmployeeDepartmentName)
+                                     </th>
+                                     <th>
+                                         @Html.DisplayNameFor(model => model.VisitStartTime)
+                                     </th>
+                                     <th>
+                                         @Html.DisplayNameFor(model => model.VisitEndTime)
+                                     </th>
+                                     <th>
+                                         @Html.DisplayNameFor(model => model.VisitorAccessories)
+                                     </th>
+                                     <th>
+                                         @Html.DisplayNameFor(model => model.NoOfVisitors)
+                                     </th>
+                                     <th>
+                                         @Html.DisplayNameFor(model => model.VisitorVisitResons)
+                                     </th>
+                                     <th>
+                                         @Html.DisplayNameFor(model => model.RequestProcessDate)
+                                     </th>
+                                     <th>
+                                         @Html.DisplayNameFor(model => model.ActivityOwnerStatus)
+                                     </th>
+                                     <th>
+                                         @Html.DisplayNameFor(model => model.AreaOwnerStatus)
+                                     </th>
+                                     <th>
+                                         @Html.DisplayNameFor(model => model.SafetyStatus)
+                                     </th>
+                                     <th>
+                                         @Html.DisplayNameFor(model => model.ContractorStatus)
+                                     </th>
+                                     <th>
+                                         @Html.DisplayNameFor(model => model.EmployeeName)
+                                     </th>
+                                     <th>
+                                         @Html.DisplayNameFor(model => model.VisitorName)
+                                     </th>
+                                 </tr>
+                             </tfoot>
                             <tbody>
                                 @foreach (var item in Model)
                                 {

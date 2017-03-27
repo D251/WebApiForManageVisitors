@@ -20,7 +20,7 @@
             <div class="box">
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-hover">
+                    <table id="example1" class="display" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th>
@@ -34,7 +34,20 @@
                                 </th>
                                 <th></th>
                             </tr>
-                        <thead>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DepartmentID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DepartmentName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DepartmentCreateDate)
+                                </th>
+                            </tr>
+                        </tfoot>
                         <tbody>
                             @foreach (var item in Model)
                             {

@@ -35,7 +35,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- DataTables -->
-    <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap.css">
+    @*<link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap.css">*@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -210,7 +210,7 @@
     <!-- Bootstrap 3.3.6 -->
  
     <!-- DataTables -->
-    <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+    @*<script src="~/plugins/datatables/jquery.dataTables.min.js"></script>*@
     <script src="~/plugins/datatables/dataTables.bootstrap.min.js"></script>
     <!-- SlimScroll -->
     <script src="~/plugins/slimScroll/jquery.slimscroll.min.js"></script>
@@ -222,18 +222,39 @@
     @*<script src="~/dist/js/demo.js"></script>*@
    @* <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>*@
 
+
+
+
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    @*<script src="~/Scripts/Sizzle.js"></script>*@
+
     <script>
-  $(function () {
-      $("#example1").DataTable({ "autoWidth": true });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
+    $(document).ready(function () {
+        $('#example1').DataTable({
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
     });
-  });
     </script>
 
 </body>
