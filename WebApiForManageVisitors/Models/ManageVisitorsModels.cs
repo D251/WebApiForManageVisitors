@@ -24,14 +24,27 @@ namespace WebApiForManageVisitors.Models
 
     public class tbl_DepartmentEmployeeRegistrationModel
     {
+        [Display(Name = "Sr/No.")]
         public long EmployeeSrNo { get; set; }
+        [Display(Name = "Token No.")]
         public string EmployeeTokenNo { get; set; }
+        [Display(Name = "Name")]
         public string EmployeeName { get; set; }
+        [Display(Name = "Address")]
         public string EmployeeAddress { get; set; }
+        [Display(Name = "Contact No.")]
         public string EmployeeContactNo { get; set; }
+        [Display(Name = "Email ID")]
         public string EmployeeEmailID { get; set; }
+        [Display(Name = "Department Name")]
         public Nullable<long> EmployeeDepartmentID { get; set; }
+        [Display(Name = "Designation Name")]
         public Nullable<long> EmployeeDesignationID { get; set; }
+        [Display(Name = "Department Name")]
+        public string DepartmentName { get; set; }
+        [Display(Name = "Designation Name")]
+        public string DesignationName { get; set; }
+        [Display(Name = "Password")]
         public string EmployeePassword { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
     }
@@ -72,16 +85,25 @@ namespace WebApiForManageVisitors.Models
     public class DepartmentMasterModel
     {
         public long DepartmentID { get; set; }
+        [Display(Name = "Department Name")]
         public string DepartmentName { get; set; }
+        [Display(Name = "Date")]
         public Nullable<System.DateTime> DepartmentCreateDate { get; set; }
     }
 
     public class tbl_DesignationMasterModel
     {
+       
         public long DesignationID { get; set; }
         public long DepartmentID { get; set; }
+
+        [Display(Name = "Designation Name")]
         public string DesignationName { get; set; }
+
+        [Display(Name = "Department Name")]
         public string DepartmentName { get; set; }
+
+        [Display(Name = "Date")]
         public Nullable<System.DateTime> DesignationCreateDate { get; set; }
     }
 

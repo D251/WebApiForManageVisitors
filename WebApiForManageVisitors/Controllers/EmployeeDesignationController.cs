@@ -75,20 +75,24 @@ namespace WebApiForManageVisitors.Controllers
 
         // POST: EmployeeDesignation/Create
         [HttpPost]
-        public ActionResult Create(tbl_DesignationMaster collection,int DepartmentCombo)
+        public ActionResult Create(tbl_DesignationMasterModel collection,int DepartmentCombo)
         {
             try
             {
                 CheckViewBagData();
-                // TODO: Add insert logic here
-                collection.DepartmentID = DepartmentCombo;
-                collection.DesignationCreateDate = DateTime.Now;
-                _DbManageVisitorsEntities.tbl_DesignationMaster.Add(collection);
+                var data = new tbl_DesignationMaster
+                {
+                    DepartmentID = DepartmentCombo,
+                    DesignationName = collection.DesignationName,
+                 // DesignationCreateDate =Convert.ToDateTime((DateTime.Now.ToString("yyyy-MM-dd")))
+                };
+                _DbManageVisitorsEntities.tbl_DesignationMaster.Add(data);
                 _DbManageVisitorsEntities.SaveChanges();
+
                 return RedirectToAction("Index");
                
             }
-            catch
+            catch (Exception ex)
             {
                 return View();
             }

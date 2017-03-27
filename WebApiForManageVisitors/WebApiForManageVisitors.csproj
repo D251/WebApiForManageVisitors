@@ -1430,7 +1430,6 @@
     <Content Include="Views\EmployeeDepartment\Details.cshtml" />
     <Content Include="Views\EmployeeDepartment\Edit.cshtml" />
     <Content Include="Views\EmployeeDepartment\Delete.cshtml" />
-    <Content Include="Views\EmployeeRegistration\Delete.cshtml" />
     <Content Include="Views\EmployeeDesignation\Create.cshtml" />
     <Content Include="Views\EmployeeDesignation\Index.cshtml" />
     <Content Include="Views\EmployeeDesignation\Details.cshtml" />
@@ -1446,6 +1445,7 @@
     <Content Include="Views\RequestDetails\Create.cshtml" />
     <Content Include="Views\RequestDetails\Edit.cshtml" />
     <Content Include="Views\RequestDetails\Delete.cshtml" />
+    <Content Include="Views\EmployeeRegistration\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
