@@ -52,9 +52,11 @@ namespace WebApiForManageVisitors.Controllers
             try
             {
                 CheckViewBagData();
-                // TODO: Add insert logic here
-                collection.DepartmentCreateDate = DateTime.Now;
-                _DbManageVisitorsEntities.tbl_DepartmentMaster.Add(collection);
+                var data = new tbl_DepartmentMaster()
+                {
+                    DepartmentName = collection.DepartmentName
+                };
+                _DbManageVisitorsEntities.tbl_DepartmentMaster.Add(data);
                 _DbManageVisitorsEntities.SaveChanges();
                 return RedirectToAction("Index");
             }

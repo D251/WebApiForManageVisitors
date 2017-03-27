@@ -1,4 +1,4 @@
-﻿@model WebApiForManageVisitors.Models.tbl_DepartmentEmployeeRegistration
+﻿@model WebApiForManageVisitors.Models.tbl_DepartmentEmployeeRegistrationModel
 
 @{
     ViewBag.Title = "Details";
@@ -73,7 +73,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.tbl_DepartmentMaster.DepartmentName)
+                @Html.DisplayFor(model => model.DepartmentName)
             </dd>
 
             <dt>
@@ -81,7 +81,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.tbl_DesignationMaster.DesignationName)
+                @Html.DisplayFor(model => model.DesignationName)
             </dd>
 
             <dt>

@@ -1,8 +1,9 @@
-﻿@model WebApiForManageVisitors.Models.tbl_DepartmentEmployeeRegistration
+﻿@model WebApiForManageVisitors.Models.tbl_DepartmentEmployeeRegistrationModel
 
 @{
     ViewBag.Title = "Delete";
 }
+
 <div class="content-header clearfix">
 
     <h4 class="pull-left">
@@ -68,19 +69,19 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.EmployeeDepartmentID)
+                @Html.DisplayNameFor(model => model.DepartmentName)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.EmployeeDepartmentID)
+                @Html.DisplayFor(model => model.DepartmentName)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.EmployeeDesignationID)
+                @Html.DisplayNameFor(model => model.DesignationName)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.EmployeeDesignationID)
+                @Html.DisplayFor(model => model.DesignationName)
             </dd>
 
             <dt>
