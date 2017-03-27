@@ -19,110 +19,124 @@
 </div>
 <div>
     <div class="content-header clearfix">
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.EmployeeDepartmentName)
-            </dt>
+        <div class="box box-info">
+            <div class="box-body">
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                            @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.EmployeeDepartmentName)
-            </dd>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RequestProcessSrNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.RequestProcessSrNo, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                            @Html.ValidationMessageFor(model => model.RequestProcessSrNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.VisitStartTime)
-            </dt>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VisitorName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.VisitorName, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                            @Html.ValidationMessageFor(model => model.VisitorName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.VisitStartTime)
-            </dd>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeDepartmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.EmployeeDepartmentName, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                            @Html.ValidationMessageFor(model => model.EmployeeDepartmentName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.VisitEndTime)
-            </dt>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VisitStartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.VisitStartTime, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                            @Html.ValidationMessageFor(model => model.VisitStartTime, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.VisitEndTime)
-            </dd>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VisitEndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.VisitEndTime, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                            @Html.ValidationMessageFor(model => model.VisitEndTime, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.VisitorAccessories)
-            </dt>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VisitorAccessories, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.VisitorAccessories, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                            @Html.ValidationMessageFor(model => model.VisitorAccessories, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.VisitorAccessories)
-            </dd>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NoOfVisitors, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.NoOfVisitors, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                            @Html.ValidationMessageFor(model => model.NoOfVisitors, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.NoOfVisitors)
-            </dt>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VisitorVisitResons, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.VisitorVisitResons, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                            @Html.ValidationMessageFor(model => model.VisitorVisitResons, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.NoOfVisitors)
-            </dd>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RequestProcessDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.RequestProcessDate, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                            @Html.ValidationMessageFor(model => model.RequestProcessDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.VisitorVisitResons)
-            </dt>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ActivityOwnerStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.ActivityOwnerStatus, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                            @Html.ValidationMessageFor(model => model.ActivityOwnerStatus, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.VisitorVisitResons)
-            </dd>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AreaOwnerStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.AreaOwnerStatus, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                            @Html.ValidationMessageFor(model => model.AreaOwnerStatus, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.RequestProcessDate)
-            </dt>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SafetyStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.SafetyStatus, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                            @Html.ValidationMessageFor(model => model.SafetyStatus, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.RequestProcessDate)
-            </dd>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContractorStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.ContractorStatus, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:white" } })
+                            @Html.ValidationMessageFor(model => model.ContractorStatus, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityOwnerStatus)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ActivityOwnerStatus)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.AreaOwnerStatus)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.AreaOwnerStatus)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.SafetyStatus)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.SafetyStatus)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ContractorStatus)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ContractorStatus)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.EmployeeName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EmployeeName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.VisitorName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.VisitorName)
-            </dd>
-        </dl>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
