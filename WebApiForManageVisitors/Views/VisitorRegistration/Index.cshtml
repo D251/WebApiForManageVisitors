@@ -20,7 +20,7 @@
             <div class="box">
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-hover">
+                    <table id="example1" class="display" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th>
@@ -55,7 +55,32 @@
                                     </th>*@
                                 <th></th>
                             </tr>
-                        <thead>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.VisitorUserID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.VisitorName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.VisitorAddress)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.VisitorContactNo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.VisitorEmailID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.VisitorContractor)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.VisitorContractorCoNo)
+                                </th>
+                            </tr>
+                        </tfoot>
                         <tbody>
                             @foreach (var item in Model)
                             {
@@ -104,3 +129,4 @@
         </div>
     </div>
 </section>
+
