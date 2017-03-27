@@ -4,7 +4,8 @@
     ViewBag.Title = "Index";
 }
 
-<div class="content-header clearfix">
+
+<section class="content-header">
     <h1 class="pull-left">
         Employee Registration Details
     </h1>
@@ -14,90 +15,94 @@
             Create New
         </a>
     </div>
-</div>
-<div class="content-header clearfix">
-    <div class="box box-info">
-        <div class="box-body">
-            <div class="content-header clearfix">
-                <table class="table">
-                    <tr style="width:inherit">
-                        <th>
-                            @Html.DisplayNameFor(model => model.EmployeeSrNo)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EmployeeTokenNo)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EmployeeName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EmployeeAddress)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EmployeeContactNo)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EmployeeEmailID)
-                        </th>
-                        @*<th>
-                                @Html.DisplayNameFor(model => model.EmployeeDepartmentID)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.EmployeeDesignationID)
-                            </th>*@
-                        @*<th>
-                                @Html.DisplayNameFor(model => model.EmployeePassword)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Date)
-                            </th>*@
-                        <th></th>
-                    </tr>
-
-                    @foreach (var item in Model)
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EmployeeSrNo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EmployeeTokenNo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EmployeeName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EmployeeAddress)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EmployeeContactNo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EmployeeEmailID)
+                                </th>
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.EmployeeDepartmentID)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EmployeeDesignationID)
+                                    </th>*@
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.EmployeePassword)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Date)
+                                    </th>*@
+                                <th></th>
+                            </tr>
+                        <thead>
+                        <tbody>
+                            @foreach (var item in Model)
             {
-                        <tr style="width:inherit">
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EmployeeSrNo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EmployeeTokenNo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EmployeeName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EmployeeAddress)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EmployeeContactNo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EmployeeEmailID)
-                            </td>
-                            @*<td>
-                                    @Html.DisplayFor(modelItem => item.tbl_DepartmentMaster.DepartmentName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.tbl_DesignationMaster.DesignationName)
-                                </td>*@
-                            @*<td>
-                                    @Html.DisplayFor(modelItem => item.EmployeePassword)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Date)
-                                </td>*@
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeSrNo ,id1 =item.EmployeeDepartmentID }) | 
-                                @Html.ActionLink("Details", "Details", new { id = item.EmployeeSrNo ,id1= item.EmployeeDepartmentID }) | 
-                                @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeSrNo })
-                            </td>
-                        </tr>
-                    }
-
-                </table>
+                                <tr style="width:inherit">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EmployeeSrNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EmployeeTokenNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EmployeeName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EmployeeAddress)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EmployeeContactNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EmployeeEmailID)
+                                    </td>
+                                    @*<td>
+                                            @Html.DisplayFor(modelItem => item.tbl_DepartmentMaster.DepartmentName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.tbl_DesignationMaster.DesignationName)
+                                        </td>*@
+                                    @*<td>
+                                            @Html.DisplayFor(modelItem => item.EmployeePassword)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Date)
+                                        </td>*@
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeSrNo, id1 = item.EmployeeDepartmentID }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.EmployeeSrNo, id1 = item.EmployeeDepartmentID }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeSrNo })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
-           </div>
         </div>
-        <div class="content-header clearfix"></div>
     </div>
+</section>

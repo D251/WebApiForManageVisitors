@@ -3,8 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<div class="content-header clearfix">
+<section class="content-header">
     <h1 class="pull-left">
         Department Details
     </h1>
@@ -14,47 +13,52 @@
             Create New
         </a>
     </div>
-</div>
-<div class="content-header clearfix">
-    <div class="box box-info">
-        <div class="box-body">
-            <div class="content-header clearfix">
-                <table class="table">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DepartmentID)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DepartmentName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DepartmentCreateDate)
-                        </th>
-                    </tr>
-
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DepartmentID)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DepartmentName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DepartmentCreateDate)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentID }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.DepartmentID }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.DepartmentID })
-                            </td>
-                        </tr>
-                    }
-
-                </table>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DepartmentID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DepartmentName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DepartmentCreateDate)
+                                </th>
+                                <th></th>
+                            </tr>
+                        <thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DepartmentID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DepartmentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DepartmentCreateDate)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentID }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.DepartmentID }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.DepartmentID })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
+</section>
