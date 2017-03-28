@@ -23,16 +23,13 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Index()
         {
             CheckViewBagData();
-
-          
-
-            List<VisitorUserRegistrationModel> _objVisitorUserRegistrationModel = new List<VisitorUserRegistrationModel>();
+           List<VisitorUserRegistrationModel> _objVisitorUserRegistrationModel = new List<VisitorUserRegistrationModel>();
             var VisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.ToList();
 
             foreach (var item in VisitorUserRegistration)
             {
                 VisitorUserRegistrationModel _objVisitorUserRegistrationModelItem = new VisitorUserRegistrationModel();
-
+                _objVisitorUserRegistrationModelItem.VisitorSrNo = item.VisitorSrNo;
                 _objVisitorUserRegistrationModelItem.VisitorUserID = item.VisitorUserID;
                 _objVisitorUserRegistrationModelItem.VisitorName = item.VisitorName;
                 _objVisitorUserRegistrationModelItem.VisitorAddress = item.VisitorAddress;
@@ -52,14 +49,52 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Details(int id)
         {
             CheckViewBagData();
-            var model = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(a => a.VisitorSrNo == id).FirstOrDefault();
-            return View(model);
-        }
+            VisitorUserRegistrationModel _objVisitorUserRegistrationModel = new VisitorUserRegistrationModel();
+            var data = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == id).FirstOrDefault();
+            {
+                _objVisitorUserRegistrationModel.VisitorSrNo = data.VisitorSrNo;
+                _objVisitorUserRegistrationModel.VisitorUserID = data.VisitorUserID;
+                _objVisitorUserRegistrationModel.VisitorName = data.VisitorName;
+                _objVisitorUserRegistrationModel.VisitorContactNo = data.VisitorContactNo;
+                _objVisitorUserRegistrationModel.VisitorAddress = data.VisitorAddress;
+                _objVisitorUserRegistrationModel.VisitorContractor = data.VisitorContractor;
+                _objVisitorUserRegistrationModel.VisitorContractorCoNo = data.VisitorContractorCoNo;
+                _objVisitorUserRegistrationModel.VisitorEmailID = data.VisitorEmailID;
+                _objVisitorUserRegistrationModel.VisitorNatureOfWork = data.VisitorNatureOfWork;
+                _objVisitorUserRegistrationModel.VisitorPassword = data.VisitorPassword;
+                _objVisitorUserRegistrationModel.VisitorRegistrationDate = data.VisitorRegistrationDate;
 
+            };
+            return View(_objVisitorUserRegistrationModel);
+        }
+        //Visitor UserID
+        public JsonResult GetVisitorUserMaxSrNo()
+        {
+            try
+            {
+                VisitorUserRegistrationModel VisitorUserMaxSrNo = new VisitorUserRegistrationModel();
+                var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Max(p => p.VisitorSrNo);
+                VisitorUserMaxSrNo.VisitorSrNo = _objVisitorUserRegistration + 1;
+                return Json(VisitorUserMaxSrNo, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ResultModel _objResult = new ResultModel();
+                _objResult.success = 0;
+                _objResult.msg = ex.ToString();
+                return Json(_objResult, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+         
         // GET: VisitorRegistration/Create
         public ActionResult Create()
         {
             CheckViewBagData();
+            VisitorUserRegistrationModel VisitorUserMaxSrNo = new VisitorUserRegistrationModel();
+            var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Max(p => p.VisitorSrNo);
+            ViewBag.VisitorSrNo = _objVisitorUserRegistration + 1;
+            ViewBag.UserID = "M&M" + ViewBag.VisitorSrNo;
             return View();
         }
 
@@ -82,7 +117,7 @@ namespace WebApiForManageVisitors.Controllers
                     VisitorContractor = collection.VisitorContractor,
                     VisitorContractorCoNo = collection.VisitorContractorCoNo,
                     VisitorPassword = collection.VisitorPassword,
-                    VisitorRegistrationDate = DateTime.Now
+                    //VisitorRegistrationDate = DateTime.Now
                 };
 
 
@@ -104,8 +139,24 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Edit(int id)
         {
             CheckViewBagData();
-            tbl_VisitorUserRegistration data = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Find(id);
-            return View(data);
+            VisitorUserRegistrationModel _objVisitorUserRegistrationModel = new VisitorUserRegistrationModel();
+            var data = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == id).FirstOrDefault();
+            {
+                _objVisitorUserRegistrationModel.VisitorSrNo = data.VisitorSrNo;
+                _objVisitorUserRegistrationModel.VisitorUserID = data.VisitorUserID;
+                _objVisitorUserRegistrationModel.VisitorName = data.VisitorName;
+                _objVisitorUserRegistrationModel.VisitorContactNo = data.VisitorContactNo;
+                _objVisitorUserRegistrationModel.VisitorAddress = data.VisitorAddress;
+                _objVisitorUserRegistrationModel.VisitorContractor = data.VisitorContractor;
+                _objVisitorUserRegistrationModel.VisitorContractorCoNo = data.VisitorContractorCoNo;
+                _objVisitorUserRegistrationModel.VisitorEmailID = data.VisitorEmailID;
+                _objVisitorUserRegistrationModel.VisitorNatureOfWork = data.VisitorNatureOfWork;
+                _objVisitorUserRegistrationModel.VisitorPassword = data.VisitorPassword;
+                //_objVisitorUserRegistrationModel.VisitorRegistrationDate = data.VisitorRegistrationDate;
+
+            };
+
+            return View(_objVisitorUserRegistrationModel);
         }
 
         // POST: VisitorRegistration/Edit/5
@@ -141,8 +192,23 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Delete(int id)
         {
             CheckViewBagData();
-            var model = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(a => a.VisitorSrNo == id).FirstOrDefault();
-            return View(model);
+            VisitorUserRegistrationModel _objVisitorUserRegistrationModel = new VisitorUserRegistrationModel();
+            var data = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == id).FirstOrDefault();
+            {
+                _objVisitorUserRegistrationModel.VisitorSrNo = data.VisitorSrNo;
+                _objVisitorUserRegistrationModel.VisitorUserID = data.VisitorUserID;
+                _objVisitorUserRegistrationModel.VisitorName = data.VisitorName;
+                _objVisitorUserRegistrationModel.VisitorContactNo = data.VisitorContactNo;
+                _objVisitorUserRegistrationModel.VisitorAddress = data.VisitorAddress;
+                _objVisitorUserRegistrationModel.VisitorContractor = data.VisitorContractor;
+                _objVisitorUserRegistrationModel.VisitorContractorCoNo = data.VisitorContractorCoNo;
+                _objVisitorUserRegistrationModel.VisitorEmailID = data.VisitorEmailID;
+                _objVisitorUserRegistrationModel.VisitorNatureOfWork = data.VisitorNatureOfWork;
+                _objVisitorUserRegistrationModel.VisitorPassword = data.VisitorPassword;
+                _objVisitorUserRegistrationModel.VisitorRegistrationDate = data.VisitorRegistrationDate;
+
+            };
+            return View(_objVisitorUserRegistrationModel);
         }
 
         // POST: VisitorRegistration/Delete/5
