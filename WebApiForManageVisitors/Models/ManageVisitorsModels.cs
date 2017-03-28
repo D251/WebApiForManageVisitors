@@ -84,6 +84,7 @@ namespace WebApiForManageVisitors.Models
 
     public class DepartmentMasterModel
     {
+        [Display(Name = "Department ID")]
         public long DepartmentID { get; set; }
         [Display(Name = "Department Name")]
         public string DepartmentName { get; set; }
@@ -93,8 +94,10 @@ namespace WebApiForManageVisitors.Models
 
     public class tbl_DesignationMasterModel
     {
-       
+        [Display(Name = "Designation ID")]
         public long DesignationID { get; set; }
+
+        [Display(Name = "Department ID")]
         public long DepartmentID { get; set; }
 
         [Display(Name = "Designation Name")]
