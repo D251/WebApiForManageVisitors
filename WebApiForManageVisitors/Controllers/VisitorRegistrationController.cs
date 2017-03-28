@@ -23,10 +23,31 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Index()
         {
             CheckViewBagData();
-            var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.ToList();
-            return View(_objVisitorUserRegistration.ToList());
-        }
 
+          
+
+            List<VisitorUserRegistrationModel> _objVisitorUserRegistrationModel = new List<VisitorUserRegistrationModel>();
+            var VisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.ToList();
+
+            foreach (var item in VisitorUserRegistration)
+            {
+                VisitorUserRegistrationModel _objVisitorUserRegistrationModelItem = new VisitorUserRegistrationModel();
+
+                _objVisitorUserRegistrationModelItem.VisitorUserID = item.VisitorUserID;
+                _objVisitorUserRegistrationModelItem.VisitorName = item.VisitorName;
+                _objVisitorUserRegistrationModelItem.VisitorAddress = item.VisitorAddress;
+                _objVisitorUserRegistrationModelItem.VisitorContactNo = item.VisitorContactNo;
+                _objVisitorUserRegistrationModelItem.VisitorEmailID = item.VisitorEmailID;
+                _objVisitorUserRegistrationModelItem.VisitorNatureOfWork = item.VisitorNatureOfWork;
+                _objVisitorUserRegistrationModelItem.VisitorContractor = item.VisitorContractor;
+                _objVisitorUserRegistrationModelItem.VisitorContractorCoNo = item.VisitorContractorCoNo;
+                _objVisitorUserRegistrationModelItem.VisitorPassword = item.VisitorPassword;
+                _objVisitorUserRegistrationModelItem.VisitorRegistrationDate = item.VisitorRegistrationDate;
+                _objVisitorUserRegistrationModel.Add(_objVisitorUserRegistrationModelItem);
+            }
+            return View(_objVisitorUserRegistrationModel.ToList());
+        }
+     
         // GET: VisitorRegistration/Details/5
         public ActionResult Details(int id)
         {
@@ -44,13 +65,28 @@ namespace WebApiForManageVisitors.Controllers
 
         // POST: VisitorRegistration/Create
         [HttpPost]
-        public ActionResult Create(tbl_VisitorUserRegistration collection)
+        public ActionResult Create(VisitorUserRegistrationModel collection)
         {
             try
             {
                 CheckViewBagData();
-                collection.VisitorRegistrationDate = DateTime.Now;
-                _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Add(collection);
+
+                var data = new tbl_VisitorUserRegistration
+                {
+                    VisitorUserID = collection.VisitorUserID,
+                    VisitorName = collection.VisitorName,
+                    VisitorAddress = collection.VisitorAddress,
+                    VisitorContactNo = collection.VisitorContactNo,
+                    VisitorEmailID = collection.VisitorEmailID,
+                    VisitorNatureOfWork = collection.VisitorNatureOfWork,
+                    VisitorContractor = collection.VisitorContractor,
+                    VisitorContractorCoNo = collection.VisitorContractorCoNo,
+                    VisitorPassword = collection.VisitorPassword,
+                    VisitorRegistrationDate = DateTime.Now
+                };
+
+
+                _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Add(data);
                 _DbManageVisitorsEntities.SaveChanges();
                 return RedirectToAction("Index");
 
@@ -74,7 +110,7 @@ namespace WebApiForManageVisitors.Controllers
 
         // POST: VisitorRegistration/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, tbl_VisitorUserRegistration collection)
+        public ActionResult Edit(int id, VisitorUserRegistrationModel collection)
         {
             try
             {
@@ -110,7 +146,7 @@ namespace WebApiForManageVisitors.Controllers
         }
 
         // POST: VisitorRegistration/Delete/5
-       
+
         public ActionResult DeleteNow(int id)
         {
             try

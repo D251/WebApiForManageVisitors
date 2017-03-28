@@ -24,12 +24,13 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Index()
         {
             CheckViewBagData();
-            List<tbl_DesignationMasterModel> _objListRequestProcessModel = new List<tbl_DesignationMasterModel>();
+
+            List<DesignationMasterModel> _objListRequestProcessModel = new List<DesignationMasterModel>();
             var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_DesignationMaster.ToList();
 
             foreach (var item in _objAllRequestProcessModel)
             {
-                tbl_DesignationMasterModel _class = new tbl_DesignationMasterModel();
+                DesignationMasterModel _class = new DesignationMasterModel();
 
                 var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == item.DepartmentID).FirstOrDefault();
 
@@ -40,6 +41,7 @@ namespace WebApiForManageVisitors.Controllers
                 _class.DesignationCreateDate = (item.DesignationCreateDate);
                 _objListRequestProcessModel.Add(_class);
             }
+
             return View(_objListRequestProcessModel.ToList());
         }
 
@@ -71,7 +73,7 @@ namespace WebApiForManageVisitors.Controllers
 
         // POST: EmployeeDesignation/Create
         [HttpPost]
-        public ActionResult Create(tbl_DesignationMasterModel collection,int DepartmentCombo)
+        public ActionResult Create(DesignationMasterModel collection,int DepartmentCombo)
         {
             try
             {
@@ -80,7 +82,7 @@ namespace WebApiForManageVisitors.Controllers
                 {
                     DepartmentID = DepartmentCombo,
                     DesignationName = collection.DesignationName,
-                 // DesignationCreateDate =Convert.ToDateTime((DateTime.Now.ToString("yyyy-MM-dd")))
+                    DesignationCreateDate = DateTime.Now
                 };
                 _DbManageVisitorsEntities.tbl_DesignationMaster.Add(data);
                 _DbManageVisitorsEntities.SaveChanges();

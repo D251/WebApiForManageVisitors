@@ -68,8 +68,10 @@ namespace WebApiForManageVisitors.Controllers
                 CheckViewBagData();
                 var data = new tbl_DepartmentMaster()
                 {
-                    DepartmentName = collection.DepartmentName
+                    DepartmentName = collection.DepartmentName,
+                    DepartmentCreateDate = DateTime.Now
                 };
+
                 _DbManageVisitorsEntities.tbl_DepartmentMaster.Add(data);
                 _DbManageVisitorsEntities.SaveChanges();
                 return RedirectToAction("Index");
