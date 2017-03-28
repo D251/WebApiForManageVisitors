@@ -52,16 +52,27 @@ namespace WebApiForManageVisitors.Models
 
     public class VisitorUserRegistrationModel
     {
+        [Display(Name = "Sr/No.")]
         public long VisitorSrNo { get; set; }
+        [Display(Name = "User ID")]
         public string VisitorUserID { get; set; }
+        [Display(Name = "Visitor Name")]
         public string VisitorName { get; set; }
+        [Display(Name = "Address")]
         public string VisitorAddress { get; set; }
+        [Display(Name = "Contact No.")]
         public string VisitorContactNo { get; set; }
+        [Display(Name = "Email ID")]
         public string VisitorEmailID { get; set; }
+        [Display(Name = "Visitor Nature Of Work")]
         public string VisitorNatureOfWork { get; set; }
+        [Display(Name = "Visitor Contractor")]
         public string VisitorContractor { get; set; }
+        [Display(Name = "Contractor Contact No")]
         public string VisitorContractorCoNo { get; set; }
+        [Display(Name = "Password")]
         public string VisitorPassword { get; set; }
+         [Display(Name = "Date")]
         public Nullable<System.DateTime> VisitorRegistrationDate { get; set; }
     }
 
