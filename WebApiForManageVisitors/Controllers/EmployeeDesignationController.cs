@@ -49,7 +49,7 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Details(int id)
         {
             CheckViewBagData();
-            tbl_DesignationMasterModel _objDesignationModel = new tbl_DesignationMasterModel();
+            DesignationMasterModel _objDesignationModel = new DesignationMasterModel();
             var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
             {
                 var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
@@ -100,7 +100,7 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Edit(int id)
         {
             CheckViewBagData();
-            tbl_DesignationMasterModel _objDesignationModel = new tbl_DesignationMasterModel();
+            DesignationMasterModel _objDesignationModel = new DesignationMasterModel();
             var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
             {
                 var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
@@ -118,7 +118,7 @@ namespace WebApiForManageVisitors.Controllers
 
         // POST: EmployeeDesignation/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, tbl_DesignationMasterModel collection)
+        public ActionResult Edit(int id, DesignationMasterModel collection)
         {
             try
             {
@@ -146,7 +146,7 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Delete(int id)
         {
             CheckViewBagData();
-            tbl_DesignationMasterModel _objtbl_DesignationMasterModel = new tbl_DesignationMasterModel();
+            DesignationMasterModel _objtbl_DesignationMasterModel = new DesignationMasterModel();
             var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
             var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
 
