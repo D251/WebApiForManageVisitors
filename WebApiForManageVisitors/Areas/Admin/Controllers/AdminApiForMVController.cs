@@ -109,7 +109,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
         {
             try
             {
-                tbl_VisitorUserRegistrationModel VisitorUserMaxSrNo = new tbl_VisitorUserRegistrationModel();
+                VisitorUserRegistrationModel VisitorUserMaxSrNo = new VisitorUserRegistrationModel();
                 var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Max(p => p.VisitorSrNo);
                 VisitorUserMaxSrNo.VisitorSrNo = _objVisitorUserRegistration + 1;
                 return Json(VisitorUserMaxSrNo, JsonRequestBehavior.AllowGet);
@@ -245,11 +245,11 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
         {
             try
             {
-                List<tbl_DesignationMasterModel> _list = new List<tbl_DesignationMasterModel>();
+                List<DesignationMasterModel> _list = new List<DesignationMasterModel>();
                 var _objDesignationMaster = _DbManageVisitorsEntities.tbl_DesignationMaster.ToList();
                 foreach (var item in _objDesignationMaster)
                 {
-                    tbl_DesignationMasterModel _class = new Models.tbl_DesignationMasterModel();
+                    DesignationMasterModel _class = new Models.DesignationMasterModel();
 
                     _class.DesignationID = item.DesignationID;
                     _class.DepartmentID = item.DepartmentID;
@@ -303,11 +303,11 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public JsonResult GetVisitorUserInformationByVisitorUserID(tbl_VisitorUserRegistrationModel collection)
+        public JsonResult GetVisitorUserInformationByVisitorUserID(VisitorUserRegistrationModel collection)
         {
             try
             {
-                tbl_VisitorUserRegistrationModel _list = new tbl_VisitorUserRegistrationModel();
+                VisitorUserRegistrationModel _list = new VisitorUserRegistrationModel();
                 var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorUserID == collection.VisitorUserID).FirstOrDefault();
 
                 _list.VisitorSrNo = _objVisitorUserRegistration.VisitorSrNo;

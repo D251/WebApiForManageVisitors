@@ -47,15 +47,17 @@ namespace WebApiForManageVisitors.Controllers
 
         // POST: EmployeeDepartment/Create
         [HttpPost]
-        public ActionResult Create(tbl_DepartmentMaster collection)
+        public ActionResult Create(DepartmentMasterModel collection)
         {
             try
             {
                 CheckViewBagData();
                 var data = new tbl_DepartmentMaster()
                 {
-                    DepartmentName = collection.DepartmentName
+                    DepartmentName = collection.DepartmentName,
+                    DepartmentCreateDate = DateTime.Now
                 };
+
                 _DbManageVisitorsEntities.tbl_DepartmentMaster.Add(data);
                 _DbManageVisitorsEntities.SaveChanges();
                 return RedirectToAction("Index");
@@ -77,7 +79,7 @@ namespace WebApiForManageVisitors.Controllers
 
         // POST: EmployeeDepartment/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, tbl_DepartmentMaster collection)
+        public ActionResult Edit(int id, DepartmentMasterModel collection)
         {
             try
             {
