@@ -49,17 +49,17 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Details(int id)
         {
             CheckViewBagData();
+            tbl_DesignationMasterModel _objDesignationModel = new tbl_DesignationMasterModel();
             var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
-
-            var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
-
-            model.DesignationID = model.DesignationID;
-            model.DepartmentID = model.DepartmentID;
-            model.DepartmentName = _objDepartmentEmployeeRegistration.DepartmentName;
-            model.DesignationName = (model.DesignationName);
-            model.DesignationCreateDate = (model.DesignationCreateDate);
-            
-            return View(model);
+            {
+                var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
+                _objDesignationModel.DesignationID = model.DesignationID;
+                _objDesignationModel.DesignationName = model.DesignationName;
+                _objDesignationModel.DepartmentName = _objDepartmentEmployeeRegistration.DepartmentName;
+                _objDesignationModel.DepartmentID = model.DepartmentID;
+                _objDesignationModel.DesignationCreateDate = model.DesignationCreateDate;
+            };
+            return View(_objDesignationModel);
           
         }
 
@@ -100,37 +100,43 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Edit(int id)
         {
             CheckViewBagData();
+            tbl_DesignationMasterModel _objDesignationModel = new tbl_DesignationMasterModel();
             var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
-
-            var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
-
-            model.DesignationID = model.DesignationID;
-            model.DepartmentID = model.DepartmentID;
-            model.DepartmentName = _objDepartmentEmployeeRegistration.DepartmentName;
-            model.DesignationName = (model.DesignationName);
-            model.DesignationCreateDate = (model.DesignationCreateDate);
-
+            {
+                var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
+                _objDesignationModel.DesignationCreateDate = model.DesignationCreateDate;
+                _objDesignationModel.DesignationID = model.DesignationID;
+                _objDesignationModel.DepartmentID = model.DepartmentID;
+                _objDesignationModel.DesignationName = model.DesignationName;
+                _objDesignationModel.DepartmentName = _objDepartmentEmployeeRegistration.DepartmentName;
+                //_objDesignationModel.DesignationCreateDate = model.DesignationCreateDate;
+                //_objDesignationModel.DesignationCreateDate = model.DesignationCreateDate;
+            };
             ViewBag.DepartmentCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName", model.DepartmentID);
-
-            return View(model);
+            return View(_objDesignationModel);
         }
 
         // POST: EmployeeDesignation/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, tbl_DesignationMaster collection)
+        public ActionResult Edit(int id, tbl_DesignationMasterModel collection)
         {
             try
             {
                 CheckViewBagData();
                 // TODO: Add update logic here
+               
                 var data = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(b => b.DesignationID == id).FirstOrDefault();
-                data.DepartmentID = collection.DepartmentID;
-                data.DesignationName = collection.DesignationName;
-                _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
-                _DbManageVisitorsEntities.SaveChanges();
-                return RedirectToAction("Index");
+                {
+                    data.DesignationID = collection.DesignationID;
+                    data.DepartmentID = collection.DepartmentID;
+                    data.DesignationName = collection.DesignationName;
+                    data.DesignationCreateDate = collection.DesignationCreateDate;
+                    _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
+                    _DbManageVisitorsEntities.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }
@@ -139,17 +145,18 @@ namespace WebApiForManageVisitors.Controllers
         // GET: EmployeeDesignation/Delete/5
         public ActionResult Delete(int id)
         {
-             CheckViewBagData();
+            CheckViewBagData();
+            tbl_DesignationMasterModel _objtbl_DesignationMasterModel = new tbl_DesignationMasterModel();
             var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
             var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
 
-            model.DesignationID = model.DesignationID;
-            model.DepartmentID = model.DepartmentID;
-            model.DepartmentName = _objDepartmentEmployeeRegistration.DepartmentName;
-            model.DesignationName = (model.DesignationName);
-            model.DesignationCreateDate = (model.DesignationCreateDate);
+            _objtbl_DesignationMasterModel.DesignationID = model.DesignationID;
+            _objtbl_DesignationMasterModel.DepartmentID = model.DepartmentID;
+            _objtbl_DesignationMasterModel.DepartmentName = _objDepartmentEmployeeRegistration.DepartmentName;
+            _objtbl_DesignationMasterModel.DesignationName = (model.DesignationName);
+            _objtbl_DesignationMasterModel.DesignationCreateDate = (model.DesignationCreateDate);
 
-            return View(model);
+            return View(_objtbl_DesignationMasterModel);
         }
 
         // POST: EmployeeDesignation/Delete/5

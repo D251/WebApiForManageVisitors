@@ -85,6 +85,7 @@ namespace WebApiForManageVisitors.Models
 
     public class DepartmentMasterModel
     {
+        [Display(Name = "Department ID")]
         public long DepartmentID { get; set; }
         [Display(Name = "Department Name")]
         public string DepartmentName { get; set; }

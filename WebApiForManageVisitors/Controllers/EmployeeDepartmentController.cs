@@ -25,8 +25,18 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Index()
         {
             CheckViewBagData();
-            var Department = _DbManageVisitorsEntities.tbl_DepartmentMaster;
-            return View(Department.ToList());
+            List<DepartmentMasterModel> _objDepartmentModel = new List<DepartmentMasterModel>();
+            var Department = _DbManageVisitorsEntities.tbl_DepartmentMaster.ToList();
+            foreach (var item in Department)
+            {
+                DepartmentMasterModel _objDepartmentMasterModel = new DepartmentMasterModel();
+                var Departmentitem = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == item.DepartmentID).FirstOrDefault();
+                _objDepartmentMasterModel.DepartmentID = Departmentitem.DepartmentID;
+                _objDepartmentMasterModel.DepartmentName = Departmentitem.DepartmentName;
+                _objDepartmentMasterModel.DepartmentCreateDate = Departmentitem.DepartmentCreateDate;
+                _objDepartmentModel.Add(_objDepartmentMasterModel);
+            }
+            return View(_objDepartmentModel.ToList());
 
         }
 
@@ -35,7 +45,11 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
-            return View(model);
+            DepartmentMasterModel _objDepartmentModel = new DepartmentMasterModel();
+            _objDepartmentModel.DepartmentID = model.DepartmentID;
+            _objDepartmentModel.DepartmentName = model.DepartmentName;
+            _objDepartmentModel.DepartmentCreateDate = model.DepartmentCreateDate;
+            return View(_objDepartmentModel);
         }
 
         // GET: EmployeeDepartment/Create
@@ -72,8 +86,14 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Edit(int id)
         {
             CheckViewBagData();
+            DepartmentMasterModel _objDepartmentModel = new DepartmentMasterModel();
             var model = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
-            return View(model);
+            {
+                _objDepartmentModel.DepartmentID = model.DepartmentID;
+                _objDepartmentModel.DepartmentName = model.DepartmentName;
+                _objDepartmentModel.DepartmentCreateDate = model.DepartmentCreateDate;
+            }
+            return View(_objDepartmentModel);
 
         }
 
@@ -85,13 +105,18 @@ namespace WebApiForManageVisitors.Controllers
             {
                 CheckViewBagData();
                 // TODO: Add update logic here
+                //DepartmentMasterModel _objDepartment = new DepartmentMasterModel();
                 var data = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(b => b.DepartmentID == id).FirstOrDefault();
-                data.DepartmentName = collection.DepartmentName;
-                _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
-                _DbManageVisitorsEntities.SaveChanges();
-                return RedirectToAction("Index");
+                {
+                    data.DepartmentID = collection.DepartmentID;
+                     data.DepartmentName = collection.DepartmentName;
+                    _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
+                    _DbManageVisitorsEntities.SaveChanges();
+                     return RedirectToAction("Index");
+                }
+               
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }
@@ -102,7 +127,11 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             var model = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
-            return View(model);
+            DepartmentMasterModel _objModel = new DepartmentMasterModel();
+            _objModel.DepartmentCreateDate = model.DepartmentCreateDate;
+            _objModel.DepartmentID = model.DepartmentID;
+            _objModel.DepartmentName = model.DepartmentName;
+             return View(_objModel);
         }
 
         // POST: EmployeeDepartment/Delete/5
