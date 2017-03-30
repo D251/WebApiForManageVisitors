@@ -76,29 +76,40 @@ namespace WebApiForManageVisitors.Controllers
         [HttpPost]
         public ActionResult Create(DesignationMasterModel collection,int DepartmentCombo)
         {
-            try
-            {
+          
                 CheckViewBagData();
-                var data = new tbl_DesignationMaster
+            ViewBag.DepartmentCombo = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
+            var data = new tbl_DesignationMaster
                 {
                     DepartmentID = DepartmentCombo,
                     DesignationName = collection.DesignationName,
-                    DesignationCreateDate = DateTime.Now
+                   // DesignationCreateDate = DateTime.Now
                 };
-                _DbManageVisitorsEntities.tbl_DesignationMaster.Add(data);
-                _DbManageVisitorsEntities.SaveChanges();
-
-                return RedirectToAction("Index");
-               
-            }
-            catch (Exception ex)
+          
+            if (!_DbManageVisitorsEntities.tbl_DesignationMaster.Any(p => p.DesignationName == collection.DesignationName && p.DepartmentID == DepartmentCombo))
             {
-                return View();
-            }
-        }
+                try
+                {
+                    _DbManageVisitorsEntities.tbl_DesignationMaster.Add(data);
+                    _DbManageVisitorsEntities.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    return View();
+                }
 
-        // GET: EmployeeDesignation/Edit/5
-        public ActionResult Edit(int id)
+            }
+            else
+            {
+                ViewBag.Errormessage = "Fail";
+            }
+            return View();
+        }
+           
+    
+    // GET: EmployeeDesignation/Edit/5
+    public ActionResult Edit(int id)
         {
             CheckViewBagData();
             DesignationMasterModel _objDesignationModel = new DesignationMasterModel();

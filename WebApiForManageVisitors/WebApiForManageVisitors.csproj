@@ -1427,7 +1427,6 @@
     <Content Include="Views\EmployeeRegistration\Index.cshtml" />
     <Content Include="Views\EmployeeRegistration\Edit.cshtml" />
     <Content Include="Views\EmployeeRegistration\Details.cshtml" />
-    <Content Include="Views\EmployeeRegistration\Create.cshtml" />
     <Content Include="Views\EmployeeDepartment\Create.cshtml" />
     <Content Include="Views\EmployeeDepartment\Index.cshtml" />
     <Content Include="Views\EmployeeDepartment\Details.cshtml" />
