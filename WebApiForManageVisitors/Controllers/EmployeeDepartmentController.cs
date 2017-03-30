@@ -52,6 +52,34 @@ namespace WebApiForManageVisitors.Controllers
             return View(_objDepartmentModel);
         }
 
+        [HttpPost]
+        public JsonResult DepartmentExists(string DepartmentName, int? DepartmentID)
+        {
+            if (DepartmentID != null)
+            {
+                if (_DbManageVisitorsEntities.tbl_DepartmentMaster.Any(x => x.DepartmentName == DepartmentName))
+                {
+                    tbl_DepartmentMaster existingDepartment = _DbManageVisitorsEntities.tbl_DepartmentMaster.Single(x => x.DepartmentName == DepartmentName);
+                    if (existingDepartment.DepartmentID != DepartmentID)
+                    {
+                        return Json(false);
+                    }
+                    else
+                    {
+                        return Json(true);
+                    }
+                }
+                else
+                {
+                    return Json(true);
+                }
+            }
+            else
+            {
+                return Json(!_DbManageVisitorsEntities.tbl_DepartmentMaster.Any(x => x.DepartmentName == DepartmentName));
+            }
+        }
+
         // GET: EmployeeDepartment/Create
         public ActionResult Create()
         {
@@ -63,23 +91,35 @@ namespace WebApiForManageVisitors.Controllers
         [HttpPost]
         public ActionResult Create(DepartmentMasterModel collection)
         {
-            try
+            if (ModelState.IsValid)
             {
                 CheckViewBagData();
                 var data = new tbl_DepartmentMaster()
                 {
                     DepartmentName = collection.DepartmentName,
-                    DepartmentCreateDate = DateTime.Now
+                    // DepartmentCreateDate = DateTime.Now
                 };
+                if (!_DbManageVisitorsEntities.tbl_DepartmentMaster.Any(p=>p.DepartmentName==collection.DepartmentName))
+                {
+                    try
+                    {
+                        _DbManageVisitorsEntities.tbl_DepartmentMaster.Add(data);
+                        _DbManageVisitorsEntities.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
 
-                _DbManageVisitorsEntities.tbl_DepartmentMaster.Add(data);
-                _DbManageVisitorsEntities.SaveChanges();
-                return RedirectToAction("Index");
+                }
+                else
+                {
+                   ViewBag.Errormessage = "Fail";
+                }
+
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: EmployeeDepartment/Edit/5
