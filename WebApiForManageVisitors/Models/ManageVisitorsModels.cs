@@ -35,6 +35,7 @@ namespace WebApiForManageVisitors.Models
         [Display(Name = "Contact No.")]
         public string EmployeeContactNo { get; set; }
         [Display(Name = "Email ID")]
+        //[DataType(DataType.EmailAddress)]
         public string EmployeeEmailID { get; set; }
         [Display(Name = "Department Name")]
         public Nullable<long> EmployeeDepartmentID { get; set; }
@@ -45,6 +46,7 @@ namespace WebApiForManageVisitors.Models
         [Display(Name = "Designation Name")]
         public string DesignationName { get; set; }
         [Display(Name = "Password")]
+        [DataType(DataType.Password)]
         public string EmployeePassword { get; set; }
         [Display(Name = "Create Date")]
         public Nullable<System.DateTime> Date { get; set; }
@@ -71,6 +73,7 @@ namespace WebApiForManageVisitors.Models
         [Display(Name = "Contractor Contact No")]
         public string VisitorContractorCoNo { get; set; }
         [Display(Name = "Password")]
+        [DataType(DataType.Password)]
         public string VisitorPassword { get; set; }
          [Display(Name = "Date")]
         public Nullable<System.DateTime> VisitorRegistrationDate { get; set; }

@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <script>
@@ -45,48 +44,135 @@
             </button>
         </div>
     </div>
-        <div class="content-header clearfix">
-            <div class="box box-info">
-                <div class="box-body">
-                    <form action="#" method="post">
+    <div class="content-header clearfix">
+        <div class="box box-info">
+            <div class="box-body">
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @if (TempData["ErrorTokenNo"] != null)
+                    {
+                        <span style='color:red;'><p>@TempData["ErrorTokenNo"]</p></span>
+
+                    }
+
+                    @*<div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeSrNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.EmployeeSrNo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EmployeeSrNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeTokenNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.EmployeeTokenNo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EmployeeTokenNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.EmployeeAddress, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EmployeeAddress, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.EmployeeContactNo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EmployeeContactNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeEmailID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.EmployeeEmailID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EmployeeEmailID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <style>
+                        .MakeWide {
+                            width: 435px;
+                            height: 30px;
+                        }
+                    </style>
+
+                    <div class="form-group">
+                            @Html.LabelFor(model => model.EmployeeDepartmentID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @*@Html.EditorFor(model => model.EmployeeDepartmentID, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.DropDownListFor(model => model.EmployeeDepartmentID, (ViewBag.DepartmentCombo) as SelectList, "--Select Department--", new { id = "DepartmentDropDown", onchange = "getDesignation()", @class = "MakeWide" })
+                                @Html.ValidationMessageFor(model => model.EmployeeDepartmentID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" name="EmployeeTokenNo" style="width:50%;" placeholder="Token No.">
+                            @Html.LabelFor(model => model.EmployeeDesignationID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @*@Html.EditorFor(model => model.EmployeeDesignationID, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.DropDownList("DesignationCombo", (Enumerable.Empty<SelectListItem>()), "--Select Designation--", new { id = "DesignationDropDown", @class = "MakeWide" })
+                                @Html.ValidationMessageFor(model => model.EmployeeDesignationID, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="EmployeeName" style="width:50%;" placeholder="Employee Name">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="EmployeeAddress" style="width:50%;" placeholder="Employee Address">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="EmployeeContactNo" style="width:50%;" placeholder="Contact No.">
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" name="EmployeeEmailID" style="width:50%;" placeholder="Email ID">
-                        </div>
-                        <style>
-                            .MakeWide {
-                                width: 300px;
-                                height: 30px;
-                            }
-                        </style>
-                        <div class="form-group">
-                            @Html.DropDownListFor(model => model.EmployeeDepartmentID, (ViewBag.DepartmentCombo) as SelectList, "--Select Department--", new { id = "DepartmentDropDown", onchange = "getDesignation()", @class = "MakeWide" })
+
+                    @*<div class="form-group">
+                            @Html.LabelFor(model => model.DepartmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.DropDownList("DesignationCombo",( Enumerable.Empty<SelectListItem>())  , "--Select Designation--", new { id = "DesignationDropDown", @class = "MakeWide" })
+                            @Html.LabelFor(model => model.DesignationName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.DesignationName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DesignationName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+
+                    @*<div class="form-group">
+                        @Html.DropDownListFor(model => model.EmployeeDepartmentID, (ViewBag.DepartmentCombo) as SelectList, "--Select Department--", new { id = "DepartmentDropDown", onchange = "getDesignation()", @class = "MakeWide" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.DropDownList("DesignationCombo", (Enumerable.Empty<SelectListItem>()), "--Select Designation--", new { id = "DesignationDropDown", @class = "MakeWide" })
+                    </div>*@
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeePassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.EmployeePassword, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EmployeePassword, "", new { @class = "text-danger" })
                         </div>
+                    </div>
 
+                    @*<div class="form-group">
+                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
 
-
-                        <div class="form-group">
-                            <input type="password" class="form-control" name="EmployeePassword" style="width:50%;" placeholder="Password">
-                        </div>
-
-                    </form>
                 </div>
             </div>
         </div>
+    </div>
+
 }
