@@ -15,6 +15,16 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="tbl_ContractorMaster">
+          <Key>
+            <PropertyRef Name="ContractorSrNo" />
+          </Key>
+          <Property Name="ContractorSrNo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar(max)" />
+          <Property Name="ContractorName" Type="varchar(max)" />
+          <Property Name="ContractorContactNo" Type="varchar(max)" />
+          <Property Name="ContractorCreateDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="tbl_DepartmentEmployeeRegistration">
           <Key>
             <PropertyRef Name="EmployeeSrNo" />
@@ -77,7 +87,7 @@
           <Property Name="VisitorContactNo" Type="varchar(max)" />
           <Property Name="VisitorEmailID" Type="varchar(max)" />
           <Property Name="VisitorNatureOfWork" Type="varchar(max)" />
-          <Property Name="VisitorContractor" Type="varchar(max)" />
+          <Property Name="VisitorContractorSrNo" Type="bigint" />
           <Property Name="VisitorContractorCoNo" Type="varchar(max)" />
           <Property Name="VisitorPassword" Type="varchar(max)" />
           <Property Name="VisitorRegistrationDate" Type="datetime" />
@@ -163,6 +173,7 @@
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ManageVisitorsModelStoreContainer">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ContractorMaster" EntityType="Self.tbl_ContractorMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DepartmentEmployeeRegistration" EntityType="Self.tbl_DepartmentEmployeeRegistration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DepartmentMaster" EntityType="Self.tbl_DepartmentMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DesignationMaster" EntityType="Self.tbl_DesignationMaster" Schema="dbo" store:Type="Tables" />
@@ -199,6 +210,16 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tbl_ContractorMaster">
+          <Key>
+            <PropertyRef Name="ContractorSrNo" />
+          </Key>
+          <Property Name="ContractorSrNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ContractorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ContractorContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ContractorCreateDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tbl_DepartmentEmployeeRegistration">
           <Key>
@@ -269,7 +290,7 @@
           <Property Name="VisitorContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="VisitorEmailID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="VisitorNatureOfWork" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="VisitorContractor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VisitorContractorSrNo" Type="Int64" />
           <Property Name="VisitorContractorCoNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="VisitorPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="VisitorRegistrationDate" Type="DateTime" Precision="3" />
@@ -325,6 +346,7 @@
         </Association>
         <EntityContainer Name="ManageVisitorsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tbl_ContractorMaster" EntityType="Self.tbl_ContractorMaster" />
           <EntitySet Name="tbl_DepartmentEmployeeRegistration" EntityType="Self.tbl_DepartmentEmployeeRegistration" />
           <EntitySet Name="tbl_DepartmentMaster" EntityType="Self.tbl_DepartmentMaster" />
           <EntitySet Name="tbl_DesignationMaster" EntityType="Self.tbl_DesignationMaster" />
@@ -405,6 +427,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ContractorMaster">
+            <EntityTypeMapping TypeName="ManageVisitorsModel.tbl_ContractorMaster">
+              <MappingFragment StoreEntitySet="tbl_ContractorMaster">
+                <ScalarProperty Name="ContractorSrNo" ColumnName="ContractorSrNo" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="ContractorName" ColumnName="ContractorName" />
+                <ScalarProperty Name="ContractorContactNo" ColumnName="ContractorContactNo" />
+                <ScalarProperty Name="ContractorCreateDate" ColumnName="ContractorCreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_DepartmentEmployeeRegistration">
             <EntityTypeMapping TypeName="ManageVisitorsModel.tbl_DepartmentEmployeeRegistration">
               <MappingFragment StoreEntitySet="tbl_DepartmentEmployeeRegistration">
@@ -470,7 +503,7 @@
                 <ScalarProperty Name="VisitorContactNo" ColumnName="VisitorContactNo" />
                 <ScalarProperty Name="VisitorEmailID" ColumnName="VisitorEmailID" />
                 <ScalarProperty Name="VisitorNatureOfWork" ColumnName="VisitorNatureOfWork" />
-                <ScalarProperty Name="VisitorContractor" ColumnName="VisitorContractor" />
+                <ScalarProperty Name="VisitorContractorSrNo" ColumnName="VisitorContractorSrNo" />
                 <ScalarProperty Name="VisitorContractorCoNo" ColumnName="VisitorContractorCoNo" />
                 <ScalarProperty Name="VisitorPassword" ColumnName="VisitorPassword" />
                 <ScalarProperty Name="VisitorRegistrationDate" ColumnName="VisitorRegistrationDate" />

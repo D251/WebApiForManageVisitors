@@ -1,0 +1,87 @@
+﻿@model IEnumerable<WebApiForManageVisitors.Models.ContractorMasterModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="content-header">
+    <h1 class="pull-left">
+        Contractors Details
+    </h1>
+    <div class="pull-right">
+        <a href="@Url.Action("Create")" class="btn bg-blue">
+            <i class="fa fa-plus-square"></i>
+            Create New
+        </a>
+    </div>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="display" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CompanyName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ContractorName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ContractorContactNo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ContractorCreateDate)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CompanyName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ContractorName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ContractorContactNo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ContractorCreateDate)
+                                </th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CompanyName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ContractorName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ContractorContactNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ContractorCreateDate)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.ContractorSrNo }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.ContractorSrNo }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.ContractorSrNo })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

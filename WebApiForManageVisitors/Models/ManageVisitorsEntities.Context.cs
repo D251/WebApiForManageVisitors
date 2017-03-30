@@ -28,6 +28,7 @@ namespace WebApiForManageVisitors.Models
         }
     
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<tbl_ContractorMaster> tbl_ContractorMaster { get; set; }
         public virtual DbSet<tbl_DepartmentEmployeeRegistration> tbl_DepartmentEmployeeRegistration { get; set; }
         public virtual DbSet<tbl_DepartmentMaster> tbl_DepartmentMaster { get; set; }
         public virtual DbSet<tbl_DesignationMaster> tbl_DesignationMaster { get; set; }

@@ -27,7 +27,7 @@ namespace WebApiForManageVisitors.Models
         public string VisitorContactNo { get; set; }
         public string VisitorEmailID { get; set; }
         public string VisitorNatureOfWork { get; set; }
-        public string VisitorContractor { get; set; }
+        public Nullable<long> VisitorContractorSrNo { get; set; }
         public string VisitorContractorCoNo { get; set; }
         public string VisitorPassword { get; set; }
         public Nullable<System.DateTime> VisitorRegistrationDate { get; set; }

@@ -66,10 +66,12 @@ namespace WebApiForManageVisitors.Models
         public string VisitorEmailID { get; set; }
         [Display(Name = "Visitor Nature Of Work")]
         public string VisitorNatureOfWork { get; set; }
-        [Display(Name = "Visitor Contractor")]
-        public string VisitorContractor { get; set; }
+        [Display(Name = "Visitor Contractor SrNo")]
+        public Nullable<long> VisitorContractorSrNo { get; set; }
         [Display(Name = "Contractor Contact No")]
         public string VisitorContractorCoNo { get; set; }
+        [Display(Name = "Visitor Contractor Name")]
+        public string VisitorContractorName { get; set; }
         [Display(Name = "Password")]
         public string VisitorPassword { get; set; }
          [Display(Name = "Date")]
@@ -198,6 +200,23 @@ namespace WebApiForManageVisitors.Models
         [Display(Name = "Contractor Status")]
         public string ContractorStatus { get; set; }
     }
+
+
+    public class ContractorMasterModel
+    {
+        [Display(Name = "Contractor SrNo")]
+        public long ContractorSrNo { get; set; }
+        [Display(Name = "Company Name")]
+        public string CompanyName { get; set; }
+        [Display(Name = "Contractor Name")]
+        public string ContractorName { get; set; }
+        [Display(Name = "Contracto rContact No")]
+        public string ContractorContactNo { get; set; }
+        [Display(Name = "Contractor Create Date")]
+        public Nullable<System.DateTime> ContractorCreateDate { get; set; }
+    }
+
+
 
     public class UserLoginModel
     {
