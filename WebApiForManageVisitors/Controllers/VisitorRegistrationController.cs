@@ -17,6 +17,7 @@ namespace WebApiForManageVisitors.Controllers
             @ViewBag.VisitorRegistration = true;
             @ViewBag.EmployeeDepartment = false;
             @ViewBag.EmployeeDesignation = false;
+            @ViewBag.ContractorMaster = false;
             @ViewBag.RequestDetails = false;
         }
         // GET: VisitorRegistration
@@ -28,6 +29,8 @@ namespace WebApiForManageVisitors.Controllers
 
             foreach (var item in VisitorUserRegistration)
             {
+                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == item.VisitorContractorSrNo).FirstOrDefault();
+
                 VisitorUserRegistrationModel _objVisitorUserRegistrationModelItem = new VisitorUserRegistrationModel();
                 _objVisitorUserRegistrationModelItem.VisitorSrNo = item.VisitorSrNo;
                 _objVisitorUserRegistrationModelItem.VisitorUserID = item.VisitorUserID;
@@ -36,7 +39,7 @@ namespace WebApiForManageVisitors.Controllers
                 _objVisitorUserRegistrationModelItem.VisitorContactNo = item.VisitorContactNo;
                 _objVisitorUserRegistrationModelItem.VisitorEmailID = item.VisitorEmailID;
                 _objVisitorUserRegistrationModelItem.VisitorNatureOfWork = item.VisitorNatureOfWork;
-                _objVisitorUserRegistrationModelItem.VisitorContractor = item.VisitorContractor;
+                _objVisitorUserRegistrationModelItem.VisitorContractorName = _objContractor.ContractorName;
                 _objVisitorUserRegistrationModelItem.VisitorContractorCoNo = item.VisitorContractorCoNo;
                 _objVisitorUserRegistrationModelItem.VisitorPassword = item.VisitorPassword;
                 _objVisitorUserRegistrationModelItem.VisitorRegistrationDate = item.VisitorRegistrationDate;
@@ -52,12 +55,13 @@ namespace WebApiForManageVisitors.Controllers
             VisitorUserRegistrationModel _objVisitorUserRegistrationModel = new VisitorUserRegistrationModel();
             var data = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == id).FirstOrDefault();
             {
+                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == data.VisitorContractorSrNo).FirstOrDefault();
                 _objVisitorUserRegistrationModel.VisitorSrNo = data.VisitorSrNo;
                 _objVisitorUserRegistrationModel.VisitorUserID = data.VisitorUserID;
                 _objVisitorUserRegistrationModel.VisitorName = data.VisitorName;
                 _objVisitorUserRegistrationModel.VisitorContactNo = data.VisitorContactNo;
                 _objVisitorUserRegistrationModel.VisitorAddress = data.VisitorAddress;
-                _objVisitorUserRegistrationModel.VisitorContractor = data.VisitorContractor;
+                _objVisitorUserRegistrationModel.VisitorContractorName = _objContractor.ContractorName;
                 _objVisitorUserRegistrationModel.VisitorContractorCoNo = data.VisitorContractorCoNo;
                 _objVisitorUserRegistrationModel.VisitorEmailID = data.VisitorEmailID;
                 _objVisitorUserRegistrationModel.VisitorNatureOfWork = data.VisitorNatureOfWork;
@@ -108,13 +112,14 @@ namespace WebApiForManageVisitors.Controllers
 
                 var data = new tbl_VisitorUserRegistration
                 {
+
                     VisitorUserID = collection.VisitorUserID,
                     VisitorName = collection.VisitorName,
                     VisitorAddress = collection.VisitorAddress,
                     VisitorContactNo = collection.VisitorContactNo,
                     VisitorEmailID = collection.VisitorEmailID,
                     VisitorNatureOfWork = collection.VisitorNatureOfWork,
-                    VisitorContractor = collection.VisitorContractor,
+                    VisitorContractorSrNo = collection.VisitorContractorSrNo,
                     VisitorContractorCoNo = collection.VisitorContractorCoNo,
                     VisitorPassword = collection.VisitorPassword,
                     //VisitorRegistrationDate = DateTime.Now
@@ -142,12 +147,13 @@ namespace WebApiForManageVisitors.Controllers
             VisitorUserRegistrationModel _objVisitorUserRegistrationModel = new VisitorUserRegistrationModel();
             var data = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == id).FirstOrDefault();
             {
+                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == data.VisitorContractorSrNo).FirstOrDefault();
                 _objVisitorUserRegistrationModel.VisitorSrNo = data.VisitorSrNo;
                 _objVisitorUserRegistrationModel.VisitorUserID = data.VisitorUserID;
                 _objVisitorUserRegistrationModel.VisitorName = data.VisitorName;
                 _objVisitorUserRegistrationModel.VisitorContactNo = data.VisitorContactNo;
                 _objVisitorUserRegistrationModel.VisitorAddress = data.VisitorAddress;
-                _objVisitorUserRegistrationModel.VisitorContractor = data.VisitorContractor;
+                _objVisitorUserRegistrationModel.VisitorContractorName = _objContractor.ContractorName;
                 _objVisitorUserRegistrationModel.VisitorContractorCoNo = data.VisitorContractorCoNo;
                 _objVisitorUserRegistrationModel.VisitorEmailID = data.VisitorEmailID;
                 _objVisitorUserRegistrationModel.VisitorNatureOfWork = data.VisitorNatureOfWork;
@@ -168,6 +174,7 @@ namespace WebApiForManageVisitors.Controllers
                 // TODO: Add update logic here
                 CheckViewBagData();
                 var data = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(b => b.VisitorSrNo == id).FirstOrDefault();
+                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == data.VisitorContractorSrNo).FirstOrDefault();
                 //data.EmployeeSrNo = collection.EmployeeSrNo;
                 data.VisitorUserID = collection.VisitorUserID;
                 data.VisitorName = collection.VisitorName;
@@ -175,7 +182,7 @@ namespace WebApiForManageVisitors.Controllers
                 data.VisitorContactNo = collection.VisitorContactNo;
                 data.VisitorEmailID = collection.VisitorEmailID;
                 data.VisitorNatureOfWork = collection.VisitorNatureOfWork;
-                data.VisitorContractor = collection.VisitorContractor;
+                data.VisitorContractorSrNo = _objContractor.ContractorSrNo;
                 data.VisitorContractorCoNo = collection.VisitorContractorCoNo;
                 data.VisitorPassword = collection.VisitorPassword;
                 _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
@@ -195,12 +202,14 @@ namespace WebApiForManageVisitors.Controllers
             VisitorUserRegistrationModel _objVisitorUserRegistrationModel = new VisitorUserRegistrationModel();
             var data = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == id).FirstOrDefault();
             {
+
+                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == data.VisitorContractorSrNo).FirstOrDefault();
                 _objVisitorUserRegistrationModel.VisitorSrNo = data.VisitorSrNo;
                 _objVisitorUserRegistrationModel.VisitorUserID = data.VisitorUserID;
                 _objVisitorUserRegistrationModel.VisitorName = data.VisitorName;
                 _objVisitorUserRegistrationModel.VisitorContactNo = data.VisitorContactNo;
                 _objVisitorUserRegistrationModel.VisitorAddress = data.VisitorAddress;
-                _objVisitorUserRegistrationModel.VisitorContractor = data.VisitorContractor;
+                _objVisitorUserRegistrationModel.VisitorContractorName = _objContractor.ContractorName;
                 _objVisitorUserRegistrationModel.VisitorContractorCoNo = data.VisitorContractorCoNo;
                 _objVisitorUserRegistrationModel.VisitorEmailID = data.VisitorEmailID;
                 _objVisitorUserRegistrationModel.VisitorNatureOfWork = data.VisitorNatureOfWork;

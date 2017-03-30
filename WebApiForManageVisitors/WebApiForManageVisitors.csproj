@@ -231,6 +231,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminApiForMVController.cs" />
     <Compile Include="CommonModelForAPI.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContractorMasterController.cs" />
     <Compile Include="Controllers\EmployeeDepartmentController.cs" />
     <Compile Include="Controllers\EmployeeDesignationController.cs" />
     <Compile Include="Controllers\EmployeeRegistrationController.cs" />
@@ -267,6 +268,9 @@
       <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ContractorMaster.cs">
       <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_DepartmentEmployeeRegistration.cs">
@@ -1240,13 +1244,6 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
     <Content Include="apiapp.json" />
-    <EntityDeploy Include="Models\ManageVisitorsEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ManageVisitorsEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\ManageVisitorsEntities.edmx.diagram">
-      <DependentUpon>ManageVisitorsEntities.edmx</DependentUpon>
-    </Content>
     <Content Include="bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="bootstrap\css\bootstrap-theme.min.css.map" />
     <Content Include="bootstrap\css\bootstrap.css.map" />
@@ -1371,6 +1368,13 @@
     <Content Include="plugins\datatables\extensions\TableTools\Readme.md" />
     <Content Include="plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="plugins\input-mask\phone-codes\phone-codes.json" />
+    <EntityDeploy Include="Models\ManageVisitorsEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ManageVisitorsEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ManageVisitorsEntities.edmx.diagram">
+      <DependentUpon>ManageVisitorsEntities.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Api.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1444,7 +1448,11 @@
     <Content Include="Views\RequestDetails\Edit.cshtml" />
     <Content Include="Views\RequestDetails\Delete.cshtml" />
     <Content Include="Views\EmployeeRegistration\Delete.cshtml" />
-    <Content Include="Views\EmployeeRegistration\Create.cshtml" />
+    <Content Include="Views\ContractorMaster\Create.cshtml" />
+    <Content Include="Views\ContractorMaster\Details.cshtml" />
+    <Content Include="Views\ContractorMaster\Index.cshtml" />
+    <Content Include="Views\ContractorMaster\Edit.cshtml" />
+    <Content Include="Views\ContractorMaster\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

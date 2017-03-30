@@ -16,6 +16,7 @@ namespace WebApiForManageVisitors.Controllers
             @ViewBag.VisitorRegistration = false;
             @ViewBag.EmployeeDepartment = false;
             @ViewBag.EmployeeDesignation = false;
+            @ViewBag.ContractorMaster = false;
             @ViewBag.RequestDetails = true;
         }
 
@@ -40,12 +41,14 @@ namespace WebApiForManageVisitors.Controllers
 
                 var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == _objAllRequestProcessModel.VisitorSrNo).FirstOrDefault();
 
+                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVisitorUserRegistration.VisitorContractorSrNo).FirstOrDefault();
+
                 _objProcessRequestDetailsByRequestID.RequestProcessSrNo = _objAllRequestProcessModel.RequestProcessSrNo;
                 _objProcessRequestDetailsByRequestID.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
                 _objProcessRequestDetailsByRequestID.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
                 _objProcessRequestDetailsByRequestID.EmployeeDepartmentName = _objDepartmentMaster.DepartmentName;
                 _objProcessRequestDetailsByRequestID.VisitorName = _objVisitorUserRegistration.VisitorName;
-                _objProcessRequestDetailsByRequestID.ContractorName = _objVisitorUserRegistration.VisitorContractor;
+                _objProcessRequestDetailsByRequestID.ContractorName = _objContractor.ContractorName;
                 _objProcessRequestDetailsByRequestID.VisitStartTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitStartTime);
                 _objProcessRequestDetailsByRequestID.VisitEndTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitEndTime);
                 _objProcessRequestDetailsByRequestID.NatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;
@@ -83,12 +86,14 @@ namespace WebApiForManageVisitors.Controllers
 
             var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == _objAllRequestProcessModel.VisitorSrNo).FirstOrDefault();
 
+            var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVisitorUserRegistration.VisitorContractorSrNo).FirstOrDefault();
+
             _objProcessRequestDetailsByRequestID.RequestProcessSrNo = _objAllRequestProcessModel.RequestProcessSrNo;
             _objProcessRequestDetailsByRequestID.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
             _objProcessRequestDetailsByRequestID.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
             _objProcessRequestDetailsByRequestID.EmployeeDepartmentName = _objDepartmentMaster.DepartmentName;
             _objProcessRequestDetailsByRequestID.VisitorName = _objVisitorUserRegistration.VisitorName;
-            _objProcessRequestDetailsByRequestID.ContractorName = _objVisitorUserRegistration.VisitorContractor;
+            _objProcessRequestDetailsByRequestID.ContractorName = _objContractor.ContractorName;
             _objProcessRequestDetailsByRequestID.VisitStartTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitStartTime);
             _objProcessRequestDetailsByRequestID.VisitEndTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitEndTime);
             _objProcessRequestDetailsByRequestID.NatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;
@@ -150,12 +155,14 @@ namespace WebApiForManageVisitors.Controllers
 
             var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == _objAllRequestProcessModel.VisitorSrNo).FirstOrDefault();
 
+            var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVisitorUserRegistration.VisitorContractorSrNo).FirstOrDefault();
+
             _objProcessRequestDetailsByRequestID.RequestProcessSrNo = _objAllRequestProcessModel.RequestProcessSrNo;
             _objProcessRequestDetailsByRequestID.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
             _objProcessRequestDetailsByRequestID.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
             _objProcessRequestDetailsByRequestID.EmployeeDepartmentName = _objDepartmentMaster.DepartmentName;
             _objProcessRequestDetailsByRequestID.VisitorName = _objVisitorUserRegistration.VisitorName;
-            _objProcessRequestDetailsByRequestID.ContractorName = _objVisitorUserRegistration.VisitorContractor;
+            _objProcessRequestDetailsByRequestID.ContractorName = _objContractor.ContractorName;
             _objProcessRequestDetailsByRequestID.VisitStartTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitStartTime);
             _objProcessRequestDetailsByRequestID.VisitEndTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitEndTime);
             _objProcessRequestDetailsByRequestID.NatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;
@@ -205,12 +212,15 @@ namespace WebApiForManageVisitors.Controllers
 
             var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == _objAllRequestProcessModel.VisitorSrNo).FirstOrDefault();
 
+            var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVisitorUserRegistration.VisitorContractorSrNo).FirstOrDefault();
+
+
             _objProcessRequestDetailsByRequestID.RequestProcessSrNo = _objAllRequestProcessModel.RequestProcessSrNo;
             _objProcessRequestDetailsByRequestID.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
             _objProcessRequestDetailsByRequestID.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
             _objProcessRequestDetailsByRequestID.EmployeeDepartmentName = _objDepartmentMaster.DepartmentName;
             _objProcessRequestDetailsByRequestID.VisitorName = _objVisitorUserRegistration.VisitorName;
-            _objProcessRequestDetailsByRequestID.ContractorName = _objVisitorUserRegistration.VisitorContractor;
+            _objProcessRequestDetailsByRequestID.ContractorName = _objContractor.ContractorName;
             _objProcessRequestDetailsByRequestID.VisitStartTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitStartTime);
             _objProcessRequestDetailsByRequestID.VisitEndTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitEndTime);
             _objProcessRequestDetailsByRequestID.NatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;

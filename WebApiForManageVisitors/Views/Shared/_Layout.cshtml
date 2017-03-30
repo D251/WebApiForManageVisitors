@@ -97,13 +97,14 @@
                         string VisitorRegistration = @ViewBag.VisitorRegistration ? "active" : "";
                         string EmployeeDepartment = @ViewBag.EmployeeDepartment ? "active" : "";
                         string EmployeeDesignation = @ViewBag.EmployeeDesignation ? "active" : "";
+                        string ContractorMaster = @ViewBag.ContractorMaster ? "active" : "";
                         string RequestDetails = @ViewBag.RequestDetails ? "active" : "";
                         <li class="header">MAIN NAVIGATION</li>
 
 
                         if (@EmployeeRegistration == "active" || @VisitorRegistration == "active")
                         { Registration = "active"; }
-                        else if (@EmployeeDepartment == "active" || @EmployeeDesignation == "active")
+                        else if (@EmployeeDepartment == "active" || @EmployeeDesignation == "active" || @ContractorMaster == "active")
                         { Masters = "active"; }
                         else if (@RequestDetails == "active")
                         { Reports = "active"; }
@@ -132,6 +133,7 @@
                             <ul class="treeview-menu">
                                 <li class="@EmployeeDepartment"><a href="~/EmployeeDepartment/Index"><i class="fa fa-circle-o"></i>Department</a></li>
                                 <li class="@EmployeeDesignation"><a href="~/EmployeeDesignation/Index"><i class="fa fa-circle-o"></i>Designation</a></li>
+                                <li class="@ContractorMaster"><a href="~/ContractorMaster/Index"><i class="fa fa-circle-o"></i>Contractor</a></li>
                             </ul>
                         </li>
 

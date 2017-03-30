@@ -309,6 +309,8 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
             {
                 VisitorUserRegistrationModel _list = new VisitorUserRegistrationModel();
                 var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorUserID == collection.VisitorUserID).FirstOrDefault();
+                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == collection.VisitorContractorSrNo).FirstOrDefault();
+
 
                 _list.VisitorSrNo = _objVisitorUserRegistration.VisitorSrNo;
                 _list.VisitorUserID = _objVisitorUserRegistration.VisitorUserID;
@@ -317,7 +319,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                 _list.VisitorContactNo = _objVisitorUserRegistration.VisitorContactNo;
                 _list.VisitorEmailID = _objVisitorUserRegistration.VisitorEmailID;
                 _list.VisitorNatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;
-                _list.VisitorContractor = _objVisitorUserRegistration.VisitorContractor;
+                _list.VisitorContractorName = _objContractor.ContractorName;
                 _list.VisitorContractorCoNo = _objVisitorUserRegistration.VisitorContractorCoNo;
                 _list.VisitorPassword = _objVisitorUserRegistration.VisitorPassword;
                 _list.VisitorRegistrationDate = _objVisitorUserRegistration.VisitorRegistrationDate;
@@ -459,12 +461,14 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
 
                 var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == _objAllRequestProcessModel.VisitorSrNo).FirstOrDefault();
 
+                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVisitorUserRegistration.VisitorContractorSrNo).FirstOrDefault();
+
                 _objProcessRequestDetailsByRequestID.RequestProcessSrNo = _objAllRequestProcessModel.RequestProcessSrNo;
                 _objProcessRequestDetailsByRequestID.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
                 _objProcessRequestDetailsByRequestID.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
                 _objProcessRequestDetailsByRequestID.EmployeeDepartmentName = _objDepartmentMaster.DepartmentName;
                 _objProcessRequestDetailsByRequestID.VisitorName = _objVisitorUserRegistration.VisitorName;
-                _objProcessRequestDetailsByRequestID.ContractorName = _objVisitorUserRegistration.VisitorContractor;
+                _objProcessRequestDetailsByRequestID.ContractorName = _objContractor.ContractorName;
                 _objProcessRequestDetailsByRequestID.VisitStartTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitStartTime);
                 _objProcessRequestDetailsByRequestID.VisitEndTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitEndTime);
                 _objProcessRequestDetailsByRequestID.NatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;

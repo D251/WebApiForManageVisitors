@@ -19,6 +19,7 @@ namespace WebApiForManageVisitors.Controllers
             @ViewBag.VisitorRegistration = false;
             @ViewBag.EmployeeDepartment = true;
             @ViewBag.EmployeeDesignation = false;
+            @ViewBag.ContractorMaster = false;
             @ViewBag.RequestDetails = false;
         }
 

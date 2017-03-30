@@ -18,6 +18,7 @@ namespace WebApiForManageVisitors.Controllers
             @ViewBag.VisitorRegistration = false;
             @ViewBag.EmployeeDepartment = false;
             @ViewBag.EmployeeDesignation = true;
+            @ViewBag.ContractorMaster = false;
             @ViewBag.RequestDetails = false;
         }
 
@@ -141,7 +142,7 @@ namespace WebApiForManageVisitors.Controllers
                     data.DesignationID = collection.DesignationID;
                     data.DepartmentID = collection.DepartmentID;
                     data.DesignationName = collection.DesignationName;
-                    data.DesignationCreateDate = collection.DesignationCreateDate;
+                    data.DesignationCreateDate = data.DesignationCreateDate;
                     _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
                     _DbManageVisitorsEntities.SaveChanges();
                     return RedirectToAction("Index");

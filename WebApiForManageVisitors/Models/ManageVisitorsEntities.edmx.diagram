@@ -4,8 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3e2ff771dc874c27af6c53dac55fca1b" Name="Diagram1">
+      <Diagram DiagramId="1debad73138b4cac9cf4a9aa7aa6fe1c" Name="Diagram1">
         <EntityTypeShape EntityType="ManageVisitorsModel.sysdiagram" Width="1.5" PointX="5.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManageVisitorsModel.tbl_ContractorMaster" Width="1.5" PointX="7.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ManageVisitorsModel.tbl_DepartmentEmployeeRegistration" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="ManageVisitorsModel.tbl_DepartmentMaster" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ManageVisitorsModel.tbl_DesignationMaster" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
