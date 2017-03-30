@@ -29,18 +29,27 @@
                     height: 30px;
                 }
             </style>
-
+        
             <div class="form-group">
                 @Html.Label("Department", htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.DropDownList("DepartmentCombo", (ViewBag.DepartmentCombo) as SelectList, "--Select Department--", new { @class = "MakeWide" })
             </div>
+          
             <div class="form-group">
                 @Html.LabelFor(model => model.DesignationName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.DesignationName, new { htmlAttributes = new { @class = "MakeWide" } })
+                    @Html.EditorFor(model => model.DesignationName, new { htmlAttributes = new { @class = "MakeWide", style = "width: 50%" } })
                     @Html.ValidationMessageFor(model => model.DesignationName, "", new { @class = "text-danger" })
                 </div>
             </div>
+
+            @if (ViewBag.Errormessage == "Fail")
+            {
+                <div class="alert alert-danger fade in" style="width:400px " height:2px">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>Error!  </strong>  Designation Name Already Present !!!.
+                </div>
+            }
         </div>
     </div>
 }

@@ -104,6 +104,8 @@ namespace WebApiForManageVisitors.Controllers
             try
             {
                 CheckViewBagData();
+                ViewBag.DepartmentCombo = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
+                ViewBag.DesignationCombo = new SelectList(_DbManageVisitorsEntities.tbl_DesignationMaster, "DesignationID", "DesignationName");
                 var data = new tbl_DepartmentEmployeeRegistration()
                 {
                     EmployeeTokenNo = collection.EmployeeTokenNo,
@@ -114,13 +116,21 @@ namespace WebApiForManageVisitors.Controllers
                     EmployeeEmailID = collection.EmployeeEmailID,
                     EmployeeName = collection.EmployeeName,
                     EmployeePassword = collection.EmployeePassword,
-                    Date = DateTime.Now
+                   // Date = DateTime.Now
                 };
-
                 _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Add(data);
-                _DbManageVisitorsEntities.SaveChanges();
-                return RedirectToAction("Index");
+                if (!_DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Any(p=>p.EmployeeTokenNo==collection.EmployeeTokenNo))
+                {
+                 
+                    _DbManageVisitorsEntities.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["ErrorTokenNo"] = "Token No. Already Present !!!";
+                }
 
+                return View();
             }
             catch (Exception ex)
             {
