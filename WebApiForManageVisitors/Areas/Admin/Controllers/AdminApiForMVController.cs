@@ -269,6 +269,40 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
 
         }
 
+        [HttpGet]
+        public JsonResult GetContractorMaster()
+        {
+            try
+            {
+                List<ContractorMasterModel> _list = new List<ContractorMasterModel>();
+                var _objDesignationMaster = _DbManageVisitorsEntities.tbl_ContractorMaster.ToList();
+
+                foreach (var item in _objDesignationMaster)
+                {
+                    ContractorMasterModel _class = new Models.ContractorMasterModel();
+
+                    _class.ContractorSrNo = item.ContractorSrNo;
+                    _class.CompanyName = item.CompanyName;
+                    _class.ContractorName = item.ContractorName;
+                    _class.ContractorContactNo = item.ContractorContactNo;
+                    _class.ContractorCreateDate = item.ContractorCreateDate;
+
+                    _list.Add(_class);
+                }
+
+                return Json(_list, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ResultModel _objResult = new ResultModel();
+                _objResult.success = 0;
+                _objResult.msg = ex.ToString();
+                return Json(_objResult, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+
         [HttpPost]
         public JsonResult GetDepartmentEmployeeInformationByTokenNo(GetAllDepartmentEmployeeNameModel collection)
         {
