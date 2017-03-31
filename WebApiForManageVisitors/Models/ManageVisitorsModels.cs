@@ -210,7 +210,7 @@ namespace WebApiForManageVisitors.Models
         public string CompanyName { get; set; }
         [Display(Name = "Contractor Name")]
         public string ContractorName { get; set; }
-        [Display(Name = "Contracto rContact No")]
+        [Display(Name = "Contractor Contact No")]
         public string ContractorContactNo { get; set; }
         [Display(Name = "Contractor Create Date")]
         public Nullable<System.DateTime> ContractorCreateDate { get; set; }
