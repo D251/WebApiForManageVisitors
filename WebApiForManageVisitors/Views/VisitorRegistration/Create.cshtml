@@ -4,6 +4,26 @@
     ViewBag.Title = "Create";
 }
 
+<script type="text/javascript">
+    function getContractorcontactNo() {
+        debugger;
+        var stateId = $("#ContractorNameDropDown").val();
+        $.ajax({
+            url: '@Url.Action("GetContractorContactNo", "VisitorRegistration")',
+            type: 'POST',
+            datatype: 'application/json',
+            contentType: 'application/json',
+            data: JSON.stringify({ id: +stateId }),
+            success: function (result) {
+                var contact_no = result;
+                $("#ContractorContactNo").val(contact_no)
+              },
+            error: function () { alert("Whooaaa! Something went wrong..") },
+        });
+    }
+</script>
+
+
 @using (Html.BeginForm("Create", "VisitorRegistration", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -76,20 +96,26 @@
                             @Html.ValidationMessageFor(model => model.VisitorNatureOfWork, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
+                    <style>
+                        .MakeWide {
+                            width: 435px;
+                            height: 30px;
+                        }
+                    </style>
                     <div class="form-group">
-                        @Html.LabelFor(model => model.VisitorContractorName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.VisitorContractorSrNo, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
-                            @Html.EditorFor(model => model.VisitorContractorName, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.VisitorContractorName, "", new { @class = "text-danger" })
+                            @*@Html.EditorFor(model => model.VisitorContractorName, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.DropDownListFor(model => model.VisitorContractorSrNo, (ViewBag.ContractorNameCombo) as SelectList, "--Select Contractor Name--", new { id = "ContractorNameDropDown", onchange = "getContractorcontactNo()", @class = "MakeWide" })
+                            @Html.ValidationMessageFor(model => model.VisitorContractorSrNo, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.VisitorContractorCoNo, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
-                            @Html.EditorFor(model => model.VisitorContractorCoNo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.VisitorContractorCoNo, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.VisitorContractorCoNo, new { htmlAttributes = new { @class = "form-control", @id = "ContractorContactNo", @readonly = true ,@style = "background-color:white"} })
+                           @Html.ValidationMessageFor(model => model.VisitorContractorCoNo, "", new { @class = "text-danger" })
                         </div>
                     </div>
 

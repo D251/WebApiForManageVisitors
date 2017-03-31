@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using WebApiForManageVisitors.Models;
 
 namespace WebApiForManageVisitors.Controllers
@@ -90,7 +91,18 @@ namespace WebApiForManageVisitors.Controllers
             }
 
         }
-         
+
+        public string GetContractorContactNo(int id)
+        {
+            CheckViewBagData();
+            _DbManageVisitorsEntities.Configuration.ProxyCreationEnabled = false;
+             string ContractorNo = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(P => P.ContractorSrNo == id).Select(p=>p.ContractorContactNo).FirstOrDefault();
+             return ContractorNo;
+        }
+
+
+
+
         // GET: VisitorRegistration/Create
         public ActionResult Create()
         {
@@ -99,6 +111,7 @@ namespace WebApiForManageVisitors.Controllers
             var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Max(p => p.VisitorSrNo);
             ViewBag.VisitorSrNo = _objVisitorUserRegistration + 1;
             ViewBag.UserID = "M&M" + ViewBag.VisitorSrNo;
+            ViewBag.ContractorNameCombo = new SelectList(_DbManageVisitorsEntities.tbl_ContractorMaster, "ContractorSrNo", "ContractorName");
             return View();
         }
 
