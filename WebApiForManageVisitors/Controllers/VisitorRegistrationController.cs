@@ -157,6 +157,7 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Edit(int id)
         {
             CheckViewBagData();
+            
             VisitorUserRegistrationModel _objVisitorUserRegistrationModel = new VisitorUserRegistrationModel();
             var data = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == id).FirstOrDefault();
             {
@@ -171,10 +172,11 @@ namespace WebApiForManageVisitors.Controllers
                 _objVisitorUserRegistrationModel.VisitorEmailID = data.VisitorEmailID;
                 _objVisitorUserRegistrationModel.VisitorNatureOfWork = data.VisitorNatureOfWork;
                 _objVisitorUserRegistrationModel.VisitorPassword = data.VisitorPassword;
+                _objVisitorUserRegistrationModel.VisitorContractorSrNo = data.VisitorContractorSrNo;
                 //_objVisitorUserRegistrationModel.VisitorRegistrationDate = data.VisitorRegistrationDate;
-
+              
             };
-
+            ViewBag.ContractorNameCombo = new SelectList(_DbManageVisitorsEntities.tbl_ContractorMaster, "ContractorSrNo", "ContractorName", _objVisitorUserRegistrationModel.VisitorContractorSrNo);
             return View(_objVisitorUserRegistrationModel);
         }
 
