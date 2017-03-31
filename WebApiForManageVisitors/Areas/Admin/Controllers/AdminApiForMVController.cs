@@ -45,16 +45,43 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddDepartmentEmployeeRegistration(tbl_DepartmentEmployeeRegistration collection)
+        public JsonResult AddDepartmentEmployeeRegistration(DepartmentEmployeeRegistrationModel collection)
         {
             try
             {
-                _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Add(collection);
-                _DbManageVisitorsEntities.SaveChanges();
                 ResultModel _objResult = new ResultModel();
-                _objResult.success = 1;
-                _objResult.msg = "Save Successfully";
-                return Json(_objResult, JsonRequestBehavior.AllowGet);
+
+                var data = new tbl_DepartmentEmployeeRegistration()
+                {
+                    EmployeeTokenNo = collection.EmployeeTokenNo,
+                    EmployeeAddress = collection.EmployeeAddress,
+                    EmployeeContactNo = collection.EmployeeContactNo,
+                    EmployeeDepartmentID = collection.EmployeeDepartmentID,
+                    EmployeeDesignationID = collection.EmployeeDesignationID,
+                    EmployeeEmailID = collection.EmployeeEmailID,
+                    EmployeeName = collection.EmployeeName,
+                    EmployeePassword = collection.EmployeePassword,
+                    Date = DateTime.Now
+                };
+                
+                _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Add(data);
+
+                if (!_DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Any(p => p.EmployeeTokenNo == collection.EmployeeTokenNo))
+                {
+
+                    _DbManageVisitorsEntities.SaveChanges();
+                    _objResult.success = 1;
+                    _objResult.msg = "Save Successfully";
+                    return Json(_objResult, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    _objResult.success = 0;
+                    _objResult.msg = "Token No. Already Present !!!";
+                    return Json(_objResult, JsonRequestBehavior.AllowGet);
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -126,16 +153,33 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public JsonResult AddVisitorUserRegistration(tbl_VisitorUserRegistration collection)
+        public JsonResult AddVisitorUserRegistration(VisitorUserRegistrationModel collection)
         {
             try
             {
-                _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Add(collection);
+                var data = new tbl_VisitorUserRegistration
+                {
+
+                    VisitorUserID = collection.VisitorUserID,
+                    VisitorName = collection.VisitorName,
+                    VisitorAddress = collection.VisitorAddress,
+                    VisitorContactNo = collection.VisitorContactNo,
+                    VisitorEmailID = collection.VisitorEmailID,
+                    VisitorNatureOfWork = collection.VisitorNatureOfWork,
+                    VisitorContractorSrNo = collection.VisitorContractorSrNo,
+                    VisitorContractorCoNo = collection.VisitorContractorCoNo,
+                    VisitorPassword = collection.VisitorPassword,
+                    VisitorRegistrationDate = DateTime.Now
+                };
+
+
+                _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Add(data);
                 _DbManageVisitorsEntities.SaveChanges();
                 ResultModel _objResult = new ResultModel();
                 _objResult.success = 1;
                 _objResult.msg = "Save Successfully";
                 return Json(_objResult, JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception ex)
             {
@@ -269,6 +313,37 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
 
         }
 
+
+        [HttpPost]
+        public JsonResult GetDesignationMasterByDepartment(DepartmentMasterModel collection)
+        {
+            try
+            {
+                List<DesignationMasterModel> _list = new List<DesignationMasterModel>();
+                var _objDesignationMaster = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(p =>p.DepartmentID == collection.DepartmentID).ToList();
+                foreach (var item in _objDesignationMaster)
+                {
+                    DesignationMasterModel _class = new Models.DesignationMasterModel();
+
+                    _class.DesignationID = item.DesignationID;
+                    _class.DepartmentID = item.DepartmentID;
+                    _class.DesignationName = item.DesignationName;
+                    _list.Add(_class);
+                }
+
+                return Json(_list, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ResultModel _objResult = new ResultModel();
+                _objResult.success = 0;
+                _objResult.msg = ex.ToString();
+                return Json(_objResult, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+
         [HttpGet]
         public JsonResult GetContractorMaster()
         {
@@ -343,8 +418,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
             {
                 VisitorUserRegistrationModel _list = new VisitorUserRegistrationModel();
                 var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorUserID == collection.VisitorUserID).FirstOrDefault();
-                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == collection.VisitorContractorSrNo).FirstOrDefault();
-
+                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVisitorUserRegistration.VisitorContractorSrNo).FirstOrDefault();
 
                 _list.VisitorSrNo = _objVisitorUserRegistration.VisitorSrNo;
                 _list.VisitorUserID = _objVisitorUserRegistration.VisitorUserID;
@@ -353,6 +427,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                 _list.VisitorContactNo = _objVisitorUserRegistration.VisitorContactNo;
                 _list.VisitorEmailID = _objVisitorUserRegistration.VisitorEmailID;
                 _list.VisitorNatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;
+                _list.VisitorContractorSrNo = _objContractor.ContractorSrNo;
                 _list.VisitorContractorName = _objContractor.ContractorName;
                 _list.VisitorContractorCoNo = _objVisitorUserRegistration.VisitorContractorCoNo;
                 _list.VisitorPassword = _objVisitorUserRegistration.VisitorPassword;
