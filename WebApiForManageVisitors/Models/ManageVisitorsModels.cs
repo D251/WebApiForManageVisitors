@@ -6,10 +6,7 @@ using System.Web;
 
 namespace WebApiForManageVisitors.Models
 {
-    public class ManageVisitorsModels
-    {
-    }
-
+  
     public static class StatusModel
     {
         public static long LoginUserStatus = 0;
@@ -26,54 +23,106 @@ namespace WebApiForManageVisitors.Models
     {
         [Display(Name = "Sr/No.")]
         public long EmployeeSrNo { get; set; }
+
+        [Required]
         [Display(Name = "Token No.")]
         public string EmployeeTokenNo { get; set; }
+
         [Display(Name = "Name")]
+        [Required]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Use Alphabets only ")]
         public string EmployeeName { get; set; }
+
         [Display(Name = "Address")]
+        [Required]
         public string EmployeeAddress { get; set; }
+
         [Display(Name = "Contact No.")]
+        [Required]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
         public string EmployeeContactNo { get; set; }
+
         [Display(Name = "Email ID")]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please enter a valid e-mail adress")]
         public string EmployeeEmailID { get; set; }
+
         [Display(Name = "Department Name")]
+        [Required]
         public Nullable<long> EmployeeDepartmentID { get; set; }
+
         [Display(Name = "Designation Name")]
+      
         public Nullable<long> EmployeeDesignationID { get; set; }
+
         [Display(Name = "Department Name")]
         public string DepartmentName { get; set; }
+
         [Display(Name = "Designation Name")]
         public string DesignationName { get; set; }
+
+        [Display(Name = "Designation Name")]
+        [Required]
+        //[Required(ErrorMessage ="Designation Name is Required")]
+        public string DesignationCombo1 { get; set; }
+
         [Display(Name = "Password")]
+        [Required]
         public string EmployeePassword { get; set; }
+
         [Display(Name = "Create Date")]
         public Nullable<System.DateTime> Date { get; set; }
+
     }
 
     public class VisitorUserRegistrationModel
     {
         [Display(Name = "Sr/No.")]
         public long VisitorSrNo { get; set; }
+
         [Display(Name = "User ID")]
+        [Required]
         public string VisitorUserID { get; set; }
+
+        [Required]
         [Display(Name = "Visitor Name")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Use Alphabets only ")]
         public string VisitorName { get; set; }
+
+        [Required]
         [Display(Name = "Address")]
         public string VisitorAddress { get; set; }
+
+        [Required]
         [Display(Name = "Contact No.")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
         public string VisitorContactNo { get; set; }
+
+       
         [Display(Name = "Email ID")]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please enter a valid e-mail adress")]
         public string VisitorEmailID { get; set; }
+
+
         [Display(Name = "Visitor Nature Of Work")]
         public string VisitorNatureOfWork { get; set; }
-        [Display(Name = "Visitor Contractor SrNo")]
+
+
+        [Display(Name = "Visitor Contractor Name")]
+        [Required]
         public Nullable<long> VisitorContractorSrNo { get; set; }
+
+        [Required]
         [Display(Name = "Contractor Contact No")]
         public string VisitorContractorCoNo { get; set; }
+
+    
         [Display(Name = "Visitor Contractor Name")]
         public string VisitorContractorName { get; set; }
+
+        [Required]
         [Display(Name = "Password")]
         public string VisitorPassword { get; set; }
+
          [Display(Name = "Date")]
         public Nullable<System.DateTime> VisitorRegistrationDate { get; set; }
     }
@@ -101,6 +150,7 @@ namespace WebApiForManageVisitors.Models
         [Display(Name = "Department ID")]
         public long DepartmentID { get; set; }
         [Display(Name = "Department Name")]
+        [Required]
         public string DepartmentName { get; set; }
         [Display(Name = "Date")]
         public Nullable<System.DateTime> DepartmentCreateDate { get; set; }
@@ -110,11 +160,16 @@ namespace WebApiForManageVisitors.Models
     {
 
         public long DesignationID { get; set; }
+        [Display(Name = "Department Name")]
+        [Required(ErrorMessage = "Department Name is Required")]
         public long DepartmentID { get; set; }
         [Display(Name = "Designation Name")]
+        [Required]
         public string DesignationName { get; set; }
         [Display(Name = "Department Name")]
         public string DepartmentName { get; set; }
+        [Required(ErrorMessage = "Department Name is Required")]
+        public string DepartmentCombo { get; set; }
         [Display(Name = "Date")]
         public Nullable<System.DateTime> DesignationCreateDate { get; set; }
     }
@@ -206,12 +261,21 @@ namespace WebApiForManageVisitors.Models
     {
         [Display(Name = "Contractor SrNo")]
         public long ContractorSrNo { get; set; }
+
+        [Required]
         [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
+
+        [Required]
         [Display(Name = "Contractor Name")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Use Alphabets only ")]
         public string ContractorName { get; set; }
+
+        [Required]
         [Display(Name = "Contractor Contact No")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
         public string ContractorContactNo { get; set; }
+
         [Display(Name = "Contractor Create Date")]
         public Nullable<System.DateTime> ContractorCreateDate { get; set; }
     }

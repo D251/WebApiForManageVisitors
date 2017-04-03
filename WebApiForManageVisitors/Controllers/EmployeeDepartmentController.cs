@@ -92,9 +92,10 @@ namespace WebApiForManageVisitors.Controllers
         [HttpPost]
         public ActionResult Create(DepartmentMasterModel collection)
         {
+            CheckViewBagData();
             if (ModelState.IsValid)
             {
-                CheckViewBagData();
+              
                 var data = new tbl_DepartmentMaster()
                 {
                     DepartmentName = collection.DepartmentName,
@@ -142,20 +143,25 @@ namespace WebApiForManageVisitors.Controllers
         [HttpPost]
         public ActionResult Edit(int id, DepartmentMasterModel collection)
         {
+            // TODO: Add update logic here
+            //DepartmentMasterModel _objDepartment = new DepartmentMasterModel();
             try
             {
                 CheckViewBagData();
-                // TODO: Add update logic here
-                //DepartmentMasterModel _objDepartment = new DepartmentMasterModel();
-                var data = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(b => b.DepartmentID == id).FirstOrDefault();
+                if (ModelState.IsValid)
                 {
-                    data.DepartmentID = collection.DepartmentID;
-                     data.DepartmentName = collection.DepartmentName;
-                    _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
-                    _DbManageVisitorsEntities.SaveChanges();
-                     return RedirectToAction("Index");
+                    var data = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(b => b.DepartmentID == id).FirstOrDefault();
+                    {
+                        //data.DepartmentID = collection.DepartmentID;
+                        data.DepartmentName = collection.DepartmentName;
+                        _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
+                        _DbManageVisitorsEntities.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
                 }
-               
+         
+
+                return View();
             }
             catch(Exception ex)
             {

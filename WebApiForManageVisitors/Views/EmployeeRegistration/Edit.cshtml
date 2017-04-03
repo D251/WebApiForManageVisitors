@@ -3,10 +3,20 @@
 @{
     ViewBag.Title = "Edit";
 }
+<style>
+    .MakeWide {
+        width: 422px;
+        height: 30px;
+    }
+</style>
+<style>
+    .ForError {
+        /*font-weight: bold;*/
+        color: red;
+    }
+</style>
 
-@using (Html.BeginForm())
-{
-    <script>
+<script>
         function getDesignation() {
             debugger;
             var stateId = $("#DepartmentDropDown").val();
@@ -31,11 +41,12 @@
                 error: function () { alert("Whooaaa! Something went wrong..") },
             });
         }
-    </script>
+</script>
 
-
-
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="content-header clearfix">
         <h1 class="pull-left">
             Edit Employee Registration
@@ -53,20 +64,13 @@
             <div class="box-body">
                 <div class="form-horizontal">
 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.EmployeeSrNo, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-5">
-                            @Html.EditorFor(model => model.EmployeeSrNo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.EmployeeSrNo, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                 
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.EmployeeTokenNo, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.EditorFor(model => model.EmployeeTokenNo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.EmployeeTokenNo, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.EmployeeTokenNo, "", new { @class = "ForError" })
                         </div>
                     </div>
 
@@ -74,7 +78,7 @@
                         @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "ForError" })
                         </div>
                     </div>
 
@@ -82,7 +86,7 @@
                         @Html.LabelFor(model => model.EmployeeAddress, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.EditorFor(model => model.EmployeeAddress, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.EmployeeAddress, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.EmployeeAddress, "", new { @class = "ForError" })
                         </div>
                     </div>
 
@@ -90,7 +94,7 @@
                         @Html.LabelFor(model => model.EmployeeContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.EditorFor(model => model.EmployeeContactNo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.EmployeeContactNo, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.EmployeeContactNo, "", new { @class = "ForError" })
                         </div>
                     </div>
 
@@ -98,26 +102,24 @@
                         @Html.LabelFor(model => model.EmployeeEmailID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.EditorFor(model => model.EmployeeEmailID, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.EmployeeEmailID, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.EmployeeEmailID, "", new { @class = "ForError" })
                         </div>
                     </div>
-                    <style>
-                        .MakeWide {
-                            width: 422px;
-                            height: 30px;
-                        }
-                    </style>
+              
                     <div class="form-group">
                         @Html.LabelFor(model => model.EmployeeDepartmentID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.DropDownListFor(model => model.EmployeeDepartmentID, (ViewBag.DepartmentCombo1) as SelectList, "--Select Department--", new { id = "DepartmentDropDown", onchange = "getDesignation()", @class = "MakeWide" })
-                        </div>
+                            @Html.ValidationMessageFor(model => model.EmployeeDepartmentID, "", new { @class = "ForError" })
+                           </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.EmployeeDesignationID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.DesignationCombo1, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
-                            @Html.DropDownList("DesignationCombo1", (ViewBag.DesignationCombo) as SelectList, "--Select Designation--", new { id = "DesignationDropDown", @class = "MakeWide" })
+                            @*@Html.DropDownListFor(model => model.EmployeeDesignationID, (ViewBag.DesignationCombo) as SelectList, "--Select Designation--", new { id = "DesignationDropDown", @class = "MakeWide" })*@
+                            @Html.DropDownListFor(model => model.DesignationCombo1, (ViewBag.DesignationCombo) as SelectList, "--Select Designation--", new { id = "DesignationDropDown", @class = "MakeWide" })
+                            @Html.ValidationMessageFor(model => model.DesignationCombo1, "", new { @class = "ForError" })
                         </div>
                     </div>
 
@@ -125,7 +127,7 @@
                         @Html.LabelFor(model => model.EmployeePassword, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.EditorFor(model => model.EmployeePassword, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.EmployeePassword, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.EmployeePassword, "", new { @class = "ForError" })
                         </div>
                     </div>
 

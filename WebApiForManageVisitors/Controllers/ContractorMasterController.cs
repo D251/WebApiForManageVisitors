@@ -75,18 +75,22 @@ namespace WebApiForManageVisitors.Controllers
             try
             {
                 CheckViewBagData();
-                var data = new tbl_ContractorMaster
+                if (ModelState.IsValid)
                 {
-                    CompanyName = collection.CompanyName,
-                    ContractorName = collection.ContractorName,
-                    ContractorContactNo = collection.ContractorContactNo,
-                    ContractorCreateDate = DateTime.Now
-                };
+                    var data = new tbl_ContractorMaster
+                    {
+                        CompanyName = collection.CompanyName,
+                        ContractorName = collection.ContractorName,
+                        ContractorContactNo = collection.ContractorContactNo,
+                       // ContractorCreateDate = DateTime.Now
+                    };
 
-                _DbManageVisitorsEntities.tbl_ContractorMaster.Add(data);
-                _DbManageVisitorsEntities.SaveChanges();
+                    _DbManageVisitorsEntities.tbl_ContractorMaster.Add(data);
+                    _DbManageVisitorsEntities.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                return View();
 
             }
             catch (Exception ex)
@@ -121,19 +125,28 @@ namespace WebApiForManageVisitors.Controllers
             {
                 CheckViewBagData();
                 // TODO: Add update logic here
-                ContractorMasterModel _objContractorMasterModel = new ContractorMasterModel();
-                var model = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(a => a.ContractorSrNo == id).FirstOrDefault();
+                if (ModelState.IsValid)
                 {
-                    _objContractorMasterModel.ContractorSrNo = model.ContractorSrNo;
-                    _objContractorMasterModel.CompanyName = collection.CompanyName;
-                    _objContractorMasterModel.ContractorName = collection.ContractorName;
-                    _objContractorMasterModel.ContractorContactNo = (collection.ContractorContactNo);
-                    _objContractorMasterModel.ContractorCreateDate = (model.ContractorCreateDate);
-                };
+                    ContractorMasterModel _objContractorMasterModel = new ContractorMasterModel();
+                    var model = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(a => a.ContractorSrNo == id).FirstOrDefault();
+                    {
+                        //_objContractorMasterModel.ContractorSrNo = model.ContractorSrNo;
+                        //_objContractorMasterModel.CompanyName = collection.CompanyName;
+                        //_objContractorMasterModel.ContractorName = collection.ContractorName;
+                        //_objContractorMasterModel.ContractorContactNo = (collection.ContractorContactNo);
+                        ////_objContractorMasterModel.ContractorCreateDate = (model.ContractorCreateDate);
+                        model.ContractorSrNo = collection.ContractorSrNo;
+                        model.CompanyName = collection.CompanyName;
+                        model.ContractorName = collection.ContractorName;
+                        model.ContractorContactNo = (collection.ContractorContactNo);
+                        model.ContractorCreateDate = collection.ContractorCreateDate;
+                    };
 
-                _DbManageVisitorsEntities.Entry(model).State = EntityState.Modified;
-                _DbManageVisitorsEntities.SaveChanges();
-                return RedirectToAction("Index");
+                    _DbManageVisitorsEntities.Entry(model).State = EntityState.Modified;
+                    _DbManageVisitorsEntities.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View();
             }
             catch (Exception ex)
             {

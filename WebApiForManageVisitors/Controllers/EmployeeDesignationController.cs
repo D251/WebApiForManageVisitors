@@ -37,7 +37,9 @@ namespace WebApiForManageVisitors.Controllers
 
                 _class.DesignationID = item.DesignationID;
                 _class.DepartmentID = item.DepartmentID;
+               
                 _class.DepartmentName = _objDepartmentEmployeeRegistration.DepartmentName;
+
                 _class.DesignationName = (item.DesignationName);
                 _class.DesignationCreateDate = (item.DesignationCreateDate);
                 _objListRequestProcessModel.Add(_class);
@@ -74,36 +76,41 @@ namespace WebApiForManageVisitors.Controllers
 
         // POST: EmployeeDesignation/Create
         [HttpPost]
-        public ActionResult Create(DesignationMasterModel collection,int DepartmentCombo)
+        public ActionResult Create(DesignationMasterModel collection,int? DepartmentCombo)
         {
           
-                CheckViewBagData();
-            ViewBag.DepartmentCombo = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
-            var data = new tbl_DesignationMaster
+            CheckViewBagData();
+            if (ModelState.IsValid)
+            {
+                var data = new tbl_DesignationMaster
                 {
-                    DepartmentID = DepartmentCombo,
+                    DepartmentID = Convert.ToInt32(collection.DepartmentCombo),
                     DesignationName = collection.DesignationName,
-                   // DesignationCreateDate = DateTime.Now
+                    // DesignationCreateDate = DateTime.Now
                 };
-          
-            if (!_DbManageVisitorsEntities.tbl_DesignationMaster.Any(p => p.DesignationName == collection.DesignationName && p.DepartmentID == DepartmentCombo))
-            {
-                try
-                {
-                    _DbManageVisitorsEntities.tbl_DesignationMaster.Add(data);
-                    _DbManageVisitorsEntities.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-                    return View();
-                }
 
+                if (!_DbManageVisitorsEntities.tbl_DesignationMaster.Any(p => p.DesignationName == collection.DesignationName && p.DepartmentID == DepartmentCombo))
+                {
+                  
+                    try
+                    {
+                        _DbManageVisitorsEntities.tbl_DesignationMaster.Add(data);
+                        _DbManageVisitorsEntities.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch (Exception ex)
+                    {
+                        return View();
+                    }
+
+                }
+                else
+                {
+                    ViewBag.Errormessage = "Fail";
+                }
+                
             }
-            else
-            {
-                ViewBag.Errormessage = "Fail";
-            }
+            ViewBag.DepartmentCombo = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
             return View();
         }
            
@@ -136,17 +143,22 @@ namespace WebApiForManageVisitors.Controllers
             {
                 CheckViewBagData();
                 // TODO: Add update logic here
-               
-                var data = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(b => b.DesignationID == id).FirstOrDefault();
+                if (ModelState.IsValid)
                 {
-                    data.DesignationID = collection.DesignationID;
-                    data.DepartmentID = collection.DepartmentID;
-                    data.DesignationName = collection.DesignationName;
-                    data.DesignationCreateDate = data.DesignationCreateDate;
-                    _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
-                    _DbManageVisitorsEntities.SaveChanges();
-                    return RedirectToAction("Index");
+                    var data = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(b => b.DesignationID == id).FirstOrDefault();
+                    {
+                        //data.DesignationID = collection.DesignationID;
+                        //data.DepartmentID = collection.DepartmentID;
+                         data.DesignationName = collection.DesignationName;
+                         data.DepartmentID =Convert.ToInt32( collection.DepartmentCombo);
+                        //data.DesignationCreateDate = data.DesignationCreateDate;
+                        _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
+                        _DbManageVisitorsEntities.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
                 }
+               ViewBag.DepartmentCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName", Convert.ToInt32(collection.DepartmentCombo));
+                return View();
             }
             catch(Exception ex)
             {

@@ -3,7 +3,12 @@
 @{
     ViewBag.Title = "Create";
 }
-
+<style>
+    .ForError {
+        /*font-weight: bold;*/
+        color: red;
+    }
+</style>
 @using (Html.BeginForm("Create", "EmployeeDesignation", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -33,7 +38,9 @@
             <div class="form-group">
                 @Html.Label("Department", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("DepartmentCombo", (ViewBag.DepartmentCombo) as SelectList, "--Select Department--", new { @class = "MakeWide" })
+                    @*@Html.DropDownList("DepartmentCombo", (ViewBag.DepartmentCombo) as SelectList, "--Select Department--", new { @class = "MakeWide" })*@
+                    @Html.DropDownListFor(model=>model.DepartmentCombo, (ViewBag.DepartmentCombo) as SelectList, "--Select Department--", new { @class = "MakeWide" })
+                    @Html.ValidationMessageFor(model => model.DepartmentCombo, "", new { @class = "ForError" })
                 </div>
             </div>
               
@@ -41,7 +48,7 @@
                          @Html.LabelFor(model => model.DesignationName, htmlAttributes: new { @class = "control-label col-md-2" })
                          <div class="col-md-10">
                              @Html.EditorFor(model => model.DesignationName, new { htmlAttributes = new { @class = "MakeWide", style = "width: 38%" } })
-                             @Html.ValidationMessageFor(model => model.DesignationName, "", new { @class = "text-danger" })
+                             @Html.ValidationMessageFor(model => model.DesignationName, "", new { @class = "ForError" })
                          </div>
                      </div>
                

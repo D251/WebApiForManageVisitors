@@ -3,7 +3,12 @@
 @{
     ViewBag.Title = "Create";
 }
-
+<style>
+    .ForError {
+        /*font-weight: bold;*/
+        color: red;
+    }
+</style>
 <script type="text/javascript">
     function getContractorcontactNo() {
         debugger;
@@ -53,7 +58,7 @@
                         @Html.LabelFor(model => model.VisitorUserID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.EditorFor(model => model.VisitorUserID, new { htmlAttributes = new { @class = "form-control textbold", @Value = ViewBag.UserID, @readonly = true ,@style = "background-color:white"} })
-                            @Html.ValidationMessageFor(model => model.VisitorUserID, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.VisitorUserID, "", new { @class = "ForError" })
                         </div>
                     </div>
 
@@ -61,7 +66,7 @@
                         @Html.LabelFor(model => model.VisitorName, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.EditorFor(model => model.VisitorName, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.VisitorName, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.VisitorName, "", new { @class = "ForError" })
                         </div>
                     </div>
 
@@ -69,7 +74,7 @@
                         @Html.LabelFor(model => model.VisitorAddress, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.EditorFor(model => model.VisitorAddress, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.VisitorAddress, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.VisitorAddress, "", new { @class = "ForError" })
                         </div>
                     </div>
 
@@ -77,7 +82,7 @@
                         @Html.LabelFor(model => model.VisitorContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.EditorFor(model => model.VisitorContactNo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.VisitorContactNo, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.VisitorContactNo, "", new { @class = "ForError" })
                         </div>
                     </div>
 
@@ -85,7 +90,7 @@
                         @Html.LabelFor(model => model.VisitorEmailID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.EditorFor(model => model.VisitorEmailID, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.VisitorEmailID, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.VisitorEmailID, "", new { @class = "ForError" })
                         </div>
                     </div>
 
@@ -93,7 +98,7 @@
                         @Html.LabelFor(model => model.VisitorNatureOfWork, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.EditorFor(model => model.VisitorNatureOfWork, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.VisitorNatureOfWork, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.VisitorNatureOfWork, "", new { @class = "ForError" })
                         </div>
                     </div>
                     <style>
@@ -107,7 +112,7 @@
                         <div class="col-md-5">
                             @*@Html.EditorFor(model => model.VisitorContractorName, new { htmlAttributes = new { @class = "form-control" } })*@
                             @Html.DropDownListFor(model => model.VisitorContractorSrNo, (ViewBag.ContractorNameCombo) as SelectList, "--Select Contractor Name--", new { id = "ContractorNameDropDown", onchange = "getContractorcontactNo()", @class = "MakeWide" })
-                            @Html.ValidationMessageFor(model => model.VisitorContractorSrNo, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.VisitorContractorSrNo, "", new { @class = "ForError" })
                         </div>
                     </div>
 
@@ -115,7 +120,7 @@
                         @Html.LabelFor(model => model.VisitorContractorCoNo, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.EditorFor(model => model.VisitorContractorCoNo, new { htmlAttributes = new { @class = "form-control", @id = "ContractorContactNo", @readonly = true ,@style = "background-color:white"} })
-                           @Html.ValidationMessageFor(model => model.VisitorContractorCoNo, "", new { @class = "text-danger" })
+                           @Html.ValidationMessageFor(model => model.VisitorContractorCoNo, "", new { @class = "ForError" })
                         </div>
                     </div>
 
@@ -123,7 +128,7 @@
                         @Html.LabelFor(model => model.VisitorPassword, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-5">
                             @Html.EditorFor(model => model.VisitorPassword, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.VisitorPassword, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.VisitorPassword, "", new { @class = "ForError" })
                         </div>
                     </div>
                 </div>
