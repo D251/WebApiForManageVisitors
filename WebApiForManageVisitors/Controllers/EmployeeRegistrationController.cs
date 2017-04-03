@@ -82,8 +82,15 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             ViewBag.DepartmentCombo = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
-            ViewBag.DesignationCombo = new SelectList(_DbManageVisitorsEntities.tbl_DesignationMaster, "DesignationID", "DesignationName");
+            ViewBag.DesignationCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DesignationMaster, "DesignationID", "DesignationName");
             return View();
+
+            //other Way
+
+            //ViewBag.DepartmentCombo = _DbManageVisitorsEntities.tbl_DepartmentMaster;
+            //var model = new DepartmentEmployeeRegistrationModel();
+            //return View(model);
+
         }
 
 
@@ -100,37 +107,45 @@ namespace WebApiForManageVisitors.Controllers
 
 
         [HttpPost]
-        public ActionResult Create(DepartmentEmployeeRegistrationModel collection, int DesignationCombo)
+        public ActionResult Create(DepartmentEmployeeRegistrationModel collection, int? DesignationCombo)
         {
             try
             {
                 CheckViewBagData();
-                ViewBag.DepartmentCombo = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
-                ViewBag.DesignationCombo = new SelectList(_DbManageVisitorsEntities.tbl_DesignationMaster, "DesignationID", "DesignationName");
-                var data = new tbl_DepartmentEmployeeRegistration()
+                if (ModelState.IsValid)
                 {
-                    EmployeeTokenNo = collection.EmployeeTokenNo,
-                    EmployeeAddress = collection.EmployeeAddress,
-                    EmployeeContactNo = collection.EmployeeContactNo,
-                    EmployeeDepartmentID = collection.EmployeeDepartmentID,
-                    EmployeeDesignationID = DesignationCombo,
-                    EmployeeEmailID = collection.EmployeeEmailID,
-                    EmployeeName = collection.EmployeeName,
-                    EmployeePassword = collection.EmployeePassword,
-                   // Date = DateTime.Now
-                };
-                _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Add(data);
-                if (!_DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Any(p=>p.EmployeeTokenNo==collection.EmployeeTokenNo))
-                {
-                 
-                    _DbManageVisitorsEntities.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["ErrorTokenNo"] = "Token No. Already Present !!!";
-                }
+                    var data = new tbl_DepartmentEmployeeRegistration()
+                    {
+                        EmployeeTokenNo = collection.EmployeeTokenNo,
+                        EmployeeAddress = collection.EmployeeAddress,
+                        EmployeeContactNo = collection.EmployeeContactNo,
+                        EmployeeDepartmentID = collection.EmployeeDepartmentID,
+                        // EmployeeDesignationID = collection.EmployeeDesignationID,
+                        EmployeeDesignationID =Convert.ToInt32(collection.DesignationCombo1),
+                        EmployeeEmailID = collection.EmployeeEmailID,
+                        EmployeeName = collection.EmployeeName,
+                        EmployeePassword = collection.EmployeePassword,
+                        // Date = DateTime.Now
+                    };
+                    _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Add(data);
+                    if (!_DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Any(p => p.EmployeeTokenNo == collection.EmployeeTokenNo))
+                    {
 
+                        _DbManageVisitorsEntities.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["ErrorTokenNo"] = "Token No. Already Present !!!";
+                    }
+
+                  
+                }
+                //other way
+               //ViewBag.DepartmentCombo = _DbManageVisitorsEntities.tbl_DepartmentMaster;
+
+               ViewBag.DepartmentCombo = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
+                //ViewBag.DesignationCombo = new SelectList(_DbManageVisitorsEntities.tbl_DesignationMaster, "DesignationID", "DesignationName");
                 return View();
             }
             catch (Exception ex)
@@ -147,18 +162,24 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Edit(int id, int id1)
         {
             CheckViewBagData();
+           var Designation=_DbManageVisitorsEntities.tbl_DesignationMaster.Where(e => e.DepartmentID == id1).FirstOrDefault();
+          
             DepartmentEmployeeRegistrationModel _objEmployeeModel = new DepartmentEmployeeRegistrationModel();
             var _objEmployee = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(E => E.EmployeeSrNo == id).FirstOrDefault();
             {
-                _objEmployeeModel.EmployeeSrNo = _objEmployee.EmployeeSrNo;
+                var Department = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(e => e.DepartmentID == _objEmployee.EmployeeDepartmentID).FirstOrDefault();
+               // _objEmployeeModel.EmployeeSrNo = _objEmployee.EmployeeSrNo;
                 _objEmployeeModel.EmployeeTokenNo = _objEmployee.EmployeeTokenNo;
                 _objEmployeeModel.EmployeeName = _objEmployee.EmployeeName;
                 _objEmployeeModel.EmployeeAddress = _objEmployee.EmployeeAddress;
                 _objEmployeeModel.EmployeeContactNo = _objEmployee.EmployeeContactNo;
                 _objEmployeeModel.EmployeeEmailID = _objEmployee.EmployeeEmailID;
                 _objEmployeeModel.EmployeeDepartmentID = _objEmployee.EmployeeDepartmentID;
-                _objEmployeeModel.EmployeeDesignationID = _objEmployee.EmployeeDesignationID;
-                _objEmployeeModel.Date = _objEmployee.Date;
+               // _objEmployeeModel.EmployeeDesignationID = _objEmployee.EmployeeDesignationID;
+                _objEmployeeModel.DesignationCombo1 =Convert.ToString( _objEmployee.EmployeeDesignationID);
+               // _objEmployeeModel.DepartmentName = Department.DepartmentName;
+                //_objEmployeeModel.DesignationName = Designation.DesignationName;
+                // _objEmployeeModel.Date = _objEmployee.Date;
                 _objEmployeeModel.EmployeePassword = _objEmployee.EmployeePassword;
 
             };
@@ -171,29 +192,37 @@ namespace WebApiForManageVisitors.Controllers
 
         // POST: EmployeeRegistration/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, DepartmentEmployeeRegistrationModel collection, int DesignationCombo1)
+        public ActionResult Edit(int id, DepartmentEmployeeRegistrationModel collection, int? DesignationCombo1)
         {
             try
             {
                 // TODO: Add update logic here
                 CheckViewBagData();
-                var data = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(b => b.EmployeeSrNo == id).FirstOrDefault();
+                if (ModelState.IsValid)
                 {
-                    data.EmployeeSrNo = collection.EmployeeSrNo;
-                    data.EmployeeName = collection.EmployeeName;
-                    data.EmployeeTokenNo = collection.EmployeeTokenNo;
-                    data.EmployeeAddress = collection.EmployeeAddress;
-                    data.EmployeeContactNo = collection.EmployeeContactNo;
-                    data.EmployeeEmailID = collection.EmployeeEmailID;
-                    data.EmployeeDepartmentID = collection.EmployeeDepartmentID;
-                    data.EmployeeDesignationID = DesignationCombo1;
-                    data.EmployeePassword = collection.EmployeePassword;
-                };
+                    var data = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(b => b.EmployeeSrNo == id).FirstOrDefault();
+                    {
+                        //data.EmployeeSrNo = collection.EmployeeSrNo;
+                        data.EmployeeName = collection.EmployeeName;
+                        data.EmployeeTokenNo = collection.EmployeeTokenNo;
+                        data.EmployeeAddress = collection.EmployeeAddress;
+                        data.EmployeeContactNo = collection.EmployeeContactNo;
+                        data.EmployeeEmailID = collection.EmployeeEmailID;
+                        data.EmployeeDepartmentID = collection.EmployeeDepartmentID;
+                        //data.EmployeeDesignationID = DesignationCombo1;
+                        data.EmployeeDesignationID = Convert.ToInt32(collection.DesignationCombo1);
+                        data.EmployeePassword = collection.EmployeePassword;
 
-                _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
-                _DbManageVisitorsEntities.SaveChanges();
-                return RedirectToAction("Index");
+                    };
 
+                    _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
+                    _DbManageVisitorsEntities.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.DepartmentCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName", collection.EmployeeDepartmentID);
+                ViewBag.DesignationCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DesignationMaster.Where(e => e.DepartmentID == collection.EmployeeDepartmentID), "DesignationID", "DesignationName", collection.EmployeeDesignationID);
+                return View();
             }
             catch (Exception ex)
             {
