@@ -243,6 +243,21 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ManageVisitorsEntities.Context.cs">
@@ -261,15 +276,6 @@
       <DependentUpon>ManageVisitorsEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageVisitorsModels.cs" />
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\tbl_ContractorMaster.cs">
       <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
     </Compile>
@@ -1453,6 +1459,7 @@
     <Content Include="Views\ContractorMaster\Index.cshtml" />
     <Content Include="Views\ContractorMaster\Edit.cshtml" />
     <Content Include="Views\ContractorMaster\Delete.cshtml" />
+    <Content Include="Views\EmployeeRegistration\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

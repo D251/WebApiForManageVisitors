@@ -4,18 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1debad73138b4cac9cf4a9aa7aa6fe1c" Name="Diagram1">
-        <EntityTypeShape EntityType="ManageVisitorsModel.sysdiagram" Width="1.5" PointX="5.75" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ManageVisitorsModel.tbl_ContractorMaster" Width="1.5" PointX="7.75" PointY="2.375" IsExpanded="true" />
+      <Diagram DiagramId="f483898573284f8bb4c557386569e773" Name="Diagram1">
+        <EntityTypeShape EntityType="ManageVisitorsModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManageVisitorsModel.AspNetRole" Width="1.5" PointX="5.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManageVisitorsModel.AspNetUserClaim" Width="1.5" PointX="10.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManageVisitorsModel.AspNetUserLogin" Width="1.5" PointX="10.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManageVisitorsModel.AspNetUser" Width="1.5" PointX="8" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManageVisitorsModel.tbl_ContractorMaster" Width="1.5" PointX="7.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ManageVisitorsModel.tbl_DepartmentEmployeeRegistration" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="ManageVisitorsModel.tbl_DepartmentMaster" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ManageVisitorsModel.tbl_DesignationMaster" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ManageVisitorsModel.tbl_RequestProcess" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ManageVisitorsModel.tbl_VisitorUserRegistration" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <AssociationConnector Association="ManageVisitorsModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ManageVisitorsModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ManageVisitorsModel.FK_tbl_DepartmentEmployeeRegistration_tbl_DepartmentMaster" ManuallyRouted="false" />
         <AssociationConnector Association="ManageVisitorsModel.FK_tbl_DepartmentEmployeeRegistration_tbl_DesignationMaster" ManuallyRouted="false" />
         <AssociationConnector Association="ManageVisitorsModel.FK_tbl_RequestProcess_tbl_DepartmentEmployeeRegistration" ManuallyRouted="false" />
         <AssociationConnector Association="ManageVisitorsModel.FK_tbl_RequestProcess_tbl_VisitorUserRegistration" ManuallyRouted="false" />
+        <AssociationConnector Association="ManageVisitorsModel.AspNetUserRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

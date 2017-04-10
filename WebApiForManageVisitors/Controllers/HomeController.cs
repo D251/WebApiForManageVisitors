@@ -10,6 +10,7 @@ namespace WebApiForManageVisitors.Controllers
     {
         public void CheckViewBagData()
         {
+            @ViewBag.Account = false;
             @ViewBag.EmployeeRegistration = false;
             @ViewBag.VisitorRegistration = false;
             @ViewBag.EmployeeDepartment = false;
@@ -19,13 +20,25 @@ namespace WebApiForManageVisitors.Controllers
         }
 
         public ActionResult Index()
+
         {
             CheckViewBagData();
-            return View();
+            //return View();
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+
+                return View();
+            }
         }
 
         public ActionResult About()
         {
+           
             ViewBag.Message = "Your application description page.";
 
             return View();
