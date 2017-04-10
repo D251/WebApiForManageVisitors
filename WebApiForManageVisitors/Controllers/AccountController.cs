@@ -57,9 +57,22 @@ namespace WebApiForManageVisitors.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            CheckViewBagData();
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+
+        public void CheckViewBagData()
+        {
+            @ViewBag.Account = true;
+            @ViewBag.EmployeeRegistration = false;
+            @ViewBag.VisitorRegistration = false;
+            @ViewBag.EmployeeDepartment = false;
+            @ViewBag.EmployeeDesignation = false;
+            @ViewBag.ContractorMaster = false;
+            @ViewBag.RequestDetails = false;
+        }
+
 
         //
         // POST: /Account/Login
@@ -68,6 +81,7 @@ namespace WebApiForManageVisitors.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            CheckViewBagData();
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -139,6 +153,7 @@ namespace WebApiForManageVisitors.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            CheckViewBagData();
             return View();
         }
 
@@ -149,6 +164,7 @@ namespace WebApiForManageVisitors.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            CheckViewBagData();
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };

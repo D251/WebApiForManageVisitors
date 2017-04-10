@@ -15,9 +15,10 @@ namespace WebApiForManageVisitors.Controllers
 
         public void CheckViewBagData()
         {
+            @ViewBag.EmployeeDepartment = true;
             @ViewBag.EmployeeRegistration = false;
             @ViewBag.VisitorRegistration = false;
-            @ViewBag.EmployeeDepartment = true;
+            @ViewBag.Account = false;
             @ViewBag.EmployeeDesignation = false;
             @ViewBag.ContractorMaster = false;
             @ViewBag.RequestDetails = false;
@@ -95,21 +96,34 @@ namespace WebApiForManageVisitors.Controllers
             CheckViewBagData();
             if (ModelState.IsValid)
             {
-              
-                var data = new tbl_DepartmentMaster()
+               var data = new tbl_DepartmentMaster()
                 {
                     DepartmentName = collection.DepartmentName,
                     // DepartmentCreateDate = DateTime.Now
                 };
-                if (!_DbManageVisitorsEntities.tbl_DepartmentMaster.Any(p=>p.DepartmentName==collection.DepartmentName))
+               if (!_DbManageVisitorsEntities.tbl_DepartmentMaster.Any(p=>p.DepartmentName==collection.DepartmentName))
                 {
                     try
                     {
                         _DbManageVisitorsEntities.tbl_DepartmentMaster.Add(data);
                         _DbManageVisitorsEntities.SaveChanges();
+
+
+                        List<string> Desig = new List<string> { "Activity Owner", "Area Owner" };
+                        foreach (var item in Desig)
+                        {
+                            var DesignationData = new tbl_DesignationMaster()
+                            {
+                                DepartmentID = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentName == collection.DepartmentName).Select(p => p.DepartmentID).FirstOrDefault(),
+                                DesignationName = item,
+                                // DesignationCreateDate=DateTime.Now
+                            };
+                            _DbManageVisitorsEntities.tbl_DesignationMaster.Add(DesignationData);
+                            _DbManageVisitorsEntities.SaveChanges();
+                        }
                         return RedirectToAction("Index");
                     }
-                    catch
+                    catch(Exception ex)
                     {
                         return View();
                     }

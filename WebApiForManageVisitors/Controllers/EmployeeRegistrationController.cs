@@ -17,6 +17,7 @@ namespace WebApiForManageVisitors.Controllers
         public void CheckViewBagData()
         {
             @ViewBag.EmployeeRegistration = true;
+            @ViewBag.Account = false;
             @ViewBag.VisitorRegistration = false;
             @ViewBag.EmployeeDepartment = false;
             @ViewBag.EmployeeDesignation = false;

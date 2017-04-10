@@ -14,6 +14,7 @@ namespace WebApiForManageVisitors.Controllers
         ManageVisitorsEntities _DbManageVisitorsEntities = new ManageVisitorsEntities();
         public void CheckViewBagData()
         {
+            @ViewBag.Account = false;
             @ViewBag.EmployeeRegistration = false;
             @ViewBag.VisitorRegistration = true;
             @ViewBag.EmployeeDepartment = false;
@@ -108,7 +109,7 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             VisitorUserRegistrationModel VisitorUserMaxSrNo = new VisitorUserRegistrationModel();
-            var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Max(p => p.VisitorSrNo);
+            var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.DefaultIfEmpty().Max(p =>p==null?0: p.VisitorSrNo);
             ViewBag.VisitorSrNo = _objVisitorUserRegistration + 1;
             ViewBag.UserID = "M&M" + ViewBag.VisitorSrNo;
             ViewBag.ContractorNameCombo = new SelectList(_DbManageVisitorsEntities.tbl_ContractorMaster, "ContractorSrNo", "ContractorName");
@@ -122,10 +123,10 @@ namespace WebApiForManageVisitors.Controllers
             try
             {
                 CheckViewBagData();
-                var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Max(p => p.VisitorSrNo);
+                var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.DefaultIfEmpty().Max(p => p == null ? 0 : p.VisitorSrNo);
                 ViewBag.VisitorSrNo = _objVisitorUserRegistration + 1;
                 ViewBag.UserID = "M&M" + ViewBag.VisitorSrNo;
-                ViewBag.ContractorNameCombo = new SelectList(_DbManageVisitorsEntities.tbl_ContractorMaster, "ContractorSrNo", "ContractorName");
+               
                 if (ModelState.IsValid)
                 {
                     var data = new tbl_VisitorUserRegistration
@@ -148,7 +149,7 @@ namespace WebApiForManageVisitors.Controllers
                     _DbManageVisitorsEntities.SaveChanges();
                     return RedirectToAction("Index");
                 }
-              
+                ViewBag.ContractorNameCombo = new SelectList(_DbManageVisitorsEntities.tbl_ContractorMaster, "ContractorSrNo", "ContractorName");
                 return View();
             }
             catch (Exception ex)
@@ -198,7 +199,7 @@ namespace WebApiForManageVisitors.Controllers
                 if (ModelState.IsValid)
                 {
                     var data = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(b => b.VisitorSrNo == id).FirstOrDefault();
-                    var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == data.VisitorContractorSrNo).FirstOrDefault();
+                    var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == collection.VisitorContractorSrNo).FirstOrDefault();
                     //data.EmployeeSrNo = collection.EmployeeSrNo;
                     data.VisitorUserID = collection.VisitorUserID;
                     data.VisitorName = collection.VisitorName;
@@ -209,6 +210,7 @@ namespace WebApiForManageVisitors.Controllers
                     data.VisitorContractorSrNo = _objContractor.ContractorSrNo;
                     data.VisitorContractorCoNo = collection.VisitorContractorCoNo;
                     data.VisitorPassword = collection.VisitorPassword;
+                   // data.viitorcon
                     _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
                     _DbManageVisitorsEntities.SaveChanges();
                     return RedirectToAction("Index");

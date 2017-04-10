@@ -12,6 +12,7 @@ namespace WebApiForManageVisitors.Controllers
         ManageVisitorsEntities _DbManageVisitorsEntities = new ManageVisitorsEntities();
         public void CheckViewBagData()
         {
+            @ViewBag.Account = false;
             @ViewBag.EmployeeRegistration = false;
             @ViewBag.VisitorRegistration = false;
             @ViewBag.EmployeeDepartment = false;

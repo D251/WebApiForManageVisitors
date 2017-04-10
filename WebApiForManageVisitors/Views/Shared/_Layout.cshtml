@@ -58,7 +58,45 @@
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
+                <div class="navbar-custom-menu">
+                    @*<ul class="nav navbar-nav">*@
+                    <div class="form-group ">
+                        <style>
+                            .fontsize{
+                               font-size:15px;
+                               font-weight:bold;
+                            }
+                        </style>
+                        @if (Request.IsAuthenticated)
+                        {
+                           <strong>@Html.Encode(User.Identity.Name) | </strong>
+                            @Html.ActionLink("Log Out", "ExternalLoginCallback", "Account",null ,new { @class = "fontsize", @style = "color:#000aaa"})
+                            }
+                            else
+                            {
+                            @Html.ActionLink("Register", "Register", "User")
+                            <span> | </span>
+                            @Html.ActionLink("Log In", "Login", "User")
+                            }
+                        </div>
+                        @*Menu Footer
+            <li class="user-footer">
+                <div class="pull-left">
+                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                </div>
+            </li>
+            <li>
+                <div class="pull-right">
+                    <a href="~/Account/Login" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+            </li>*@
+
+                        @*</ul>*@
+                    </div>
+
             </nav>
+          
+          
         </header>
 
         <aside class="main-sidebar">
@@ -93,6 +131,7 @@
                         string Registration = "";
                         string Masters = "";
                         string Reports = "";
+                        string Account = @ViewBag.Account ? "active" : "";
                         string EmployeeRegistration = @ViewBag.EmployeeRegistration ? "active" : "";
                         string VisitorRegistration = @ViewBag.VisitorRegistration ? "active" : "";
                         string EmployeeDepartment = @ViewBag.EmployeeDepartment ? "active" : "";
@@ -149,6 +188,8 @@
                                 <li class="@RequestDetails"><a href="~/RequestDetails/Index"><i class="fa fa-circle-o"></i>Request Details</a></li>
                             </ul>
                         </li>
+
+                       
                     }
                 </ul>
 
@@ -250,6 +291,6 @@
             });
         });
     </script>
-
+    @RenderSection("scripts", required: false)
 </body>
 </html>
