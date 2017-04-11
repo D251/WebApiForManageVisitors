@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ManageVisitorsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ManageVisitorsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -82,6 +82,7 @@
           </Key>
           <Property Name="EmployeeSrNo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeTokenNo" Type="varchar(max)" Nullable="false" />
+          <Property Name="DeviceTokenId" Type="varchar(max)" />
           <Property Name="EmployeeName" Type="varchar(max)" />
           <Property Name="EmployeeAddress" Type="varchar(max)" />
           <Property Name="EmployeeContactNo" Type="varchar(max)" />
@@ -133,6 +134,7 @@
           </Key>
           <Property Name="VisitorSrNo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VisitorUserID" Type="varchar(max)" Nullable="false" />
+          <Property Name="DeviceTokenId" Type="varchar(max)" />
           <Property Name="VisitorName" Type="varchar(max)" />
           <Property Name="VisitorAddress" Type="varchar(max)" />
           <Property Name="VisitorContactNo" Type="varchar(max)" />
@@ -293,8 +295,7 @@
             <End Role="tbl_RequestProcess" EntitySet="tbl_RequestProcess" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ManageVisitorsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -384,6 +385,7 @@
           <NavigationProperty Name="tbl_DepartmentMaster" Relationship="Self.FK_tbl_DepartmentEmployeeRegistration_tbl_DepartmentMaster" FromRole="tbl_DepartmentEmployeeRegistration" ToRole="tbl_DepartmentMaster" />
           <NavigationProperty Name="tbl_DesignationMaster" Relationship="Self.FK_tbl_DepartmentEmployeeRegistration_tbl_DesignationMaster" FromRole="tbl_DepartmentEmployeeRegistration" ToRole="tbl_DesignationMaster" />
           <NavigationProperty Name="tbl_RequestProcess" Relationship="Self.FK_tbl_RequestProcess_tbl_DepartmentEmployeeRegistration" FromRole="tbl_DepartmentEmployeeRegistration" ToRole="tbl_RequestProcess" />
+          <Property Name="DeviceTokenId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_DepartmentMaster">
           <Key>
@@ -441,6 +443,7 @@
           <Property Name="VisitorPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="VisitorRegistrationDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tbl_RequestProcess" Relationship="Self.FK_tbl_RequestProcess_tbl_VisitorUserRegistration" FromRole="tbl_VisitorUserRegistration" ToRole="tbl_RequestProcess" />
+          <Property Name="DeviceTokenId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -638,6 +641,7 @@
           <EntitySetMapping Name="tbl_DepartmentEmployeeRegistration">
             <EntityTypeMapping TypeName="ManageVisitorsModel.tbl_DepartmentEmployeeRegistration">
               <MappingFragment StoreEntitySet="tbl_DepartmentEmployeeRegistration">
+                <ScalarProperty Name="DeviceTokenId" ColumnName="DeviceTokenId" />
                 <ScalarProperty Name="EmployeeSrNo" ColumnName="EmployeeSrNo" />
                 <ScalarProperty Name="EmployeeTokenNo" ColumnName="EmployeeTokenNo" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
@@ -693,6 +697,7 @@
           <EntitySetMapping Name="tbl_VisitorUserRegistration">
             <EntityTypeMapping TypeName="ManageVisitorsModel.tbl_VisitorUserRegistration">
               <MappingFragment StoreEntitySet="tbl_VisitorUserRegistration">
+                <ScalarProperty Name="DeviceTokenId" ColumnName="DeviceTokenId" />
                 <ScalarProperty Name="VisitorSrNo" ColumnName="VisitorSrNo" />
                 <ScalarProperty Name="VisitorUserID" ColumnName="VisitorUserID" />
                 <ScalarProperty Name="VisitorName" ColumnName="VisitorName" />

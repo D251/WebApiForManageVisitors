@@ -30,6 +30,7 @@ namespace WebApiForManageVisitors.Models
         public Nullable<long> EmployeeDesignationID { get; set; }
         public string EmployeePassword { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
+        public string DeviceTokenId { get; set; }
     
         public virtual tbl_DepartmentMaster tbl_DepartmentMaster { get; set; }
         public virtual tbl_DesignationMaster tbl_DesignationMaster { get; set; }

@@ -31,6 +31,7 @@ namespace WebApiForManageVisitors.Models
         public string VisitorContractorCoNo { get; set; }
         public string VisitorPassword { get; set; }
         public Nullable<System.DateTime> VisitorRegistrationDate { get; set; }
+        public string DeviceTokenId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_RequestProcess> tbl_RequestProcess { get; set; }
