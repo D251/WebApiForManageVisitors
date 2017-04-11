@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using WebApiForManageVisitors.Models;
 
 namespace WebApiForManageVisitors.Areas.Admin.Controllers
@@ -232,17 +236,81 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                 return Json(_objResult, JsonRequestBehavior.AllowGet);
             }
         }
+        public  string SendPushNotification(string deviceidToken,string body,string title)
+        {
+            return "";
+            //try
+            //{
 
+            //    string applicationID = "AIz..........Fep0";
+
+            //    string senderId = "30............8";
+
+            
+
+            //    WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+            //    tRequest.Method = "post";
+            //    tRequest.ContentType = "application/json";
+            //    var data = new
+            //    {
+            //        to = deviceidToken,
+            //        notification = new
+            //        {
+            //            body = "Osama",
+            //            title = "AlBaami",
+            //            sound = "Enabled"
+
+            //        }
+            //    };
+            //    var serializer = new JavaScriptSerializer();
+            //    var json = serializer.Serialize(data);
+            //    Byte[] byteArray = Encoding.UTF8.GetBytes(json);
+            //    tRequest.Headers.Add(string.Format("Authorization: key={0}", applicationID));
+            //    tRequest.Headers.Add(string.Format("Sender: id={0}", senderId));
+            //    tRequest.ContentLength = byteArray.Length;
+            //    using (Stream dataStream = tRequest.GetRequestStream())
+            //    {
+            //        dataStream.Write(byteArray, 0, byteArray.Length);
+            //        using (WebResponse tResponse = tRequest.GetResponse())
+            //        {
+            //            using (Stream dataStreamResponse = tResponse.GetResponseStream())
+            //            {
+            //                using (StreamReader tReader = new StreamReader(dataStreamResponse))
+            //                {
+            //                    String sResponseFromServer = tReader.ReadToEnd();
+            //                    string str = sResponseFromServer;
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    string str = ex.Message;
+            //}
+        }
         [HttpPost]
         public JsonResult AddRequestProcess(tbl_RequestProcess collection)
         {
             try
             {
+                
                 _DbManageVisitorsEntities.tbl_RequestProcess.Add(collection);
                 _DbManageVisitorsEntities.SaveChanges();
                 ResultModel _objResult = new ResultModel();
                 _objResult.success = 1;
                 _objResult.msg = "Save Successfully";
+                //Notification for Particular Employee
+                SendPushNotification(collection.tbl_DepartmentEmployeeRegistration.DeviceTokenId, collection.tbl_DepartmentEmployeeRegistration.EmployeeName, "Employee");
+                var departmentid= collection.tbl_DepartmentEmployeeRegistration.tbl_DepartmentMaster.DepartmentID;
+                var _owneractivitylist=    _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == departmentid && a.tbl_DesignationMaster.DesignationName == "Activity Owner");
+
+                //Notification Activity Owner
+
+                foreach (var item in _owneractivitylist)
+                {
+                    SendPushNotification(item.DeviceTokenId, item.EmployeeName, "OwnerActivityList");
+                }
                 return Json(_objResult, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -471,6 +539,19 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                         _class.VisitEndTime = Convert.ToDateTime(item.VisitEndTime);
                         _class.RequestStatus = item.ActivityOwnerStatus;
                         _objListRequestProcessModel.Add(_class);
+
+                        //Notification for Particular Employee
+                        //SendPushNotification(collection.t, collection.tbl_DepartmentEmployeeRegistration.EmployeeName, "Employee");
+                        var departmentid = collection.EmployeeDepartmentID;
+                        var _ownerArealist = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == departmentid && a.tbl_DesignationMaster.DesignationName == "Area Owner");
+
+                        //Notification Area Owner
+
+                        foreach (var items in _ownerArealist)
+                        {
+                            SendPushNotification(items.DeviceTokenId, items.EmployeeName, "_ownerArealist");
+                        }
+
                     }
 
                     else if (collection.EmployeeDesignationName == "Area Owner" && item.EmployeeDepartmentID == collection.EmployeeDepartmentID && item.ActivityOwnerStatus == "Accepted" && item.SafetyStatus == "None" && item.ContractorStatus == "None")
@@ -486,6 +567,20 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                         _class.VisitEndTime = Convert.ToDateTime(item.VisitEndTime);
                         _class.RequestStatus = item.AreaOwnerStatus;
                         _objListRequestProcessModel.Add(_class);
+
+
+                        //Notification for Particular Employee
+                       // SendPushNotification(collection., collection.tbl_DepartmentEmployeeRegistration.EmployeeName, "Employee");
+                        var departmentid = collection.EmployeeDepartmentID;
+                        var _safetylist = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == departmentid && a.tbl_DesignationMaster.DesignationName == "Safety");
+
+                        //Notification Safety
+
+                        foreach (var items in _safetylist)
+                        {
+                            SendPushNotification(items.DeviceTokenId, items.EmployeeName, "_safetylist");
+                        }
+
                     }
 
                     else if (collection.EmployeeDesignationName == "Safety" && item.EmployeeDepartmentID == collection.EmployeeDepartmentID && item.ActivityOwnerStatus == "Accepted" && item.AreaOwnerStatus == "Accepted" && item.ContractorStatus == "None")
@@ -501,6 +596,10 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                         _class.VisitEndTime = Convert.ToDateTime(item.VisitEndTime);
                         _class.RequestStatus = item.SafetyStatus;
                         _objListRequestProcessModel.Add(_class);
+                        
+                          //  SendPushNotification(_class..t.DeviceTokenId, _objDepartmentEmployeeRegistration., "successful");
+                        
+
                     }
                 }
 

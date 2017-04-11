@@ -71,7 +71,7 @@ namespace WebApiForManageVisitors.Models
 
         [Display(Name = "Create Date")]
         public Nullable<System.DateTime> Date { get; set; }
-
+        public string DeviceTokenId { get; set; }
     }
 
     public class VisitorUserRegistrationModel
@@ -125,6 +125,8 @@ namespace WebApiForManageVisitors.Models
 
          [Display(Name = "Date")]
         public Nullable<System.DateTime> VisitorRegistrationDate { get; set; }
+
+        public string DeviceTokenId { get; set; }
     }
 
     public class RequestProcessModel

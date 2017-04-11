@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using WebApiForManageVisitors.Areas.Admin.Controllers;
 using WebApiForManageVisitors.Models;
 
 namespace WebApiForManageVisitors.Controllers
@@ -176,7 +177,7 @@ namespace WebApiForManageVisitors.Controllers
                 _objEmployeeModel.EmployeeContactNo = _objEmployee.EmployeeContactNo;
                 _objEmployeeModel.EmployeeEmailID = _objEmployee.EmployeeEmailID;
                 _objEmployeeModel.EmployeeDepartmentID = _objEmployee.EmployeeDepartmentID;
-               // _objEmployeeModel.EmployeeDesignationID = _objEmployee.EmployeeDesignationID;
+               _objEmployeeModel.DeviceTokenId = _objEmployee.DeviceTokenId;
                 _objEmployeeModel.DesignationCombo1 =Convert.ToString( _objEmployee.EmployeeDesignationID);
                // _objEmployeeModel.DepartmentName = Department.DepartmentName;
                 //_objEmployeeModel.DesignationName = Designation.DesignationName;
@@ -210,7 +211,6 @@ namespace WebApiForManageVisitors.Controllers
                         data.EmployeeContactNo = collection.EmployeeContactNo;
                         data.EmployeeEmailID = collection.EmployeeEmailID;
                         data.EmployeeDepartmentID = collection.EmployeeDepartmentID;
-                        //data.EmployeeDesignationID = DesignationCombo1;
                         data.EmployeeDesignationID = Convert.ToInt32(collection.DesignationCombo1);
                         data.EmployeePassword = collection.EmployeePassword;
 
@@ -218,11 +218,15 @@ namespace WebApiForManageVisitors.Controllers
 
                     _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
                     _DbManageVisitorsEntities.SaveChanges();
-                    return RedirectToAction("Index");
+                     return RedirectToAction("Index");
+                  
                 }
 
                 ViewBag.DepartmentCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName", collection.EmployeeDepartmentID);
                 ViewBag.DesignationCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DesignationMaster.Where(e => e.DepartmentID == collection.EmployeeDepartmentID), "DesignationID", "DesignationName", collection.EmployeeDesignationID);
+                //  SendPushNotification();
+                // var resultade = new AdminApiForMVController().SendPushNotification("f","f","f");
+               // var r = new AdminApiForMVController().SendPushNotification(collection.DeviceTokenId, collection.EmployeeName, "Emp");
                 return View();
             }
             catch (Exception ex)

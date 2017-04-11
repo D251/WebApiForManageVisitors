@@ -11,11 +11,11 @@
         <EntityTypeShape EntityType="ManageVisitorsModel.AspNetUserLogin" Width="1.5" PointX="10.25" PointY="11.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ManageVisitorsModel.AspNetUser" Width="1.5" PointX="8" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="ManageVisitorsModel.tbl_ContractorMaster" Width="1.5" PointX="7.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ManageVisitorsModel.tbl_DepartmentEmployeeRegistration" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManageVisitorsModel.tbl_DepartmentEmployeeRegistration" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ManageVisitorsModel.tbl_DepartmentMaster" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ManageVisitorsModel.tbl_DesignationMaster" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ManageVisitorsModel.tbl_RequestProcess" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ManageVisitorsModel.tbl_VisitorUserRegistration" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManageVisitorsModel.tbl_VisitorUserRegistration" Width="1.5" PointX="3.375" PointY="8.625" IsExpanded="true" />
         <AssociationConnector Association="ManageVisitorsModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ManageVisitorsModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ManageVisitorsModel.FK_tbl_DepartmentEmployeeRegistration_tbl_DepartmentMaster" ManuallyRouted="false" />
