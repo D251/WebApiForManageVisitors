@@ -99,7 +99,7 @@ namespace WebApiForManageVisitors.Controllers
                var data = new tbl_DepartmentMaster()
                 {
                     DepartmentName = collection.DepartmentName,
-                    // DepartmentCreateDate = DateTime.Now
+                    DepartmentCreateDate = DateTime.Now
                 };
                if (!_DbManageVisitorsEntities.tbl_DepartmentMaster.Any(p=>p.DepartmentName==collection.DepartmentName))
                 {
@@ -109,14 +109,14 @@ namespace WebApiForManageVisitors.Controllers
                         _DbManageVisitorsEntities.SaveChanges();
 
 
-                        List<string> Desig = new List<string> { "Activity Owner", "Area Owner" };
+                        List<string> Desig = new List<string> { "Activity Owner", "Area Owner", "Safety" };
                         foreach (var item in Desig)
                         {
                             var DesignationData = new tbl_DesignationMaster()
                             {
                                 DepartmentID = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentName == collection.DepartmentName).Select(p => p.DepartmentID).FirstOrDefault(),
                                 DesignationName = item,
-                                // DesignationCreateDate=DateTime.Now
+                                DesignationCreateDate= DateTime.Now
                             };
                             _DbManageVisitorsEntities.tbl_DesignationMaster.Add(DesignationData);
                             _DbManageVisitorsEntities.SaveChanges();

@@ -87,7 +87,7 @@ namespace WebApiForManageVisitors.Controllers
                 {
                     DepartmentID = Convert.ToInt32(collection.DepartmentCombo),
                     DesignationName = collection.DesignationName,
-                    // DesignationCreateDate = DateTime.Now
+                    DesignationCreateDate = DateTime.Now
                 };
 
                 if (!_DbManageVisitorsEntities.tbl_DesignationMaster.Any(p => p.DesignationName == collection.DesignationName && p.DepartmentID == DepartmentCombo))

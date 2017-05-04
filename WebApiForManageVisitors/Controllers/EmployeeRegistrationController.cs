@@ -127,7 +127,7 @@ namespace WebApiForManageVisitors.Controllers
                         EmployeeEmailID = collection.EmployeeEmailID,
                         EmployeeName = collection.EmployeeName,
                         EmployeePassword = collection.EmployeePassword,
-                        // Date = DateTime.Now
+                        Date = DateTime.Now
                     };
                     _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Add(data);
                     if (!_DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Any(p => p.EmployeeTokenNo == collection.EmployeeTokenNo))

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
@@ -57,6 +58,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
 
                 var data = new tbl_DepartmentEmployeeRegistration()
                 {
+                    DeviceTokenId = collection.DeviceTokenId,
                     EmployeeTokenNo = collection.EmployeeTokenNo,
                     EmployeeAddress = collection.EmployeeAddress,
                     EmployeeContactNo = collection.EmployeeContactNo,
@@ -67,7 +69,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                     EmployeePassword = collection.EmployeePassword,
                     Date = DateTime.Now
                 };
-                
+
                 _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Add(data);
 
                 if (!_DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Any(p => p.EmployeeTokenNo == collection.EmployeeTokenNo))
@@ -107,7 +109,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                 {
 
                     GetAllDepartmentEmployeeNameModel _class = new GetAllDepartmentEmployeeNameModel();
-                    
+
                     var _objDepartmentMasterModel = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == item.EmployeeDepartmentID).FirstOrDefault();
                     var _objDesignationMasterModel = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(p => p.DesignationID == item.EmployeeDesignationID).FirstOrDefault();
 
@@ -163,7 +165,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
             {
                 var data = new tbl_VisitorUserRegistration
                 {
-
+                    DeviceTokenId = collection.DeviceTokenId,
                     VisitorUserID = collection.VisitorUserID,
                     VisitorName = collection.VisitorName,
                     VisitorAddress = collection.VisitorAddress,
@@ -236,82 +238,124 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                 return Json(_objResult, JsonRequestBehavior.AllowGet);
             }
         }
-        public  string SendPushNotification(string deviceidToken,string body,string title)
-        {
-            return "";
-            //try
-            //{
-
-            //    string applicationID = "AIz..........Fep0";
-
-            //    string senderId = "30............8";
-
-            
-
-            //    WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
-            //    tRequest.Method = "post";
-            //    tRequest.ContentType = "application/json";
-            //    var data = new
-            //    {
-            //        to = deviceidToken,
-            //        notification = new
-            //        {
-            //            body = "Osama",
-            //            title = "AlBaami",
-            //            sound = "Enabled"
-
-            //        }
-            //    };
-            //    var serializer = new JavaScriptSerializer();
-            //    var json = serializer.Serialize(data);
-            //    Byte[] byteArray = Encoding.UTF8.GetBytes(json);
-            //    tRequest.Headers.Add(string.Format("Authorization: key={0}", applicationID));
-            //    tRequest.Headers.Add(string.Format("Sender: id={0}", senderId));
-            //    tRequest.ContentLength = byteArray.Length;
-            //    using (Stream dataStream = tRequest.GetRequestStream())
-            //    {
-            //        dataStream.Write(byteArray, 0, byteArray.Length);
-            //        using (WebResponse tResponse = tRequest.GetResponse())
-            //        {
-            //            using (Stream dataStreamResponse = tResponse.GetResponseStream())
-            //            {
-            //                using (StreamReader tReader = new StreamReader(dataStreamResponse))
-            //                {
-            //                    String sResponseFromServer = tReader.ReadToEnd();
-            //                    string str = sResponseFromServer;
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    string str = ex.Message;
-            //}
-        }
-        [HttpPost]
-        public JsonResult AddRequestProcess(tbl_RequestProcess collection)
+        public void SendPushNotification(string deviceidToken, string body, string title)
         {
             try
             {
-                
-                _DbManageVisitorsEntities.tbl_RequestProcess.Add(collection);
-                _DbManageVisitorsEntities.SaveChanges();
-                ResultModel _objResult = new ResultModel();
-                _objResult.success = 1;
-                _objResult.msg = "Save Successfully";
-                //Notification for Particular Employee
-                SendPushNotification(collection.tbl_DepartmentEmployeeRegistration.DeviceTokenId, collection.tbl_DepartmentEmployeeRegistration.EmployeeName, "Employee");
-                var departmentid= collection.tbl_DepartmentEmployeeRegistration.tbl_DepartmentMaster.DepartmentID;
-                var _owneractivitylist=    _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == departmentid && a.tbl_DesignationMaster.DesignationName == "Activity Owner");
 
-                //Notification Activity Owner
+                string applicationID = "AAAAUbmTWw0:APA91bFmQkyZl2KbXyW1uOQTrJ0QLFXY0DDZIbsgFE6ZODnEsLPjDLwuqDe8tqafiPYR1gjfN4Vcglm8GK-DIJLG36sFvtVJk-IZ-3IwK-GjWw7jIt69NiOzd_cfP3CJLvuDwiRn-aw_";
 
-                foreach (var item in _owneractivitylist)
+                string senderId = "351005793037";
+
+                string deviceId = deviceidToken;
+
+                WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                tRequest.Method = "post";
+                tRequest.ContentType = "application/json";
+
+                tRequest.Credentials = CredentialCache.DefaultCredentials;
+                var data = new
                 {
-                    SendPushNotification(item.DeviceTokenId, item.EmployeeName, "OwnerActivityList");
+                    to = deviceId,
+                    notification = new
+                    {
+                        body = body,
+                        title = title,
+                        sound = "Enabled"
+
+                    }
+                };
+
+                var json = JsonConvert.SerializeObject(data);
+                Byte[] byteArray = Encoding.UTF8.GetBytes(json);
+                tRequest.Headers.Add(string.Format("Authorization: key={0}", applicationID));
+                tRequest.Headers.Add(string.Format("Sender: id={0}", senderId));
+                tRequest.ContentLength = byteArray.Length;
+                using (Stream dataStream = tRequest.GetRequestStream())
+                {
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+                    using (WebResponse tResponse = tRequest.GetResponse())
+                    {
+                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                        {
+                            using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                            {
+                                String sResponseFromServer = tReader.ReadToEnd();
+                                string str = sResponseFromServer;
+                            }
+                        }
+                    }
                 }
-                return Json(_objResult, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+            }
+        }
+
+        [HttpPost]
+        public JsonResult AddRequestProcess(RequestProcessModel collection)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    tbl_RequestProcess _objRequestProcess = new tbl_RequestProcess();
+                    _objRequestProcess.EmployeeId = collection.EmployeeId;
+                    _objRequestProcess.RequestProcessSrNo = collection.RequestProcessSrNo;
+                    _objRequestProcess.VisitorSrNo = collection.VisitorSrNo;
+                    _objRequestProcess.EmployeeDepartmentID = collection.EmployeeDepartmentID;
+
+                    _objRequestProcess.VisitStartTime = collection.VisitStartTime;
+
+                    _objRequestProcess.VisitorAccessories = collection.VisitorAccessories;
+                    _objRequestProcess.NoOfVisitors = collection.NoOfVisitors;
+                    _objRequestProcess.VisitorVisitResons = collection.VisitorVisitResons;
+                    _objRequestProcess.RequestProcessDate = collection.RequestProcessDate;
+                    _objRequestProcess.ActivityOwnerStatus = collection.ActivityOwnerStatus;
+                    _objRequestProcess.AreaOwnerStatus = collection.AreaOwnerStatus;
+                    _objRequestProcess.SafetyStatus = collection.SafetyStatus;
+                    _objRequestProcess.ContractorStatus = collection.ContractorStatus;
+                    _objRequestProcess.VisitEndTime = collection.VisitEndTime;
+
+
+
+                    _DbManageVisitorsEntities.tbl_RequestProcess.Add(_objRequestProcess);
+                    _DbManageVisitorsEntities.SaveChanges();
+                    ResultModel _objResult = new ResultModel();
+                    _objResult.success = 1;
+                    _objResult.msg = "Save Successfully";
+
+                    var _owneractivitylist = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == collection.EmployeeDepartmentID && a.tbl_DesignationMaster.DesignationName == "Activity Owner");
+
+                    //Notification Activity Owner
+
+                    foreach (var item in _owneractivitylist)
+                    {
+                        SendPushNotification(item.DeviceTokenId, "New Visitor Request", "Manage Visitors");
+                    }
+
+                    return Json(_objResult, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    List<ErrorList> Errors = new List<ErrorList>();
+
+
+                    //test errors.
+                    var modelStateErrors = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors);
+
+                    foreach (var x in modelStateErrors)
+                    {
+                        var errorInfo = new ErrorList()
+                        {
+                            ErrorMessage = x.ErrorMessage
+                        };
+                        Errors.Add(errorInfo);
+
+                    }
+                    return Json(Errors, JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception ex)
             {
@@ -321,7 +365,10 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                 return Json(_objResult, JsonRequestBehavior.AllowGet);
             }
         }
-
+        public class ErrorList
+        {
+            public string ErrorMessage;
+        }
 
         [HttpGet]
         public JsonResult GetDepartmentMaster()
@@ -330,12 +377,13 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
             {
                 List<DepartmentMasterModel> _list = new List<Models.DepartmentMasterModel>();
                 var _objDepartmentMaster = _DbManageVisitorsEntities.tbl_DepartmentMaster.ToList();
-                foreach(var item in _objDepartmentMaster)
+                foreach (var item in _objDepartmentMaster)
                 {
                     DepartmentMasterModel _class = new Models.DepartmentMasterModel();
-               
+
                     _class.DepartmentID = item.DepartmentID;
                     _class.DepartmentName = item.DepartmentName;
+                    _class.DepartmentCreateDate = item.DepartmentCreateDate;
                     _list.Add(_class);
                 }
 
@@ -388,7 +436,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
             try
             {
                 List<DesignationMasterModel> _list = new List<DesignationMasterModel>();
-                var _objDesignationMaster = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(p =>p.DepartmentID == collection.DepartmentID).ToList();
+                var _objDesignationMaster = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(p => p.DepartmentID == collection.DepartmentID).ToList();
                 foreach (var item in _objDesignationMaster)
                 {
                     DesignationMasterModel _class = new Models.DesignationMasterModel();
@@ -521,15 +569,15 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
             {
                 List<ListProcessRequestByDepartmentEmployeeModel> _objListRequestProcessModel = new List<ListProcessRequestByDepartmentEmployeeModel>();
 
-                
-                   var  _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.ToList();
-               
+
+                var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.ToList();
+
                 foreach (var item in _objAllRequestProcessModel)
                 {
-                    if (collection.EmployeeDesignationName == "Activity Owner" && item.EmployeeDepartmentID == collection.EmployeeDepartmentID &&  item.AreaOwnerStatus == "None" && item.SafetyStatus == "None" && item.ContractorStatus == "None")
+                    if (collection.EmployeeDesignationName == "Activity Owner" && item.EmployeeDepartmentID == collection.EmployeeDepartmentID)
                     {
                         ListProcessRequestByDepartmentEmployeeModel _class = new ListProcessRequestByDepartmentEmployeeModel();
-                        
+
                         var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == item.EmployeeId).FirstOrDefault();
 
                         _class.RequestProcessSrNo = item.RequestProcessSrNo;
@@ -539,22 +587,10 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                         _class.VisitEndTime = Convert.ToDateTime(item.VisitEndTime);
                         _class.RequestStatus = item.ActivityOwnerStatus;
                         _objListRequestProcessModel.Add(_class);
-
-                        //Notification for Particular Employee
-                        //SendPushNotification(collection.t, collection.tbl_DepartmentEmployeeRegistration.EmployeeName, "Employee");
-                        var departmentid = collection.EmployeeDepartmentID;
-                        var _ownerArealist = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == departmentid && a.tbl_DesignationMaster.DesignationName == "Area Owner");
-
-                        //Notification Area Owner
-
-                        foreach (var items in _ownerArealist)
-                        {
-                            SendPushNotification(items.DeviceTokenId, items.EmployeeName, "_ownerArealist");
-                        }
-
+                        
                     }
 
-                    else if (collection.EmployeeDesignationName == "Area Owner" && item.EmployeeDepartmentID == collection.EmployeeDepartmentID && item.ActivityOwnerStatus == "Accepted" && item.SafetyStatus == "None" && item.ContractorStatus == "None")
+                    else if (collection.EmployeeDesignationName == "Area Owner" && item.EmployeeDepartmentID == collection.EmployeeDepartmentID && item.ActivityOwnerStatus == "Accepted")
                     {
                         ListProcessRequestByDepartmentEmployeeModel _class = new ListProcessRequestByDepartmentEmployeeModel();
 
@@ -567,23 +603,9 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                         _class.VisitEndTime = Convert.ToDateTime(item.VisitEndTime);
                         _class.RequestStatus = item.AreaOwnerStatus;
                         _objListRequestProcessModel.Add(_class);
-
-
-                        //Notification for Particular Employee
-                       // SendPushNotification(collection., collection.tbl_DepartmentEmployeeRegistration.EmployeeName, "Employee");
-                        var departmentid = collection.EmployeeDepartmentID;
-                        var _safetylist = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == departmentid && a.tbl_DesignationMaster.DesignationName == "Safety");
-
-                        //Notification Safety
-
-                        foreach (var items in _safetylist)
-                        {
-                            SendPushNotification(items.DeviceTokenId, items.EmployeeName, "_safetylist");
-                        }
-
                     }
 
-                    else if (collection.EmployeeDesignationName == "Safety" && item.EmployeeDepartmentID == collection.EmployeeDepartmentID && item.ActivityOwnerStatus == "Accepted" && item.AreaOwnerStatus == "Accepted" && item.ContractorStatus == "None")
+                    else if (collection.EmployeeDesignationName == "Safety" && item.EmployeeDepartmentID == collection.EmployeeDepartmentID && item.ActivityOwnerStatus == "Accepted" && item.AreaOwnerStatus == "Accepted")
                     {
                         ListProcessRequestByDepartmentEmployeeModel _class = new ListProcessRequestByDepartmentEmployeeModel();
 
@@ -596,10 +618,6 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                         _class.VisitEndTime = Convert.ToDateTime(item.VisitEndTime);
                         _class.RequestStatus = item.SafetyStatus;
                         _objListRequestProcessModel.Add(_class);
-                        
-                          //  SendPushNotification(_class..t.DeviceTokenId, _objDepartmentEmployeeRegistration., "successful");
-                        
-
                     }
                 }
 
@@ -629,16 +647,16 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                 {
                     ListProcessRequestByVisitorUserModel _class = new ListProcessRequestByVisitorUserModel();
 
-                        var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == item.EmployeeId).FirstOrDefault();
+                    var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == item.EmployeeId).FirstOrDefault();
 
-                        _class.RequestProcessSrNo = item.RequestProcessSrNo;
-                        _class.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
-                        _class.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
-                        _class.VisitStartTime = Convert.ToDateTime(item.VisitStartTime);
-                        _class.VisitEndTime = Convert.ToDateTime(item.VisitEndTime);
-                        _class.VisitorVisitResons = item.VisitorVisitResons;
-                        _objListRequestProcessModel.Add(_class);
-                    }
+                    _class.RequestProcessSrNo = item.RequestProcessSrNo;
+                    _class.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
+                    _class.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
+                    _class.VisitStartTime = Convert.ToDateTime(item.VisitStartTime);
+                    _class.VisitEndTime = Convert.ToDateTime(item.VisitEndTime);
+                    _class.VisitorVisitResons = item.VisitorVisitResons;
+                    _objListRequestProcessModel.Add(_class);
+                }
 
                 return Json(_objListRequestProcessModel, JsonRequestBehavior.AllowGet);
             }
@@ -704,22 +722,181 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
 
         }
 
+
+
+        [HttpPost]
+        public JsonResult ContractorSubmitProcessRequest(ProcessRequestDetailsByRequestIDModel collection)
+        {
+            try
+            {
+                ProcessRequestDetailsByRequestIDModel _objProcessRequestDetailsByRequestID = new ProcessRequestDetailsByRequestIDModel();
+
+                var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(p => p.RequestProcessSrNo == collection.RequestProcessSrNo).FirstOrDefault();
+
+                var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == _objAllRequestProcessModel.EmployeeId).FirstOrDefault();
+
+                var _objDepartmentMaster = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objDepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
+
+                var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == _objAllRequestProcessModel.VisitorSrNo).FirstOrDefault();
+
+                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVisitorUserRegistration.VisitorContractorSrNo).FirstOrDefault();
+
+                _objProcessRequestDetailsByRequestID.RequestProcessSrNo = _objAllRequestProcessModel.RequestProcessSrNo;
+                _objProcessRequestDetailsByRequestID.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
+                _objProcessRequestDetailsByRequestID.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
+                _objProcessRequestDetailsByRequestID.EmployeeDepartmentName = _objDepartmentMaster.DepartmentName;
+                _objProcessRequestDetailsByRequestID.VisitorName = _objVisitorUserRegistration.VisitorName;
+                _objProcessRequestDetailsByRequestID.ContractorName = _objContractor.ContractorName;
+                _objProcessRequestDetailsByRequestID.VisitStartTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitStartTime);
+                _objProcessRequestDetailsByRequestID.VisitEndTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitEndTime);
+                _objProcessRequestDetailsByRequestID.NatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;
+                _objProcessRequestDetailsByRequestID.NoOfVisitors = _objAllRequestProcessModel.NoOfVisitors;
+                _objProcessRequestDetailsByRequestID.VisitorVisitResons = _objAllRequestProcessModel.VisitorVisitResons;
+                _objProcessRequestDetailsByRequestID.EmployeeId = _objAllRequestProcessModel.EmployeeId;
+                _objProcessRequestDetailsByRequestID.VisitorSrNo = _objAllRequestProcessModel.VisitorSrNo;
+                _objProcessRequestDetailsByRequestID.EmployeeDepartmentID = _objAllRequestProcessModel.EmployeeDepartmentID;
+                _objProcessRequestDetailsByRequestID.VisitorAccessories = _objAllRequestProcessModel.VisitorAccessories;
+                _objProcessRequestDetailsByRequestID.RequestProcessDate = _objAllRequestProcessModel.RequestProcessDate;
+                _objProcessRequestDetailsByRequestID.ActivityOwnerStatus = _objAllRequestProcessModel.ActivityOwnerStatus;
+                _objProcessRequestDetailsByRequestID.AreaOwnerStatus = _objAllRequestProcessModel.AreaOwnerStatus;
+                _objProcessRequestDetailsByRequestID.SafetyStatus = _objAllRequestProcessModel.SafetyStatus;
+                _objProcessRequestDetailsByRequestID.ContractorStatus = _objAllRequestProcessModel.ContractorStatus;
+
+                return Json(_objProcessRequestDetailsByRequestID, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ResultModel _objResult = new ResultModel();
+                _objResult.success = 0;
+                _objResult.msg = ex.ToString();
+                return Json(_objResult, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+
+
+        [HttpPost]
+        public JsonResult UpdateEmployeeDeviceTokenNumber(DepartmentEmployeeRegistrationModel collection)
+        {
+            try
+            {
+                var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(a => a.EmployeeTokenNo == collection.EmployeeTokenNo).FirstOrDefault();
+
+                _objAllRequestProcessModel.DeviceTokenId = collection.DeviceTokenId;
+                _DbManageVisitorsEntities.Entry(_objAllRequestProcessModel).State = EntityState.Modified;
+                _DbManageVisitorsEntities.SaveChanges();
+                ResultModel _objResult = new ResultModel();
+                _objResult.success = 1;
+                _objResult.msg = "Save Successfully";
+                
+                return Json(_objResult, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ResultModel _objResult = new ResultModel();
+                _objResult.success = 0;
+                _objResult.msg = ex.ToString();
+                return Json(_objResult, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+
+        [HttpPost]
+        public JsonResult UpdateVisitorDeviceTokenNumber(VisitorUserRegistrationModel collection)
+        {
+            try
+            {
+                var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(a => a.VisitorUserID == collection.VisitorUserID).FirstOrDefault();
+
+                _objAllRequestProcessModel.DeviceTokenId = collection.DeviceTokenId;
+                _DbManageVisitorsEntities.Entry(_objAllRequestProcessModel).State = EntityState.Modified;
+                _DbManageVisitorsEntities.SaveChanges();
+                ResultModel _objResult = new ResultModel();
+                _objResult.success = 1;
+                _objResult.msg = "Save Successfully";
+
+                return Json(_objResult, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ResultModel _objResult = new ResultModel();
+                _objResult.success = 0;
+                _objResult.msg = ex.ToString();
+                return Json(_objResult, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+
         [HttpPost]
         public JsonResult ManageProcessRequestStatusUpdate(tbl_RequestProcess collection)
         {
             try
             {
-                var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(a=>a.RequestProcessSrNo==collection.RequestProcessSrNo).FirstOrDefault();
+                 var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(a => a.RequestProcessSrNo == collection.RequestProcessSrNo).FirstOrDefault();
 
                 _objAllRequestProcessModel.SafetyStatus = collection.SafetyStatus;
                 _objAllRequestProcessModel.AreaOwnerStatus = collection.AreaOwnerStatus;
                 _objAllRequestProcessModel.ActivityOwnerStatus = collection.ActivityOwnerStatus;
                 _objAllRequestProcessModel.ContractorStatus = collection.ContractorStatus;
-                _DbManageVisitorsEntities.Entry(_objAllRequestProcessModel).State= EntityState.Modified;
+                _DbManageVisitorsEntities.Entry(_objAllRequestProcessModel).State = EntityState.Modified;
                 _DbManageVisitorsEntities.SaveChanges();
                 ResultModel _objResult = new ResultModel();
                 _objResult.success = 1;
                 _objResult.msg = "Save Successfully";
+
+                var _objAllRequestProcessNewModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(a => a.RequestProcessSrNo == collection.RequestProcessSrNo).FirstOrDefault();
+
+                if (_objAllRequestProcessNewModel.EmployeeDepartmentID == collection.EmployeeDepartmentID && _objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.AreaOwnerStatus == "None" && _objAllRequestProcessNewModel.SafetyStatus == "None" && _objAllRequestProcessNewModel.ContractorStatus == "None")
+                {
+                    var _owneractivitylist = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == collection.EmployeeDepartmentID && a.tbl_DesignationMaster.DesignationName == "Area Owner");
+
+                    //Notification Area Owner
+
+                    foreach (var item in _owneractivitylist)
+                    {
+                        SendPushNotification(item.DeviceTokenId, "Activity Owner", "Activity Owner");
+                    }
+                }
+
+                else if (_objAllRequestProcessNewModel.EmployeeDepartmentID == collection.EmployeeDepartmentID && _objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.AreaOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.SafetyStatus == "None" && _objAllRequestProcessNewModel.ContractorStatus == "None")
+                {
+                    var _owneractivitylist = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == collection.EmployeeDepartmentID && a.tbl_DesignationMaster.DesignationName == "Safety");
+
+                    //Notification Safety
+
+                    foreach (var item in _owneractivitylist)
+                    {
+                        SendPushNotification(item.DeviceTokenId, "Area Owner", "Manage Visitors");
+                    }
+                }
+
+                else if (_objAllRequestProcessNewModel.EmployeeDepartmentID == collection.EmployeeDepartmentID && _objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.AreaOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.SafetyStatus == "Accepted" && _objAllRequestProcessNewModel.ContractorStatus == "None")
+                {
+                    var _owneractivitylist = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.ToList().Where(a => a.VisitorSrNo == collection.VisitorSrNo);
+
+                    //Notification VisitorUser
+
+                    foreach (var item in _owneractivitylist)
+                    {
+                        SendPushNotification(item.DeviceTokenId, "Safety", "Manage Visitors");
+                    }
+                }
+
+                else if (_objAllRequestProcessNewModel.EmployeeDepartmentID == collection.EmployeeDepartmentID && _objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.AreaOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.SafetyStatus == "Accepted" && _objAllRequestProcessNewModel.ContractorStatus == "Accepted")
+                {
+                    var _owneractivitylist = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DesignationMaster.DesignationName == "Activity Owner" || a.tbl_DesignationMaster.DesignationName == "Area Owner" || a.tbl_DesignationMaster.DesignationName == "Safety");
+
+                    //Notification All Department
+
+                    foreach (var item in _owneractivitylist)
+                    {
+                        SendPushNotification(item.DeviceTokenId, "Contractor Submit Request", "Manage Visitors");
+                    }
+                }
+
                 return Json(_objResult, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -738,8 +915,8 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
         {
             try
             {
-                var _objVisitorLogIn = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorUserID ==collection.UserName && p.VisitorPassword ==collection.Password).FirstOrDefault();
-                
+                var _objVisitorLogIn = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorUserID == collection.UserName && p.VisitorPassword == collection.Password).FirstOrDefault();
+
                 ResultModel _objResult = new ResultModel();
                 if (_objVisitorLogIn != null)
                 {
@@ -751,7 +928,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                     _objResult.success = 0;
                     _objResult.msg = "Incorrect UserName Or Password";
                 }
-                
+
                 return Json(_objResult, JsonRequestBehavior.AllowGet);
 
             }

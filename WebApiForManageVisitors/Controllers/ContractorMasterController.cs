@@ -83,7 +83,7 @@ namespace WebApiForManageVisitors.Controllers
                         CompanyName = collection.CompanyName,
                         ContractorName = collection.ContractorName,
                         ContractorContactNo = collection.ContractorContactNo,
-                       // ContractorCreateDate = DateTime.Now
+                        ContractorCreateDate = DateTime.Now
                     };
 
                     _DbManageVisitorsEntities.tbl_ContractorMaster.Add(data);
