@@ -131,20 +131,36 @@ namespace WebApiForManageVisitors.Models
 
     public class RequestProcessModel
     {
+        [Required]
+        
         public Nullable<long> EmployeeId { get; set; }
+        [Required]
         public long RequestProcessSrNo { get; set; }
+        [Required]
         public Nullable<long> VisitorSrNo { get; set; }
+        [Required]
         public Nullable<long> EmployeeDepartmentID { get; set; }
+        [Required]
         public Nullable<System.DateTime> VisitStartTime { get; set; }
+        [Required]
         public Nullable<System.DateTime> VisitEndTime { get; set; }
+        [Required]
         public string VisitorAccessories { get; set; }
+        [Required]
         public Nullable<long> NoOfVisitors { get; set; }
+        [Required]
         public string VisitorVisitResons { get; set; }
+        [Required]
         public Nullable<System.DateTime> RequestProcessDate { get; set; }
+        [Required]
         public string ActivityOwnerStatus { get; set; }
+        [Required]
         public string AreaOwnerStatus { get; set; }
+        [Required]
         public string SafetyStatus { get; set; }
+        [Required]
         public string ContractorStatus { get; set; }
+
     }
 
     public class DepartmentMasterModel

@@ -141,7 +141,7 @@ namespace WebApiForManageVisitors.Controllers
                         VisitorContractorSrNo = collection.VisitorContractorSrNo,
                         VisitorContractorCoNo = collection.VisitorContractorCoNo,
                         VisitorPassword = collection.VisitorPassword,
-                        //VisitorRegistrationDate = DateTime.Now
+                        VisitorRegistrationDate = DateTime.Now
                     };
 
 
