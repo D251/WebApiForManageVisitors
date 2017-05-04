@@ -142,9 +142,13 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
         {
             try
             {
+
                 VisitorUserRegistrationModel VisitorUserMaxSrNo = new VisitorUserRegistrationModel();
-                var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Max(p => p.VisitorSrNo);
-                VisitorUserMaxSrNo.VisitorSrNo = _objVisitorUserRegistration + 1;
+                var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.ToList();
+                var max = _objVisitorUserRegistration.Max(x => (int?)x.VisitorContractorSrNo) ?? 0;
+
+                VisitorUserMaxSrNo.VisitorSrNo = max + 1;
+
                 return Json(VisitorUserMaxSrNo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -154,7 +158,6 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                 _objResult.msg = ex.ToString();
                 return Json(_objResult, JsonRequestBehavior.AllowGet);
             }
-
         }
 
 
@@ -178,15 +181,14 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                     VisitorRegistrationDate = DateTime.Now
                 };
 
-
                 _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Add(data);
                 _DbManageVisitorsEntities.SaveChanges();
                 ResultModel _objResult = new ResultModel();
                 _objResult.success = 1;
                 _objResult.msg = "Save Successfully";
                 return Json(_objResult, JsonRequestBehavior.AllowGet);
-
             }
+
             catch (Exception ex)
             {
                 ResultModel _objResult = new ResultModel();
@@ -242,7 +244,6 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
         {
             try
             {
-
                 string applicationID = "AAAAUbmTWw0:APA91bFmQkyZl2KbXyW1uOQTrJ0QLFXY0DDZIbsgFE6ZODnEsLPjDLwuqDe8tqafiPYR1gjfN4Vcglm8GK-DIJLG36sFvtVJk-IZ-3IwK-GjWw7jIt69NiOzd_cfP3CJLvuDwiRn-aw_";
 
                 string senderId = "351005793037";
@@ -587,7 +588,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                         _class.VisitEndTime = Convert.ToDateTime(item.VisitEndTime);
                         _class.RequestStatus = item.ActivityOwnerStatus;
                         _objListRequestProcessModel.Add(_class);
-                        
+
                     }
 
                     else if (collection.EmployeeDesignationName == "Area Owner" && item.EmployeeDepartmentID == collection.EmployeeDepartmentID && item.ActivityOwnerStatus == "Accepted")
@@ -789,7 +790,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                 ResultModel _objResult = new ResultModel();
                 _objResult.success = 1;
                 _objResult.msg = "Save Successfully";
-                
+
                 return Json(_objResult, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -835,7 +836,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
         {
             try
             {
-                 var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(a => a.RequestProcessSrNo == collection.RequestProcessSrNo).FirstOrDefault();
+                var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(a => a.RequestProcessSrNo == collection.RequestProcessSrNo).FirstOrDefault();
 
                 _objAllRequestProcessModel.SafetyStatus = collection.SafetyStatus;
                 _objAllRequestProcessModel.AreaOwnerStatus = collection.AreaOwnerStatus;
