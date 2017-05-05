@@ -10,9 +10,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using WebApiForManageVisitors.Models;
+using WebApiForWorkPermitSystem.Models;
 
-namespace WebApiForManageVisitors
+namespace WebApiForWorkPermitSystem
 {
     public class EmailService : IIdentityMessageService
     {

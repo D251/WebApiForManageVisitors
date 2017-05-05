@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4d1b4b2b913c473a8d181e95d74fbb95" Name="Diagram1">
+        <EntityTypeShape EntityType="WorkPermitSystemModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkPermitSystemModel.AspNetRole" Width="1.5" PointX="5.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkPermitSystemModel.AspNetUserClaim" Width="1.5" PointX="10.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkPermitSystemModel.AspNetUserLogin" Width="1.5" PointX="10.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkPermitSystemModel.AspNetUser" Width="1.5" PointX="8" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkPermitSystemModel.tbl_ContractorMaster" Width="1.5" PointX="7.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkPermitSystemModel.tbl_DepartmentEmployeeRegistration" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkPermitSystemModel.tbl_DepartmentMaster" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkPermitSystemModel.tbl_DesignationMaster" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkPermitSystemModel.tbl_RequestProcess" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkPermitSystemModel.tbl_VendorUserRegistration" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="WorkPermitSystemModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="WorkPermitSystemModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="WorkPermitSystemModel.FK_tbl_DepartmentEmployeeRegistration_tbl_DepartmentMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="WorkPermitSystemModel.FK_tbl_DepartmentEmployeeRegistration_tbl_DesignationMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="WorkPermitSystemModel.FK_tbl_RequestProcess_tbl_DepartmentEmployeeRegistration" ManuallyRouted="false" />
+        <AssociationConnector Association="WorkPermitSystemModel.FK_tbl_RequestProcess_tbl_VendorUserRegistration" ManuallyRouted="false" />
+        <AssociationConnector Association="WorkPermitSystemModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

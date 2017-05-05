@@ -4,20 +4,21 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebApiForManageVisitors.Models;
+using WebApiForWorkPermitSystem.Models;
+using WebApiForWorkPermitSystem.Models;
 
-namespace WebApiForManageVisitors.Controllers
+namespace WebApiForWorkPermitSystem.Controllers
 {
     public class EmployeeDepartmentController : Controller
     {
-        ManageVisitorsEntities _DbManageVisitorsEntities = new ManageVisitorsEntities();
+        WorkPermitSystemEntities _DbWorkPermitSystemEntities = new WorkPermitSystemEntities();
         // GET: EmployeeDepartment
 
         public void CheckViewBagData()
         {
             @ViewBag.EmployeeDepartment = true;
             @ViewBag.EmployeeRegistration = false;
-            @ViewBag.VisitorRegistration = false;
+            @ViewBag.VendorRegistration = false;
             @ViewBag.Account = false;
             @ViewBag.EmployeeDesignation = false;
             @ViewBag.ContractorMaster = false;
@@ -28,11 +29,11 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             List<DepartmentMasterModel> _objDepartmentModel = new List<DepartmentMasterModel>();
-            var Department = _DbManageVisitorsEntities.tbl_DepartmentMaster.ToList();
+            var Department = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.ToList();
             foreach (var item in Department)
             {
                 DepartmentMasterModel _objDepartmentMasterModel = new DepartmentMasterModel();
-                var Departmentitem = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == item.DepartmentID).FirstOrDefault();
+                var Departmentitem = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == item.DepartmentID).FirstOrDefault();
                 _objDepartmentMasterModel.DepartmentID = Departmentitem.DepartmentID;
                 _objDepartmentMasterModel.DepartmentName = Departmentitem.DepartmentName;
                 _objDepartmentMasterModel.DepartmentCreateDate = Departmentitem.DepartmentCreateDate;
@@ -46,7 +47,7 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Details(int id)
         {
             CheckViewBagData();
-            var model = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
+            var model = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
             DepartmentMasterModel _objDepartmentModel = new DepartmentMasterModel();
             _objDepartmentModel.DepartmentID = model.DepartmentID;
             _objDepartmentModel.DepartmentName = model.DepartmentName;
@@ -59,9 +60,9 @@ namespace WebApiForManageVisitors.Controllers
         {
             if (DepartmentID != null)
             {
-                if (_DbManageVisitorsEntities.tbl_DepartmentMaster.Any(x => x.DepartmentName == DepartmentName))
+                if (_DbWorkPermitSystemEntities.tbl_DepartmentMaster.Any(x => x.DepartmentName == DepartmentName))
                 {
-                    tbl_DepartmentMaster existingDepartment = _DbManageVisitorsEntities.tbl_DepartmentMaster.Single(x => x.DepartmentName == DepartmentName);
+                    tbl_DepartmentMaster existingDepartment = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Single(x => x.DepartmentName == DepartmentName);
                     if (existingDepartment.DepartmentID != DepartmentID)
                     {
                         return Json(false);
@@ -78,7 +79,7 @@ namespace WebApiForManageVisitors.Controllers
             }
             else
             {
-                return Json(!_DbManageVisitorsEntities.tbl_DepartmentMaster.Any(x => x.DepartmentName == DepartmentName));
+                return Json(!_DbWorkPermitSystemEntities.tbl_DepartmentMaster.Any(x => x.DepartmentName == DepartmentName));
             }
         }
 
@@ -101,25 +102,25 @@ namespace WebApiForManageVisitors.Controllers
                     DepartmentName = collection.DepartmentName,
                     DepartmentCreateDate = DateTime.Now
                 };
-               if (!_DbManageVisitorsEntities.tbl_DepartmentMaster.Any(p=>p.DepartmentName==collection.DepartmentName))
+               if (!_DbWorkPermitSystemEntities.tbl_DepartmentMaster.Any(p=>p.DepartmentName==collection.DepartmentName))
                 {
                     try
                     {
-                        _DbManageVisitorsEntities.tbl_DepartmentMaster.Add(data);
-                        _DbManageVisitorsEntities.SaveChanges();
+                        _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Add(data);
+                        _DbWorkPermitSystemEntities.SaveChanges();
 
 
-                        List<string> Desig = new List<string> { "Activity Owner", "Area Owner", "Safety" };
+                        List<string> Desig = new List<string> { "Activity Owner", "Area Owner" };
                         foreach (var item in Desig)
                         {
                             var DesignationData = new tbl_DesignationMaster()
                             {
-                                DepartmentID = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentName == collection.DepartmentName).Select(p => p.DepartmentID).FirstOrDefault(),
+                                DepartmentID = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentName == collection.DepartmentName).Select(p => p.DepartmentID).FirstOrDefault(),
                                 DesignationName = item,
                                 DesignationCreateDate= DateTime.Now
                             };
-                            _DbManageVisitorsEntities.tbl_DesignationMaster.Add(DesignationData);
-                            _DbManageVisitorsEntities.SaveChanges();
+                            _DbWorkPermitSystemEntities.tbl_DesignationMaster.Add(DesignationData);
+                            _DbWorkPermitSystemEntities.SaveChanges();
                         }
                         return RedirectToAction("Index");
                     }
@@ -143,7 +144,7 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             DepartmentMasterModel _objDepartmentModel = new DepartmentMasterModel();
-            var model = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
+            var model = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
             {
                 _objDepartmentModel.DepartmentID = model.DepartmentID;
                 _objDepartmentModel.DepartmentName = model.DepartmentName;
@@ -164,12 +165,12 @@ namespace WebApiForManageVisitors.Controllers
                 CheckViewBagData();
                 if (ModelState.IsValid)
                 {
-                    var data = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(b => b.DepartmentID == id).FirstOrDefault();
+                    var data = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(b => b.DepartmentID == id).FirstOrDefault();
                     {
                         //data.DepartmentID = collection.DepartmentID;
                         data.DepartmentName = collection.DepartmentName;
-                        _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
-                        _DbManageVisitorsEntities.SaveChanges();
+                        _DbWorkPermitSystemEntities.Entry(data).State = EntityState.Modified;
+                        _DbWorkPermitSystemEntities.SaveChanges();
                         return RedirectToAction("Index");
                     }
                 }
@@ -187,7 +188,7 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Delete(int id)
         {
             CheckViewBagData();
-            var model = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
+            var model = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
             DepartmentMasterModel _objModel = new DepartmentMasterModel();
             _objModel.DepartmentCreateDate = model.DepartmentCreateDate;
             _objModel.DepartmentID = model.DepartmentID;
@@ -203,9 +204,9 @@ namespace WebApiForManageVisitors.Controllers
             {
                 CheckViewBagData();
                 // TODO: Add delete logic here
-                var model = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
-                _DbManageVisitorsEntities.tbl_DepartmentMaster.Remove(model);
-                _DbManageVisitorsEntities.SaveChanges();
+                var model = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(a => a.DepartmentID == id).FirstOrDefault();
+                _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Remove(model);
+                _DbWorkPermitSystemEntities.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

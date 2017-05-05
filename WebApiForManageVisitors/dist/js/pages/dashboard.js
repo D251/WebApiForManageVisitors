@@ -49,7 +49,7 @@ $(function () {
   $(".knob").knob();
 
   //jvectormap data
-  var visitorsData = {
+  var VendorsData = {
     "US": 398, //USA
     "SA": 400, //Saudi Arabia
     "CA": 1000, //Canada
@@ -77,14 +77,14 @@ $(function () {
     },
     series: {
       regions: [{
-        values: visitorsData,
+        values: VendorsData,
         scale: ["#92c1dc", "#ebf4f9"],
         normalizeFunction: 'polynomial'
       }]
     },
     onRegionLabelShow: function (e, el, code) {
-      if (typeof visitorsData[code] != "undefined")
-        el.html(el.html() + ': ' + visitorsData[code] + ' new visitors');
+      if (typeof VendorsData[code] != "undefined")
+        el.html(el.html() + ': ' + VendorsData[code] + ' new Vendors');
     }
   });
 

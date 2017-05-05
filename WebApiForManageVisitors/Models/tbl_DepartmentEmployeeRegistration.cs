@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApiForManageVisitors.Models
+namespace WebApiForWorkPermitSystem.Models
 {
     using System;
     using System.Collections.Generic;
@@ -22,6 +22,7 @@ namespace WebApiForManageVisitors.Models
     
         public long EmployeeSrNo { get; set; }
         public string EmployeeTokenNo { get; set; }
+        public string DeviceTokenId { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeeAddress { get; set; }
         public string EmployeeContactNo { get; set; }
@@ -30,7 +31,6 @@ namespace WebApiForManageVisitors.Models
         public Nullable<long> EmployeeDesignationID { get; set; }
         public string EmployeePassword { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public string DeviceTokenId { get; set; }
     
         public virtual tbl_DepartmentMaster tbl_DepartmentMaster { get; set; }
         public virtual tbl_DesignationMaster tbl_DesignationMaster { get; set; }

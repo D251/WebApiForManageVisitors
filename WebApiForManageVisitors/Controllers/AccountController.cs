@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using WebApiForManageVisitors.Models;
+using WebApiForWorkPermitSystem.Models;
 
-namespace WebApiForManageVisitors.Controllers
+namespace WebApiForWorkPermitSystem.Controllers
 {
     [Authorize]
     public class AccountController : Controller
@@ -66,7 +66,7 @@ namespace WebApiForManageVisitors.Controllers
         {
             @ViewBag.Account = true;
             @ViewBag.EmployeeRegistration = false;
-            @ViewBag.VisitorRegistration = false;
+            @ViewBag.VendorRegistration = false;
             @ViewBag.EmployeeDepartment = false;
             @ViewBag.EmployeeDesignation = false;
             @ViewBag.ContractorMaster = false;

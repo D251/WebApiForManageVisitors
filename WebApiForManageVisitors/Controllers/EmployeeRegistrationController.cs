@@ -6,20 +6,21 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using WebApiForManageVisitors.Areas.Admin.Controllers;
-using WebApiForManageVisitors.Models;
+using WebApiForWorkPermitSystem.Areas.Admin.Controllers;
+using WebApiForWorkPermitSystem.Models;
+using WebApiForWorkPermitSystem.Models;
 
-namespace WebApiForManageVisitors.Controllers
+namespace WebApiForWorkPermitSystem.Controllers
 {
     public class EmployeeRegistrationController : Controller
     {
-        ManageVisitorsEntities _DbManageVisitorsEntities = new ManageVisitorsEntities();
+        WorkPermitSystemEntities _DbWorkPermitSystemEntities = new WorkPermitSystemEntities();
         // GET: EmployeeRegistration
         public void CheckViewBagData()
         {
             @ViewBag.EmployeeRegistration = true;
             @ViewBag.Account = false;
-            @ViewBag.VisitorRegistration = false;
+            @ViewBag.VendorRegistration = false;
             @ViewBag.EmployeeDepartment = false;
             @ViewBag.EmployeeDesignation = false;
             @ViewBag.ContractorMaster = false;
@@ -30,12 +31,12 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             List<DepartmentEmployeeRegistrationModel> _objEmployeeModel = new List<DepartmentEmployeeRegistrationModel>();
-            var Employee = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList();
+            var Employee = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.ToList();
 
             foreach (var item in Employee)
             {
                 DepartmentEmployeeRegistrationModel _objEmployeeModelItem = new DepartmentEmployeeRegistrationModel();
-                var _objEmployee = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == item.EmployeeSrNo).FirstOrDefault();
+                var _objEmployee = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == item.EmployeeSrNo).FirstOrDefault();
                 _objEmployeeModelItem.EmployeeSrNo = _objEmployee.EmployeeSrNo;
                 _objEmployeeModelItem.EmployeeTokenNo = _objEmployee.EmployeeTokenNo;
                 _objEmployeeModelItem.EmployeeName = _objEmployee.EmployeeName;
@@ -58,9 +59,9 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
 
-            var _objEmployee = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == id).FirstOrDefault();
-            var _objDesignation = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == _objEmployee.EmployeeDesignationID).FirstOrDefault();
-            var _objDepartment = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objEmployee.EmployeeDepartmentID).FirstOrDefault();
+            var _objEmployee = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == id).FirstOrDefault();
+            var _objDesignation = _DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(a => a.DesignationID == _objEmployee.EmployeeDesignationID).FirstOrDefault();
+            var _objDepartment = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objEmployee.EmployeeDepartmentID).FirstOrDefault();
 
             DepartmentEmployeeRegistrationModel _objEmployeeModelItem = new DepartmentEmployeeRegistrationModel();
             _objEmployeeModelItem.EmployeeSrNo = _objEmployee.EmployeeSrNo;
@@ -83,13 +84,13 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Create()
         {
             CheckViewBagData();
-            ViewBag.DepartmentCombo = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
-            ViewBag.DesignationCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DesignationMaster, "DesignationID", "DesignationName");
+            ViewBag.DepartmentCombo = new SelectList(_DbWorkPermitSystemEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
+            ViewBag.DesignationCombo1 = new SelectList(_DbWorkPermitSystemEntities.tbl_DesignationMaster, "DesignationID", "DesignationName");
             return View();
 
             //other Way
 
-            //ViewBag.DepartmentCombo = _DbManageVisitorsEntities.tbl_DepartmentMaster;
+            //ViewBag.DepartmentCombo = _DbWorkPermitSystemEntities.tbl_DepartmentMaster;
             //var model = new DepartmentEmployeeRegistrationModel();
             //return View(model);
 
@@ -99,9 +100,9 @@ namespace WebApiForManageVisitors.Controllers
         public JsonResult GetDesignationByID(int id)
         {
             CheckViewBagData();
-            _DbManageVisitorsEntities.Configuration.ProxyCreationEnabled = false;
-            //var R = Json(_DbManageVisitorsEntities.tbl_DesignationMaster.Where(P => P.DepartmentID == id), JsonRequestBehavior.AllowGet);
-            var Designationlist = (_DbManageVisitorsEntities.tbl_DesignationMaster.Where(P => P.DepartmentID == id));
+            _DbWorkPermitSystemEntities.Configuration.ProxyCreationEnabled = false;
+            //var R = Json(_DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(P => P.DepartmentID == id), JsonRequestBehavior.AllowGet);
+            var Designationlist = (_DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(P => P.DepartmentID == id));
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string result = javaScriptSerializer.Serialize(Designationlist);
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -129,11 +130,11 @@ namespace WebApiForManageVisitors.Controllers
                         EmployeePassword = collection.EmployeePassword,
                         Date = DateTime.Now
                     };
-                    _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Add(data);
-                    if (!_DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Any(p => p.EmployeeTokenNo == collection.EmployeeTokenNo))
+                    _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Add(data);
+                    if (!_DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Any(p => p.EmployeeTokenNo == collection.EmployeeTokenNo))
                     {
 
-                        _DbManageVisitorsEntities.SaveChanges();
+                        _DbWorkPermitSystemEntities.SaveChanges();
                         return RedirectToAction("Index");
                     }
                     else
@@ -144,10 +145,10 @@ namespace WebApiForManageVisitors.Controllers
                   
                 }
                 //other way
-               //ViewBag.DepartmentCombo = _DbManageVisitorsEntities.tbl_DepartmentMaster;
+               //ViewBag.DepartmentCombo = _DbWorkPermitSystemEntities.tbl_DepartmentMaster;
 
-               ViewBag.DepartmentCombo = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
-                //ViewBag.DesignationCombo = new SelectList(_DbManageVisitorsEntities.tbl_DesignationMaster, "DesignationID", "DesignationName");
+               ViewBag.DepartmentCombo = new SelectList(_DbWorkPermitSystemEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
+                //ViewBag.DesignationCombo = new SelectList(_DbWorkPermitSystemEntities.tbl_DesignationMaster, "DesignationID", "DesignationName");
                 return View();
             }
             catch (Exception ex)
@@ -164,12 +165,12 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Edit(int id, int id1)
         {
             CheckViewBagData();
-           var Designation=_DbManageVisitorsEntities.tbl_DesignationMaster.Where(e => e.DepartmentID == id1).FirstOrDefault();
+           var Designation=_DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(e => e.DepartmentID == id1).FirstOrDefault();
           
             DepartmentEmployeeRegistrationModel _objEmployeeModel = new DepartmentEmployeeRegistrationModel();
-            var _objEmployee = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(E => E.EmployeeSrNo == id).FirstOrDefault();
+            var _objEmployee = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(E => E.EmployeeSrNo == id).FirstOrDefault();
             {
-                var Department = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(e => e.DepartmentID == _objEmployee.EmployeeDepartmentID).FirstOrDefault();
+                var Department = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(e => e.DepartmentID == _objEmployee.EmployeeDepartmentID).FirstOrDefault();
                // _objEmployeeModel.EmployeeSrNo = _objEmployee.EmployeeSrNo;
                 _objEmployeeModel.EmployeeTokenNo = _objEmployee.EmployeeTokenNo;
                 _objEmployeeModel.EmployeeName = _objEmployee.EmployeeName;
@@ -186,8 +187,8 @@ namespace WebApiForManageVisitors.Controllers
 
             };
 
-            ViewBag.DepartmentCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName", _objEmployeeModel.EmployeeDepartmentID);
-            ViewBag.DesignationCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DesignationMaster.Where(e => e.DepartmentID == id1), "DesignationID", "DesignationName", _objEmployeeModel.EmployeeDesignationID);
+            ViewBag.DepartmentCombo1 = new SelectList(_DbWorkPermitSystemEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName", _objEmployeeModel.EmployeeDepartmentID);
+            ViewBag.DesignationCombo1 = new SelectList(_DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(e => e.DepartmentID == id1), "DesignationID", "DesignationName", _objEmployeeModel.EmployeeDesignationID);
             return View(_objEmployeeModel);
 
         }
@@ -202,7 +203,7 @@ namespace WebApiForManageVisitors.Controllers
                 CheckViewBagData();
                 if (ModelState.IsValid)
                 {
-                    var data = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(b => b.EmployeeSrNo == id).FirstOrDefault();
+                    var data = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(b => b.EmployeeSrNo == id).FirstOrDefault();
                     {
                         //data.EmployeeSrNo = collection.EmployeeSrNo;
                         data.EmployeeName = collection.EmployeeName;
@@ -216,14 +217,14 @@ namespace WebApiForManageVisitors.Controllers
 
                     };
 
-                    _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
-                    _DbManageVisitorsEntities.SaveChanges();
+                    _DbWorkPermitSystemEntities.Entry(data).State = EntityState.Modified;
+                    _DbWorkPermitSystemEntities.SaveChanges();
                      return RedirectToAction("Index");
                   
                 }
 
-                ViewBag.DepartmentCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName", collection.EmployeeDepartmentID);
-                ViewBag.DesignationCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DesignationMaster.Where(e => e.DepartmentID == collection.EmployeeDepartmentID), "DesignationID", "DesignationName", collection.EmployeeDesignationID);
+                ViewBag.DepartmentCombo1 = new SelectList(_DbWorkPermitSystemEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName", collection.EmployeeDepartmentID);
+                ViewBag.DesignationCombo1 = new SelectList(_DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(e => e.DepartmentID == collection.EmployeeDepartmentID), "DesignationID", "DesignationName", collection.EmployeeDesignationID);
                 //  SendPushNotification();
                 // var resultade = new AdminApiForMVController().SendPushNotification("f","f","f");
                // var r = new AdminApiForMVController().SendPushNotification(collection.DeviceTokenId, collection.EmployeeName, "Emp");
@@ -240,9 +241,9 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
 
-            var _objEmployee = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == id).FirstOrDefault();
-            var _objDesignation = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == _objEmployee.EmployeeDesignationID).FirstOrDefault();
-            var _objDepartment = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objEmployee.EmployeeDepartmentID).FirstOrDefault();
+            var _objEmployee = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == id).FirstOrDefault();
+            var _objDesignation = _DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(a => a.DesignationID == _objEmployee.EmployeeDesignationID).FirstOrDefault();
+            var _objDepartment = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objEmployee.EmployeeDepartmentID).FirstOrDefault();
 
             DepartmentEmployeeRegistrationModel _objEmployeeModelItem = new DepartmentEmployeeRegistrationModel();
             _objEmployeeModelItem.EmployeeSrNo = _objEmployee.EmployeeSrNo;
@@ -268,9 +269,9 @@ namespace WebApiForManageVisitors.Controllers
             try
             {
                 CheckViewBagData();
-                var model = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(a => a.EmployeeSrNo == id).FirstOrDefault();
-                _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Remove(model);
-                _DbManageVisitorsEntities.SaveChanges();
+                var model = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(a => a.EmployeeSrNo == id).FirstOrDefault();
+                _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Remove(model);
+                _DbWorkPermitSystemEntities.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

@@ -1,11 +1,11 @@
 using System.Web.Http;
 using WebActivatorEx;
-using WebApiForManageVisitors;
+using WebApiForWorkPermitSystem;
 using Swashbuckle.Application;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
-namespace WebApiForManageVisitors
+namespace WebApiForWorkPermitSystem
 {
     public class SwaggerConfig
     {
@@ -32,7 +32,7 @@ namespace WebApiForManageVisitors
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1", "WebApiForManageVisitors");
+                        c.SingleApiVersion("v1", "WebApiForWorkPermitSystem");
 
                         // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
                         // In this case, you must provide a lambda that tells Swashbuckle which actions should be

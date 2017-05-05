@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace WebApiForManageVisitors.Areas.Admin
+namespace WebApiForWorkPermitSystem.Areas.Admin
 {
     public class AdminAreaRegistration : AreaRegistration 
     {

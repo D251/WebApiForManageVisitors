@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApiForManageVisitors.Models.ProcessRequestDetailsByRequestIDModel>
+﻿@model IEnumerable<WebApiForWorkPermitSystem.Models.ProcessRequestDetailsByRequestIDModel>
 
 @{
     ViewBag.Title = "Index";
@@ -34,13 +34,13 @@
                                         @Html.DisplayNameFor(model => model.VisitEndTime)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.VisitorAccessories)
+                                        @Html.DisplayNameFor(model => model.VendorAccessories)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.NoOfVisitors)
+                                        @Html.DisplayNameFor(model => model.NoOfVendors)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.VisitorVisitResons)
+                                        @Html.DisplayNameFor(model => model.VendorVisitResons)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.RequestProcessDate)
@@ -61,7 +61,7 @@
                                         @Html.DisplayNameFor(model => model.EmployeeName)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.VisitorName)
+                                        @Html.DisplayNameFor(model => model.VendorName)
                                     </th>
                                     <th></th>
                                 </tr>
@@ -78,13 +78,13 @@
                                          @Html.DisplayNameFor(model => model.VisitEndTime)
                                      </th>
                                      <th>
-                                         @Html.DisplayNameFor(model => model.VisitorAccessories)
+                                         @Html.DisplayNameFor(model => model.VendorAccessories)
                                      </th>
                                      <th>
-                                         @Html.DisplayNameFor(model => model.NoOfVisitors)
+                                         @Html.DisplayNameFor(model => model.NoOfVendors)
                                      </th>
                                      <th>
-                                         @Html.DisplayNameFor(model => model.VisitorVisitResons)
+                                         @Html.DisplayNameFor(model => model.VendorVisitResons)
                                      </th>
                                      <th>
                                          @Html.DisplayNameFor(model => model.RequestProcessDate)
@@ -105,7 +105,7 @@
                                          @Html.DisplayNameFor(model => model.EmployeeName)
                                      </th>
                                      <th>
-                                         @Html.DisplayNameFor(model => model.VisitorName)
+                                         @Html.DisplayNameFor(model => model.VendorName)
                                      </th>
                                  </tr>
                              </tfoot>
@@ -123,13 +123,13 @@
                                             @Html.DisplayFor(modelItem => item.VisitEndTime)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.VisitorAccessories)
+                                            @Html.DisplayFor(modelItem => item.VendorAccessories)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.NoOfVisitors)
+                                            @Html.DisplayFor(modelItem => item.NoOfVendors)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.VisitorVisitResons)
+                                            @Html.DisplayFor(modelItem => item.VendorVisitResons)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.RequestProcessDate)
@@ -150,7 +150,7 @@
                                             @Html.DisplayFor(modelItem => item.EmployeeName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.VisitorName)
+                                            @Html.DisplayFor(modelItem => item.VendorName)
                                         </td>
                                         <td>
                                             @Html.ActionLink("Edit", "Edit", new { id = item.RequestProcessSrNo }) |

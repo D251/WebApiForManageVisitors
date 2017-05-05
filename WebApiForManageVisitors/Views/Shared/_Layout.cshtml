@@ -133,7 +133,7 @@
                         string Reports = "";
                         string Account = @ViewBag.Account ? "active" : "";
                         string EmployeeRegistration = @ViewBag.EmployeeRegistration ? "active" : "";
-                        string VisitorRegistration = @ViewBag.VisitorRegistration ? "active" : "";
+                        string VendorRegistration = @ViewBag.VendorRegistration ? "active" : "";
                         string EmployeeDepartment = @ViewBag.EmployeeDepartment ? "active" : "";
                         string EmployeeDesignation = @ViewBag.EmployeeDesignation ? "active" : "";
                         string ContractorMaster = @ViewBag.ContractorMaster ? "active" : "";
@@ -141,7 +141,7 @@
                         <li class="header">MAIN NAVIGATION</li>
 
 
-                        if (@EmployeeRegistration == "active" || @VisitorRegistration == "active")
+                        if (@EmployeeRegistration == "active" || @VendorRegistration == "active")
                         { Registration = "active"; }
                         else if (@EmployeeDepartment == "active" || @EmployeeDesignation == "active" || @ContractorMaster == "active")
                         { Masters = "active"; }
@@ -158,7 +158,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li class="@EmployeeRegistration"><a href="~/EmployeeRegistration/Index"><i class="fa fa-circle-o"></i>Employee Registration</a></li>
-                                <li class="@VisitorRegistration"><a href="~/VisitorRegistration/Index"><i class="fa fa-circle-o"></i>Visitor Registration</a></li>
+                                <li class="@VendorRegistration"><a href="~/VendorRegistration/Index"><i class="fa fa-circle-o"></i>Vendor Registration</a></li>
                             </ul>
                         </li>
                         <li class="@Masters treeview">

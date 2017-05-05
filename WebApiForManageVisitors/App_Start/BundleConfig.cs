@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace WebApiForManageVisitors
+namespace WebApiForWorkPermitSystem
 {
     public class BundleConfig
     {

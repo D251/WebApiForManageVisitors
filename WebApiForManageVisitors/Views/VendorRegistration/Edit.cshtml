@@ -1,0 +1,145 @@
+﻿@model WebApiForWorkPermitSystem.Models.VendorUserRegistrationModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<style>
+    .ForError {
+        /*font-weight: bold;*/
+        color: red;
+    }
+</style>
+<style>
+    .textbold {
+        font-weight: bold;
+    }
+</style>
+<style>
+    .MakeWide {
+        width: 435px;
+        height: 30px;
+    }
+</style>
+
+<script type="text/javascript">
+    function getContractorcontactNo() {
+        debugger;
+        var stateId = $("#ContractorNameDropDown").val();
+        $.ajax({
+            url: '@Url.Action("GetContractorContactNo", "VendorRegistration")',
+            type: 'POST',
+            datatype: 'application/json',
+            contentType: 'application/json',
+            data: JSON.stringify({ id: +stateId }),
+            success: function (result) {
+                var contact_no = result;
+                $("#ContractorContactNo").val(contact_no)
+              },
+            error: function () { alert("Whooaaa! Something went wrong..") },
+        });
+    }
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            Edit Vendor Registration
+            <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink("Back to List", "Index")</small>
+        </h1>
+        <div class="pull-right">
+            <button type="submit" name="save" class="btn bg-blue">
+                <i class="fa fa-floppy-o"></i>
+                SUBMIT
+            </button>
+        </div>
+    </div>
+    <div class="content-header clearfix">
+        <div class="box box-info">
+            <div class="box-body">
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.VendorSrNo)
+                   
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VendorUserID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.VendorUserID, new { htmlAttributes = new { @class = "form-control textbold", @readonly = true,@style = "background-color:white"} })
+                            @Html.ValidationMessageFor(model => model.VendorUserID, "", new { @class = "ForError" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VendorName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.VendorName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.VendorName, "", new { @class = "ForError" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VendorAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.VendorAddress, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.VendorAddress, "", new { @class = "ForError" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VendorContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.VendorContactNo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.VendorContactNo, "", new { @class = "ForError" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VendorEmailID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.VendorEmailID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.VendorEmailID, "", new { @class = "ForError" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VendorNatureOfWork, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.VendorNatureOfWork, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.VendorNatureOfWork, "", new { @class = "ForError" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VendorContractorSrNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.DropDownListFor(model => model.VendorContractorSrNo, (ViewBag.ContractorNameCombo) as SelectList, "--Select Contractor Name--", new { id = "ContractorNameDropDown", onchange = "getContractorcontactNo()", @class = "MakeWide" })
+                            @Html.ValidationMessageFor(model => model.VendorContractorSrNo, "", new { @class = "ForError" })
+                        </div>
+                    </div>
+                  
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VendorContractorCoNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.VendorContractorCoNo, new { htmlAttributes = new { @class = "form-control", @id = "ContractorContactNo", @readonly = true, @style = "background-color:white" } })
+
+                            @Html.ValidationMessageFor(model => model.VendorContractorCoNo, "", new { @class = "ForError" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VendorPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.VendorPassword, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.VendorPassword, "", new { @class = "ForError" })
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+}

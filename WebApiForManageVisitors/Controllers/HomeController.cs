@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WebApiForManageVisitors.Controllers
+namespace WebApiForWorkPermitSystem.Controllers
 {
     public class HomeController : Controller
     {
@@ -12,7 +12,7 @@ namespace WebApiForManageVisitors.Controllers
         {
             @ViewBag.Account = false;
             @ViewBag.EmployeeRegistration = false;
-            @ViewBag.VisitorRegistration = false;
+            @ViewBag.VendorRegistration = false;
             @ViewBag.EmployeeDepartment = false;
             @ViewBag.EmployeeDesignation = false;
             @ViewBag.ContractorMaster = false;

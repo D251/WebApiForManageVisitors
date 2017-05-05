@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApiForManageVisitors.Models
+namespace WebApiForWorkPermitSystem.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebApiForManageVisitors</RootNamespace>
-    <AssemblyName>WebApiForManageVisitors</AssemblyName>
+    <RootNamespace>WebApiForWorkPermitSystem</RootNamespace>
+    <AssemblyName>WebApiForWorkPermitSystem</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -238,61 +238,61 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RequestDetailsController.cs" />
-    <Compile Include="Controllers\VisitorRegistrationController.cs" />
+    <Compile Include="Controllers\VendorRegistrationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+      <DependentUpon>WorkPermitSystemEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+      <DependentUpon>WorkPermitSystemEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+      <DependentUpon>WorkPermitSystemEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+      <DependentUpon>WorkPermitSystemEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+      <DependentUpon>WorkPermitSystemEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ManageVisitorsEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ManageVisitorsEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ManageVisitorsEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ManageVisitorsEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ManageVisitorsEntities.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\ManageVisitorsModels.cs" />
     <Compile Include="Models\tbl_ContractorMaster.cs">
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+      <DependentUpon>WorkPermitSystemEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_DepartmentEmployeeRegistration.cs">
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+      <DependentUpon>WorkPermitSystemEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_DepartmentMaster.cs">
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+      <DependentUpon>WorkPermitSystemEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_DesignationMaster.cs">
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+      <DependentUpon>WorkPermitSystemEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_RequestProcess.cs">
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+      <DependentUpon>WorkPermitSystemEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_VisitorUserRegistration.cs">
-      <DependentUpon>ManageVisitorsEntities.tt</DependentUpon>
+    <Compile Include="Models\tbl_VendorUserRegistration.cs">
+      <DependentUpon>WorkPermitSystemEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkPermitSystemEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorkPermitSystemEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkPermitSystemEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorkPermitSystemEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkPermitSystemEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorkPermitSystemEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -403,15 +403,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\ManageVisitorsEntities.Context.tt">
+    <Content Include="Models\WorkPermitSystemEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ManageVisitorsEntities.edmx</DependentUpon>
-      <LastGenOutput>ManageVisitorsEntities.Context.cs</LastGenOutput>
+      <DependentUpon>WorkPermitSystemEntities.edmx</DependentUpon>
+      <LastGenOutput>WorkPermitSystemEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ManageVisitorsEntities.tt">
+    <Content Include="Models\WorkPermitSystemEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ManageVisitorsEntities.edmx</DependentUpon>
-      <LastGenOutput>ManageVisitorsEntities.cs</LastGenOutput>
+      <DependentUpon>WorkPermitSystemEntities.edmx</DependentUpon>
+      <LastGenOutput>WorkPermitSystemEntities.cs</LastGenOutput>
     </Content>
     <Content Include="pages\calendar.html" />
     <Content Include="pages\charts\chartjs.html" />
@@ -1379,12 +1379,12 @@
     <Content Include="plugins\datatables\extensions\TableTools\Readme.md" />
     <Content Include="plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="plugins\input-mask\phone-codes\phone-codes.json" />
-    <EntityDeploy Include="Models\ManageVisitorsEntities.edmx">
+    <EntityDeploy Include="Models\WorkPermitSystemEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ManageVisitorsEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>WorkPermitSystemEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ManageVisitorsEntities.edmx.diagram">
-      <DependentUpon>ManageVisitorsEntities.edmx</DependentUpon>
+    <Content Include="Models\WorkPermitSystemEntities.edmx.diagram">
+      <DependentUpon>WorkPermitSystemEntities.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Api.pubxml" />
     <None Include="Properties\Settings.settings">
@@ -1452,11 +1452,11 @@
     <Content Include="Views\EmployeeDesignation\Details.cshtml" />
     <Content Include="Views\EmployeeDesignation\Edit.cshtml" />
     <Content Include="Views\EmployeeDesignation\Delete.cshtml" />
-    <Content Include="Views\VisitorRegistration\Create.cshtml" />
-    <Content Include="Views\VisitorRegistration\Index.cshtml" />
-    <Content Include="Views\VisitorRegistration\Edit.cshtml" />
-    <Content Include="Views\VisitorRegistration\Delete.cshtml" />
-    <Content Include="Views\VisitorRegistration\Details.cshtml" />
+    <Content Include="Views\VendorRegistration\Create.cshtml" />
+    <Content Include="Views\VendorRegistration\Index.cshtml" />
+    <Content Include="Views\VendorRegistration\Edit.cshtml" />
+    <Content Include="Views\VendorRegistration\Delete.cshtml" />
+    <Content Include="Views\VendorRegistration\Details.cshtml" />
     <Content Include="Views\RequestDetails\Index.cshtml" />
     <Content Include="Views\RequestDetails\Details.cshtml" />
     <Content Include="Views\RequestDetails\Create.cshtml" />

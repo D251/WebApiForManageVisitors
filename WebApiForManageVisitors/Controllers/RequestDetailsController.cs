@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using WebApiForManageVisitors.Models;
+using WebApiForWorkPermitSystem.Models;
+using WebApiForWorkPermitSystem.Models;
 
-namespace WebApiForManageVisitors.Controllers
+namespace WebApiForWorkPermitSystem.Controllers
 {
     public class RequestDetailsController : Controller
     {
-        ManageVisitorsEntities _DbManageVisitorsEntities = new ManageVisitorsEntities();
+        WorkPermitSystemEntities _DbWorkPermitSystemEntities = new WorkPermitSystemEntities();
         public void CheckViewBagData()
         {
             @ViewBag.Account = false;
             @ViewBag.EmployeeRegistration = false;
-            @ViewBag.VisitorRegistration = false;
+            @ViewBag.VendorRegistration = false;
             @ViewBag.EmployeeDepartment = false;
             @ViewBag.EmployeeDesignation = false;
             @ViewBag.ContractorMaster = false;
@@ -27,38 +27,38 @@ namespace WebApiForManageVisitors.Controllers
             CheckViewBagData();
             List<ProcessRequestDetailsByRequestIDModel> _objProcessRequestDetailsByRequestIDModel = new List<ProcessRequestDetailsByRequestIDModel>();
 
-            var RequestProcess = _DbManageVisitorsEntities.tbl_RequestProcess.ToList();
+            var RequestProcess = _DbWorkPermitSystemEntities.tbl_RequestProcess.ToList();
 
             foreach (var item in RequestProcess)
             {
                 ProcessRequestDetailsByRequestIDModel _objProcessRequestDetailsByRequestID = new ProcessRequestDetailsByRequestIDModel();
 
 
-                var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(p => p.RequestProcessSrNo == item.RequestProcessSrNo).FirstOrDefault();
+                var _objAllRequestProcessModel = _DbWorkPermitSystemEntities.tbl_RequestProcess.Where(p => p.RequestProcessSrNo == item.RequestProcessSrNo).FirstOrDefault();
 
-                var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == _objAllRequestProcessModel.EmployeeId).FirstOrDefault();
+                var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == _objAllRequestProcessModel.EmployeeId).FirstOrDefault();
 
-                var _objDepartmentMaster = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objDepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
+                var _objDepartmentMaster = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objDepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
 
-                var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == _objAllRequestProcessModel.VisitorSrNo).FirstOrDefault();
+                var _objVendorUserRegistration = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.Where(p => p.VendorSrNo == _objAllRequestProcessModel.VendorSrNo).FirstOrDefault();
 
-                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVisitorUserRegistration.VisitorContractorSrNo).FirstOrDefault();
+                var _objContractor = _DbWorkPermitSystemEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVendorUserRegistration.VendorContractorSrNo).FirstOrDefault();
 
                 _objProcessRequestDetailsByRequestID.RequestProcessSrNo = _objAllRequestProcessModel.RequestProcessSrNo;
                 _objProcessRequestDetailsByRequestID.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
                 _objProcessRequestDetailsByRequestID.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
                 _objProcessRequestDetailsByRequestID.EmployeeDepartmentName = _objDepartmentMaster.DepartmentName;
-                _objProcessRequestDetailsByRequestID.VisitorName = _objVisitorUserRegistration.VisitorName;
+                _objProcessRequestDetailsByRequestID.VendorName = _objVendorUserRegistration.VendorName;
                 _objProcessRequestDetailsByRequestID.ContractorName = _objContractor.ContractorName;
                 _objProcessRequestDetailsByRequestID.VisitStartTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitStartTime);
                 _objProcessRequestDetailsByRequestID.VisitEndTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitEndTime);
-                _objProcessRequestDetailsByRequestID.NatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;
-                _objProcessRequestDetailsByRequestID.NoOfVisitors = _objAllRequestProcessModel.NoOfVisitors;
-                _objProcessRequestDetailsByRequestID.VisitorVisitResons = _objAllRequestProcessModel.VisitorVisitResons;
+                _objProcessRequestDetailsByRequestID.NatureOfWork = _objVendorUserRegistration.VendorNatureOfWork;
+                _objProcessRequestDetailsByRequestID.NoOfVendors = _objAllRequestProcessModel.NoOfVendors;
+                _objProcessRequestDetailsByRequestID.VendorVisitResons = _objAllRequestProcessModel.VendorVisitResons;
                 _objProcessRequestDetailsByRequestID.EmployeeId = _objAllRequestProcessModel.EmployeeId;
-                _objProcessRequestDetailsByRequestID.VisitorSrNo = _objAllRequestProcessModel.VisitorSrNo;
+                _objProcessRequestDetailsByRequestID.VendorSrNo = _objAllRequestProcessModel.VendorSrNo;
                 _objProcessRequestDetailsByRequestID.EmployeeDepartmentID = _objAllRequestProcessModel.EmployeeDepartmentID;
-                _objProcessRequestDetailsByRequestID.VisitorAccessories = _objAllRequestProcessModel.VisitorAccessories;
+                _objProcessRequestDetailsByRequestID.VendorAccessories = _objAllRequestProcessModel.VendorAccessories;
                 _objProcessRequestDetailsByRequestID.RequestProcessDate = _objAllRequestProcessModel.RequestProcessDate;
                 _objProcessRequestDetailsByRequestID.ActivityOwnerStatus = _objAllRequestProcessModel.ActivityOwnerStatus;
                 _objProcessRequestDetailsByRequestID.AreaOwnerStatus = _objAllRequestProcessModel.AreaOwnerStatus;
@@ -79,31 +79,31 @@ namespace WebApiForManageVisitors.Controllers
             ProcessRequestDetailsByRequestIDModel _objProcessRequestDetailsByRequestID = new ProcessRequestDetailsByRequestIDModel();
 
 
-            var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(p => p.RequestProcessSrNo == id).FirstOrDefault();
+            var _objAllRequestProcessModel = _DbWorkPermitSystemEntities.tbl_RequestProcess.Where(p => p.RequestProcessSrNo == id).FirstOrDefault();
 
-            var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == _objAllRequestProcessModel.EmployeeId).FirstOrDefault();
+            var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == _objAllRequestProcessModel.EmployeeId).FirstOrDefault();
 
-            var _objDepartmentMaster = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objDepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
+            var _objDepartmentMaster = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objDepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
 
-            var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == _objAllRequestProcessModel.VisitorSrNo).FirstOrDefault();
+            var _objVendorUserRegistration = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.Where(p => p.VendorSrNo == _objAllRequestProcessModel.VendorSrNo).FirstOrDefault();
 
-            var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVisitorUserRegistration.VisitorContractorSrNo).FirstOrDefault();
+            var _objContractor = _DbWorkPermitSystemEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVendorUserRegistration.VendorContractorSrNo).FirstOrDefault();
 
             _objProcessRequestDetailsByRequestID.RequestProcessSrNo = _objAllRequestProcessModel.RequestProcessSrNo;
             _objProcessRequestDetailsByRequestID.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
             _objProcessRequestDetailsByRequestID.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
             _objProcessRequestDetailsByRequestID.EmployeeDepartmentName = _objDepartmentMaster.DepartmentName;
-            _objProcessRequestDetailsByRequestID.VisitorName = _objVisitorUserRegistration.VisitorName;
+            _objProcessRequestDetailsByRequestID.VendorName = _objVendorUserRegistration.VendorName;
             _objProcessRequestDetailsByRequestID.ContractorName = _objContractor.ContractorName;
             _objProcessRequestDetailsByRequestID.VisitStartTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitStartTime);
             _objProcessRequestDetailsByRequestID.VisitEndTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitEndTime);
-            _objProcessRequestDetailsByRequestID.NatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;
-            _objProcessRequestDetailsByRequestID.NoOfVisitors = _objAllRequestProcessModel.NoOfVisitors;
-            _objProcessRequestDetailsByRequestID.VisitorVisitResons = _objAllRequestProcessModel.VisitorVisitResons;
+            _objProcessRequestDetailsByRequestID.NatureOfWork = _objVendorUserRegistration.VendorNatureOfWork;
+            _objProcessRequestDetailsByRequestID.NoOfVendors = _objAllRequestProcessModel.NoOfVendors;
+            _objProcessRequestDetailsByRequestID.VendorVisitResons = _objAllRequestProcessModel.VendorVisitResons;
             _objProcessRequestDetailsByRequestID.EmployeeId = _objAllRequestProcessModel.EmployeeId;
-            _objProcessRequestDetailsByRequestID.VisitorSrNo = _objAllRequestProcessModel.VisitorSrNo;
+            _objProcessRequestDetailsByRequestID.VendorSrNo = _objAllRequestProcessModel.VendorSrNo;
             _objProcessRequestDetailsByRequestID.EmployeeDepartmentID = _objAllRequestProcessModel.EmployeeDepartmentID;
-            _objProcessRequestDetailsByRequestID.VisitorAccessories = _objAllRequestProcessModel.VisitorAccessories;
+            _objProcessRequestDetailsByRequestID.VendorAccessories = _objAllRequestProcessModel.VendorAccessories;
             _objProcessRequestDetailsByRequestID.RequestProcessDate = _objAllRequestProcessModel.RequestProcessDate;
             _objProcessRequestDetailsByRequestID.ActivityOwnerStatus = _objAllRequestProcessModel.ActivityOwnerStatus;
             _objProcessRequestDetailsByRequestID.AreaOwnerStatus = _objAllRequestProcessModel.AreaOwnerStatus;
@@ -130,8 +130,8 @@ namespace WebApiForManageVisitors.Controllers
                 CheckViewBagData();
 
                 collection.RequestProcessDate = DateTime.Now;
-                _DbManageVisitorsEntities.tbl_RequestProcess.Add(collection);
-                _DbManageVisitorsEntities.SaveChanges();
+                _DbWorkPermitSystemEntities.tbl_RequestProcess.Add(collection);
+                _DbWorkPermitSystemEntities.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -148,31 +148,31 @@ namespace WebApiForManageVisitors.Controllers
             ProcessRequestDetailsByRequestIDModel _objProcessRequestDetailsByRequestID = new ProcessRequestDetailsByRequestIDModel();
 
 
-            var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(p => p.RequestProcessSrNo == id).FirstOrDefault();
+            var _objAllRequestProcessModel = _DbWorkPermitSystemEntities.tbl_RequestProcess.Where(p => p.RequestProcessSrNo == id).FirstOrDefault();
 
-            var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == _objAllRequestProcessModel.EmployeeId).FirstOrDefault();
+            var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == _objAllRequestProcessModel.EmployeeId).FirstOrDefault();
 
-            var _objDepartmentMaster = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objDepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
+            var _objDepartmentMaster = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objDepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
 
-            var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == _objAllRequestProcessModel.VisitorSrNo).FirstOrDefault();
+            var _objVendorUserRegistration = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.Where(p => p.VendorSrNo == _objAllRequestProcessModel.VendorSrNo).FirstOrDefault();
 
-            var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVisitorUserRegistration.VisitorContractorSrNo).FirstOrDefault();
+            var _objContractor = _DbWorkPermitSystemEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVendorUserRegistration.VendorContractorSrNo).FirstOrDefault();
 
             _objProcessRequestDetailsByRequestID.RequestProcessSrNo = _objAllRequestProcessModel.RequestProcessSrNo;
             _objProcessRequestDetailsByRequestID.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
             _objProcessRequestDetailsByRequestID.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
             _objProcessRequestDetailsByRequestID.EmployeeDepartmentName = _objDepartmentMaster.DepartmentName;
-            _objProcessRequestDetailsByRequestID.VisitorName = _objVisitorUserRegistration.VisitorName;
+            _objProcessRequestDetailsByRequestID.VendorName = _objVendorUserRegistration.VendorName;
             _objProcessRequestDetailsByRequestID.ContractorName = _objContractor.ContractorName;
             _objProcessRequestDetailsByRequestID.VisitStartTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitStartTime);
             _objProcessRequestDetailsByRequestID.VisitEndTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitEndTime);
-            _objProcessRequestDetailsByRequestID.NatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;
-            _objProcessRequestDetailsByRequestID.NoOfVisitors = _objAllRequestProcessModel.NoOfVisitors;
-            _objProcessRequestDetailsByRequestID.VisitorVisitResons = _objAllRequestProcessModel.VisitorVisitResons;
+            _objProcessRequestDetailsByRequestID.NatureOfWork = _objVendorUserRegistration.VendorNatureOfWork;
+            _objProcessRequestDetailsByRequestID.NoOfVendors = _objAllRequestProcessModel.NoOfVendors;
+            _objProcessRequestDetailsByRequestID.VendorVisitResons = _objAllRequestProcessModel.VendorVisitResons;
             _objProcessRequestDetailsByRequestID.EmployeeId = _objAllRequestProcessModel.EmployeeId;
-            _objProcessRequestDetailsByRequestID.VisitorSrNo = _objAllRequestProcessModel.VisitorSrNo;
+            _objProcessRequestDetailsByRequestID.VendorSrNo = _objAllRequestProcessModel.VendorSrNo;
             _objProcessRequestDetailsByRequestID.EmployeeDepartmentID = _objAllRequestProcessModel.EmployeeDepartmentID;
-            _objProcessRequestDetailsByRequestID.VisitorAccessories = _objAllRequestProcessModel.VisitorAccessories;
+            _objProcessRequestDetailsByRequestID.VendorAccessories = _objAllRequestProcessModel.VendorAccessories;
             _objProcessRequestDetailsByRequestID.RequestProcessDate = _objAllRequestProcessModel.RequestProcessDate;
             _objProcessRequestDetailsByRequestID.ActivityOwnerStatus = _objAllRequestProcessModel.ActivityOwnerStatus;
             _objProcessRequestDetailsByRequestID.AreaOwnerStatus = _objAllRequestProcessModel.AreaOwnerStatus;
@@ -205,32 +205,32 @@ namespace WebApiForManageVisitors.Controllers
             ProcessRequestDetailsByRequestIDModel _objProcessRequestDetailsByRequestID = new ProcessRequestDetailsByRequestIDModel();
 
 
-            var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(p => p.RequestProcessSrNo == id).FirstOrDefault();
+            var _objAllRequestProcessModel = _DbWorkPermitSystemEntities.tbl_RequestProcess.Where(p => p.RequestProcessSrNo == id).FirstOrDefault();
 
-            var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == _objAllRequestProcessModel.EmployeeId).FirstOrDefault();
+            var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == _objAllRequestProcessModel.EmployeeId).FirstOrDefault();
 
-            var _objDepartmentMaster = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objDepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
+            var _objDepartmentMaster = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objDepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
 
-            var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == _objAllRequestProcessModel.VisitorSrNo).FirstOrDefault();
+            var _objVendorUserRegistration = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.Where(p => p.VendorSrNo == _objAllRequestProcessModel.VendorSrNo).FirstOrDefault();
 
-            var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVisitorUserRegistration.VisitorContractorSrNo).FirstOrDefault();
+            var _objContractor = _DbWorkPermitSystemEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVendorUserRegistration.VendorContractorSrNo).FirstOrDefault();
 
 
             _objProcessRequestDetailsByRequestID.RequestProcessSrNo = _objAllRequestProcessModel.RequestProcessSrNo;
             _objProcessRequestDetailsByRequestID.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
             _objProcessRequestDetailsByRequestID.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
             _objProcessRequestDetailsByRequestID.EmployeeDepartmentName = _objDepartmentMaster.DepartmentName;
-            _objProcessRequestDetailsByRequestID.VisitorName = _objVisitorUserRegistration.VisitorName;
+            _objProcessRequestDetailsByRequestID.VendorName = _objVendorUserRegistration.VendorName;
             _objProcessRequestDetailsByRequestID.ContractorName = _objContractor.ContractorName;
             _objProcessRequestDetailsByRequestID.VisitStartTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitStartTime);
             _objProcessRequestDetailsByRequestID.VisitEndTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitEndTime);
-            _objProcessRequestDetailsByRequestID.NatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;
-            _objProcessRequestDetailsByRequestID.NoOfVisitors = _objAllRequestProcessModel.NoOfVisitors;
-            _objProcessRequestDetailsByRequestID.VisitorVisitResons = _objAllRequestProcessModel.VisitorVisitResons;
+            _objProcessRequestDetailsByRequestID.NatureOfWork = _objVendorUserRegistration.VendorNatureOfWork;
+            _objProcessRequestDetailsByRequestID.NoOfVendors = _objAllRequestProcessModel.NoOfVendors;
+            _objProcessRequestDetailsByRequestID.VendorVisitResons = _objAllRequestProcessModel.VendorVisitResons;
             _objProcessRequestDetailsByRequestID.EmployeeId = _objAllRequestProcessModel.EmployeeId;
-            _objProcessRequestDetailsByRequestID.VisitorSrNo = _objAllRequestProcessModel.VisitorSrNo;
+            _objProcessRequestDetailsByRequestID.VendorSrNo = _objAllRequestProcessModel.VendorSrNo;
             _objProcessRequestDetailsByRequestID.EmployeeDepartmentID = _objAllRequestProcessModel.EmployeeDepartmentID;
-            _objProcessRequestDetailsByRequestID.VisitorAccessories = _objAllRequestProcessModel.VisitorAccessories;
+            _objProcessRequestDetailsByRequestID.VendorAccessories = _objAllRequestProcessModel.VendorAccessories;
             _objProcessRequestDetailsByRequestID.RequestProcessDate = _objAllRequestProcessModel.RequestProcessDate;
             _objProcessRequestDetailsByRequestID.ActivityOwnerStatus = _objAllRequestProcessModel.ActivityOwnerStatus;
             _objProcessRequestDetailsByRequestID.AreaOwnerStatus = _objAllRequestProcessModel.AreaOwnerStatus;
@@ -248,9 +248,9 @@ namespace WebApiForManageVisitors.Controllers
             {
                 // TODO: Add delete logic here
                 CheckViewBagData();
-                var model = _DbManageVisitorsEntities.tbl_RequestProcess.Where(a => a.RequestProcessSrNo == id).FirstOrDefault();
-                _DbManageVisitorsEntities.tbl_RequestProcess.Remove(model);
-                _DbManageVisitorsEntities.SaveChanges();
+                var model = _DbWorkPermitSystemEntities.tbl_RequestProcess.Where(a => a.RequestProcessSrNo == id).FirstOrDefault();
+                _DbWorkPermitSystemEntities.tbl_RequestProcess.Remove(model);
+                _DbWorkPermitSystemEntities.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

@@ -7,31 +7,31 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApiForManageVisitors.Models
+namespace WebApiForWorkPermitSystem.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_VisitorUserRegistration
+    public partial class tbl_VendorUserRegistration
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbl_VisitorUserRegistration()
+        public tbl_VendorUserRegistration()
         {
             this.tbl_RequestProcess = new HashSet<tbl_RequestProcess>();
         }
     
-        public long VisitorSrNo { get; set; }
-        public string VisitorUserID { get; set; }
-        public string VisitorName { get; set; }
-        public string VisitorAddress { get; set; }
-        public string VisitorContactNo { get; set; }
-        public string VisitorEmailID { get; set; }
-        public string VisitorNatureOfWork { get; set; }
-        public Nullable<long> VisitorContractorSrNo { get; set; }
-        public string VisitorContractorCoNo { get; set; }
-        public string VisitorPassword { get; set; }
-        public Nullable<System.DateTime> VisitorRegistrationDate { get; set; }
+        public long VendorSrNo { get; set; }
+        public string VendorUserID { get; set; }
         public string DeviceTokenId { get; set; }
+        public string VendorName { get; set; }
+        public string VendorAddress { get; set; }
+        public string VendorContactNo { get; set; }
+        public string VendorEmailID { get; set; }
+        public string VendorNatureOfWork { get; set; }
+        public Nullable<long> VendorContractorSrNo { get; set; }
+        public string VendorContractorCoNo { get; set; }
+        public string VendorPassword { get; set; }
+        public Nullable<System.DateTime> VendorRegistrationDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_RequestProcess> tbl_RequestProcess { get; set; }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace WebApiForManageVisitors.Models
+namespace WebApiForWorkPermitSystem.Models
 {
   
     public static class StatusModel
@@ -74,57 +74,57 @@ namespace WebApiForManageVisitors.Models
         public string DeviceTokenId { get; set; }
     }
 
-    public class VisitorUserRegistrationModel
+    public class VendorUserRegistrationModel
     {
         [Display(Name = "Sr/No.")]
-        public long VisitorSrNo { get; set; }
+        public long VendorSrNo { get; set; }
 
         [Display(Name = "User ID")]
         [Required]
-        public string VisitorUserID { get; set; }
+        public string VendorUserID { get; set; }
 
         [Required]
-        [Display(Name = "Visitor Name")]
+        [Display(Name = "Vendor Name")]
         [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Use Alphabets only ")]
-        public string VisitorName { get; set; }
+        public string VendorName { get; set; }
 
         [Required]
         [Display(Name = "Address")]
-        public string VisitorAddress { get; set; }
+        public string VendorAddress { get; set; }
 
         [Required]
         [Display(Name = "Contact No.")]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
-        public string VisitorContactNo { get; set; }
+        public string VendorContactNo { get; set; }
 
        
         [Display(Name = "Email ID")]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please enter a valid e-mail adress")]
-        public string VisitorEmailID { get; set; }
+        public string VendorEmailID { get; set; }
 
 
-        [Display(Name = "Visitor Nature Of Work")]
-        public string VisitorNatureOfWork { get; set; }
+        [Display(Name = "Vendor Nature Of Work")]
+        public string VendorNatureOfWork { get; set; }
 
 
-        [Display(Name = "Visitor Contractor Name")]
+        [Display(Name = "Vendor Contractor Name")]
         [Required]
-        public Nullable<long> VisitorContractorSrNo { get; set; }
+        public Nullable<long> VendorContractorSrNo { get; set; }
 
         [Required]
         [Display(Name = "Contractor Contact No")]
-        public string VisitorContractorCoNo { get; set; }
+        public string VendorContractorCoNo { get; set; }
 
     
-        [Display(Name = "Visitor Contractor Name")]
-        public string VisitorContractorName { get; set; }
+        [Display(Name = "Vendor Contractor Name")]
+        public string VendorContractorName { get; set; }
 
         [Required]
         [Display(Name = "Password")]
-        public string VisitorPassword { get; set; }
+        public string VendorPassword { get; set; }
 
          [Display(Name = "Date")]
-        public Nullable<System.DateTime> VisitorRegistrationDate { get; set; }
+        public Nullable<System.DateTime> VendorRegistrationDate { get; set; }
 
         public string DeviceTokenId { get; set; }
     }
@@ -137,7 +137,7 @@ namespace WebApiForManageVisitors.Models
         [Required]
         public long RequestProcessSrNo { get; set; }
         [Required]
-        public Nullable<long> VisitorSrNo { get; set; }
+        public Nullable<long> VendorSrNo { get; set; }
         [Required]
         public Nullable<long> EmployeeDepartmentID { get; set; }
         [Required]
@@ -145,11 +145,11 @@ namespace WebApiForManageVisitors.Models
         [Required]
         public Nullable<System.DateTime> VisitEndTime { get; set; }
         [Required]
-        public string VisitorAccessories { get; set; }
+        public string VendorAccessories { get; set; }
         [Required]
-        public Nullable<long> NoOfVisitors { get; set; }
+        public Nullable<long> NoOfVendors { get; set; }
         [Required]
-        public string VisitorVisitResons { get; set; }
+        public string VendorVisitResons { get; set; }
         [Required]
         public Nullable<System.DateTime> RequestProcessDate { get; set; }
         [Required]
@@ -215,15 +215,15 @@ namespace WebApiForManageVisitors.Models
     }
 
 
-    public class ListProcessRequestByVisitorUserModel
+    public class ListProcessRequestByVendorUserModel
     {
-        public Nullable<long> VisitorSrNo { get; set; }
+        public Nullable<long> VendorSrNo { get; set; }
         public long RequestProcessSrNo { get; set; }
         public string EmployeeTokenNo { get; set; }
         public string EmployeeName { get; set; }
         public Nullable<System.DateTime> VisitStartTime { get; set; }
         public Nullable<System.DateTime> VisitEndTime { get; set; }
-        public string VisitorVisitResons { get; set; }
+        public string VendorVisitResons { get; set; }
     }
 
 
@@ -238,8 +238,8 @@ namespace WebApiForManageVisitors.Models
         public string EmployeeName { get; set; }
         [Display(Name = "Department Name")]
         public string EmployeeDepartmentName { get; set; }
-        [Display(Name = "Visitor Name")]
-        public string VisitorName { get; set; }
+        [Display(Name = "Vendor Name")]
+        public string VendorName { get; set; }
         [Display(Name = "Contractor Name")]
         public string ContractorName { get; set; }
         [Display(Name = "Nature Of Work")]
@@ -249,19 +249,19 @@ namespace WebApiForManageVisitors.Models
         [Display(Name = "Visit End Time")]
         public Nullable<System.DateTime> VisitEndTime { get; set; }
         [Display(Name = "N.O.V")]
-        public Nullable<long> NoOfVisitors { get; set; }
-        [Display(Name = "Visitor Visit Resons")]
-        public string VisitorVisitResons { get; set; }
+        public Nullable<long> NoOfVendors { get; set; }
+        [Display(Name = "Vendor Visit Resons")]
+        public string VendorVisitResons { get; set; }
         [Display(Name = "Request Status")]
         public string RequestStatus { get; set; }
         [Display(Name = "Employee Id")]
         public Nullable<long> EmployeeId { get; set; }
-        [Display(Name = "Visitor SrNo")]
-        public Nullable<long> VisitorSrNo { get; set; }
+        [Display(Name = "Vendor SrNo")]
+        public Nullable<long> VendorSrNo { get; set; }
         [Display(Name = "Employee Department ID")]
         public Nullable<long> EmployeeDepartmentID { get; set; }
-        [Display(Name = "Visitor Accessories")]
-        public string VisitorAccessories { get; set; }
+        [Display(Name = "Vendor Accessories")]
+        public string VendorAccessories { get; set; }
         [Display(Name = "Request Process Date")]
         public Nullable<System.DateTime> RequestProcessDate { get; set; }
         [Display(Name = "Activity Owner Status")]

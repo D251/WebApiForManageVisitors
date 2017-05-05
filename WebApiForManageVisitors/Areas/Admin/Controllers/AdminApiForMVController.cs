@@ -8,13 +8,14 @@ using System.Net;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using WebApiForManageVisitors.Models;
+using WebApiForWorkPermitSystem.Models;
+using WebApiForWorkPermitSystem.Models;
 
-namespace WebApiForManageVisitors.Areas.Admin.Controllers
+namespace WebApiForWorkPermitSystem.Areas.Admin.Controllers
 {
     public class AdminApiForMVController : Controller
     {
-        ManageVisitorsEntities _DbManageVisitorsEntities = new ManageVisitorsEntities();
+        WorkPermitSystemEntities _DbWorkPermitSystemEntities = new WorkPermitSystemEntities();
         // GET: Admin/AdminApiForMV
         public ActionResult Index()
         {
@@ -70,12 +71,12 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                     Date = DateTime.Now
                 };
 
-                _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Add(data);
+                _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Add(data);
 
-                if (!_DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Any(p => p.EmployeeTokenNo == collection.EmployeeTokenNo))
+                if (!_DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Any(p => p.EmployeeTokenNo == collection.EmployeeTokenNo))
                 {
 
-                    _DbManageVisitorsEntities.SaveChanges();
+                    _DbWorkPermitSystemEntities.SaveChanges();
                     _objResult.success = 1;
                     _objResult.msg = "Save Successfully";
                     return Json(_objResult, JsonRequestBehavior.AllowGet);
@@ -104,14 +105,14 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
             try
             {
                 List<GetAllDepartmentEmployeeNameModel> _list = new List<GetAllDepartmentEmployeeNameModel>();
-                var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList();
+                var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.ToList();
                 foreach (var item in _objDepartmentEmployeeRegistration)
                 {
 
                     GetAllDepartmentEmployeeNameModel _class = new GetAllDepartmentEmployeeNameModel();
 
-                    var _objDepartmentMasterModel = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == item.EmployeeDepartmentID).FirstOrDefault();
-                    var _objDesignationMasterModel = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(p => p.DesignationID == item.EmployeeDesignationID).FirstOrDefault();
+                    var _objDepartmentMasterModel = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == item.EmployeeDepartmentID).FirstOrDefault();
+                    var _objDesignationMasterModel = _DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(p => p.DesignationID == item.EmployeeDesignationID).FirstOrDefault();
 
 
                     _class.EmployeeSrNo = item.EmployeeSrNo;
@@ -138,18 +139,18 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetVisitorUserMaxSrNo()
+        public JsonResult GetVendorUserMaxSrNo()
         {
             try
             {
 
-                VisitorUserRegistrationModel VisitorUserMaxSrNo = new VisitorUserRegistrationModel();
-                var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.ToList();
-                var max = _objVisitorUserRegistration.Max(x => (int?)x.VisitorContractorSrNo) ?? 0;
+                VendorUserRegistrationModel VendorUserMaxSrNo = new VendorUserRegistrationModel();
+                var _objVendorUserRegistration = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.ToList();
+                var max = _objVendorUserRegistration.Max(x => (int?)x.VendorContractorSrNo) ?? 0;
 
-                VisitorUserMaxSrNo.VisitorSrNo = max + 1;
+                VendorUserMaxSrNo.VendorSrNo = max + 1;
 
-                return Json(VisitorUserMaxSrNo, JsonRequestBehavior.AllowGet);
+                return Json(VendorUserMaxSrNo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -162,27 +163,27 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public JsonResult AddVisitorUserRegistration(VisitorUserRegistrationModel collection)
+        public JsonResult AddVendorUserRegistration(VendorUserRegistrationModel collection)
         {
             try
             {
-                var data = new tbl_VisitorUserRegistration
+                var data = new tbl_VendorUserRegistration
                 {
                     DeviceTokenId = collection.DeviceTokenId,
-                    VisitorUserID = collection.VisitorUserID,
-                    VisitorName = collection.VisitorName,
-                    VisitorAddress = collection.VisitorAddress,
-                    VisitorContactNo = collection.VisitorContactNo,
-                    VisitorEmailID = collection.VisitorEmailID,
-                    VisitorNatureOfWork = collection.VisitorNatureOfWork,
-                    VisitorContractorSrNo = collection.VisitorContractorSrNo,
-                    VisitorContractorCoNo = collection.VisitorContractorCoNo,
-                    VisitorPassword = collection.VisitorPassword,
-                    VisitorRegistrationDate = DateTime.Now
+                    VendorUserID = collection.VendorUserID,
+                    VendorName = collection.VendorName,
+                    VendorAddress = collection.VendorAddress,
+                    VendorContactNo = collection.VendorContactNo,
+                    VendorEmailID = collection.VendorEmailID,
+                    VendorNatureOfWork = collection.VendorNatureOfWork,
+                    VendorContractorSrNo = collection.VendorContractorSrNo,
+                    VendorContractorCoNo = collection.VendorContractorCoNo,
+                    VendorPassword = collection.VendorPassword,
+                    VendorRegistrationDate = DateTime.Now
                 };
 
-                _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Add(data);
-                _DbManageVisitorsEntities.SaveChanges();
+                _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.Add(data);
+                _DbWorkPermitSystemEntities.SaveChanges();
                 ResultModel _objResult = new ResultModel();
                 _objResult.success = 1;
                 _objResult.msg = "Save Successfully";
@@ -204,8 +205,8 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
         {
             try
             {
-                _DbManageVisitorsEntities.tbl_DepartmentMaster.Add(collection);
-                _DbManageVisitorsEntities.SaveChanges();
+                _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Add(collection);
+                _DbWorkPermitSystemEntities.SaveChanges();
                 ResultModel _objResult = new ResultModel();
                 _objResult.success = 1;
                 _objResult.msg = "Save Successfully";
@@ -225,8 +226,8 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
         {
             try
             {
-                _DbManageVisitorsEntities.tbl_DesignationMaster.Add(collection);
-                _DbManageVisitorsEntities.SaveChanges();
+                _DbWorkPermitSystemEntities.tbl_DesignationMaster.Add(collection);
+                _DbWorkPermitSystemEntities.SaveChanges();
                 ResultModel _objResult = new ResultModel();
                 _objResult.success = 1;
                 _objResult.msg = "Save Successfully";
@@ -304,14 +305,14 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                     tbl_RequestProcess _objRequestProcess = new tbl_RequestProcess();
                     _objRequestProcess.EmployeeId = collection.EmployeeId;
                     _objRequestProcess.RequestProcessSrNo = collection.RequestProcessSrNo;
-                    _objRequestProcess.VisitorSrNo = collection.VisitorSrNo;
+                    _objRequestProcess.VendorSrNo = collection.VendorSrNo;
                     _objRequestProcess.EmployeeDepartmentID = collection.EmployeeDepartmentID;
 
                     _objRequestProcess.VisitStartTime = collection.VisitStartTime;
 
-                    _objRequestProcess.VisitorAccessories = collection.VisitorAccessories;
-                    _objRequestProcess.NoOfVisitors = collection.NoOfVisitors;
-                    _objRequestProcess.VisitorVisitResons = collection.VisitorVisitResons;
+                    _objRequestProcess.VendorAccessories = collection.VendorAccessories;
+                    _objRequestProcess.NoOfVendors = collection.NoOfVendors;
+                    _objRequestProcess.VendorVisitResons = collection.VendorVisitResons;
                     _objRequestProcess.RequestProcessDate = collection.RequestProcessDate;
                     _objRequestProcess.ActivityOwnerStatus = collection.ActivityOwnerStatus;
                     _objRequestProcess.AreaOwnerStatus = collection.AreaOwnerStatus;
@@ -321,19 +322,19 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
 
 
 
-                    _DbManageVisitorsEntities.tbl_RequestProcess.Add(_objRequestProcess);
-                    _DbManageVisitorsEntities.SaveChanges();
+                    _DbWorkPermitSystemEntities.tbl_RequestProcess.Add(_objRequestProcess);
+                    _DbWorkPermitSystemEntities.SaveChanges();
                     ResultModel _objResult = new ResultModel();
                     _objResult.success = 1;
                     _objResult.msg = "Save Successfully";
 
-                    var _owneractivitylist = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == collection.EmployeeDepartmentID && a.tbl_DesignationMaster.DesignationName == "Activity Owner");
+                    var _owneractivitylist = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == collection.EmployeeDepartmentID && a.tbl_DesignationMaster.DesignationName == "Activity Owner");
 
                     //Notification Activity Owner
 
                     foreach (var item in _owneractivitylist)
                     {
-                        SendPushNotification(item.DeviceTokenId, "New Visitor Request", "Manage Visitors");
+                        SendPushNotification(item.DeviceTokenId, "New Vendor Request", "Manage Vendors");
                     }
 
                     return Json(_objResult, JsonRequestBehavior.AllowGet);
@@ -377,7 +378,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
             try
             {
                 List<DepartmentMasterModel> _list = new List<Models.DepartmentMasterModel>();
-                var _objDepartmentMaster = _DbManageVisitorsEntities.tbl_DepartmentMaster.ToList();
+                var _objDepartmentMaster = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.ToList();
                 foreach (var item in _objDepartmentMaster)
                 {
                     DepartmentMasterModel _class = new Models.DepartmentMasterModel();
@@ -407,7 +408,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
             try
             {
                 List<DesignationMasterModel> _list = new List<DesignationMasterModel>();
-                var _objDesignationMaster = _DbManageVisitorsEntities.tbl_DesignationMaster.ToList();
+                var _objDesignationMaster = _DbWorkPermitSystemEntities.tbl_DesignationMaster.ToList();
                 foreach (var item in _objDesignationMaster)
                 {
                     DesignationMasterModel _class = new Models.DesignationMasterModel();
@@ -437,7 +438,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
             try
             {
                 List<DesignationMasterModel> _list = new List<DesignationMasterModel>();
-                var _objDesignationMaster = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(p => p.DepartmentID == collection.DepartmentID).ToList();
+                var _objDesignationMaster = _DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(p => p.DepartmentID == collection.DepartmentID).ToList();
                 foreach (var item in _objDesignationMaster)
                 {
                     DesignationMasterModel _class = new Models.DesignationMasterModel();
@@ -467,7 +468,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
             try
             {
                 List<ContractorMasterModel> _list = new List<ContractorMasterModel>();
-                var _objDesignationMaster = _DbManageVisitorsEntities.tbl_ContractorMaster.ToList();
+                var _objDesignationMaster = _DbWorkPermitSystemEntities.tbl_ContractorMaster.ToList();
 
                 foreach (var item in _objDesignationMaster)
                 {
@@ -501,10 +502,10 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
             try
             {
                 GetAllDepartmentEmployeeNameModel _list = new GetAllDepartmentEmployeeNameModel();
-                var DepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeTokenNo == collection.EmployeeTokenNo).FirstOrDefault();
+                var DepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeTokenNo == collection.EmployeeTokenNo).FirstOrDefault();
 
-                var _objDesignationMaster = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(p => p.DesignationID == DepartmentEmployeeRegistration.EmployeeDesignationID).FirstOrDefault();
-                var _objDepartmentMaster = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == DepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
+                var _objDesignationMaster = _DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(p => p.DesignationID == DepartmentEmployeeRegistration.EmployeeDesignationID).FirstOrDefault();
+                var _objDepartmentMaster = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == DepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
 
                 _list.EmployeeSrNo = DepartmentEmployeeRegistration.EmployeeSrNo;
                 _list.EmployeeTokenNo = DepartmentEmployeeRegistration.EmployeeTokenNo;
@@ -529,26 +530,26 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public JsonResult GetVisitorUserInformationByVisitorUserID(VisitorUserRegistrationModel collection)
+        public JsonResult GetVendorUserInformationByVendorUserID(VendorUserRegistrationModel collection)
         {
             try
             {
-                VisitorUserRegistrationModel _list = new VisitorUserRegistrationModel();
-                var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorUserID == collection.VisitorUserID).FirstOrDefault();
-                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVisitorUserRegistration.VisitorContractorSrNo).FirstOrDefault();
+                VendorUserRegistrationModel _list = new VendorUserRegistrationModel();
+                var _objVendorUserRegistration = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.Where(p => p.VendorUserID == collection.VendorUserID).FirstOrDefault();
+                var _objContractor = _DbWorkPermitSystemEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVendorUserRegistration.VendorContractorSrNo).FirstOrDefault();
 
-                _list.VisitorSrNo = _objVisitorUserRegistration.VisitorSrNo;
-                _list.VisitorUserID = _objVisitorUserRegistration.VisitorUserID;
-                _list.VisitorName = _objVisitorUserRegistration.VisitorName;
-                _list.VisitorAddress = _objVisitorUserRegistration.VisitorAddress;
-                _list.VisitorContactNo = _objVisitorUserRegistration.VisitorContactNo;
-                _list.VisitorEmailID = _objVisitorUserRegistration.VisitorEmailID;
-                _list.VisitorNatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;
-                _list.VisitorContractorSrNo = _objContractor.ContractorSrNo;
-                _list.VisitorContractorName = _objContractor.ContractorName;
-                _list.VisitorContractorCoNo = _objVisitorUserRegistration.VisitorContractorCoNo;
-                _list.VisitorPassword = _objVisitorUserRegistration.VisitorPassword;
-                _list.VisitorRegistrationDate = _objVisitorUserRegistration.VisitorRegistrationDate;
+                _list.VendorSrNo = _objVendorUserRegistration.VendorSrNo;
+                _list.VendorUserID = _objVendorUserRegistration.VendorUserID;
+                _list.VendorName = _objVendorUserRegistration.VendorName;
+                _list.VendorAddress = _objVendorUserRegistration.VendorAddress;
+                _list.VendorContactNo = _objVendorUserRegistration.VendorContactNo;
+                _list.VendorEmailID = _objVendorUserRegistration.VendorEmailID;
+                _list.VendorNatureOfWork = _objVendorUserRegistration.VendorNatureOfWork;
+                _list.VendorContractorSrNo = _objContractor.ContractorSrNo;
+                _list.VendorContractorName = _objContractor.ContractorName;
+                _list.VendorContractorCoNo = _objVendorUserRegistration.VendorContractorCoNo;
+                _list.VendorPassword = _objVendorUserRegistration.VendorPassword;
+                _list.VendorRegistrationDate = _objVendorUserRegistration.VendorRegistrationDate;
 
                 return Json(_list, JsonRequestBehavior.AllowGet);
             }
@@ -571,7 +572,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                 List<ListProcessRequestByDepartmentEmployeeModel> _objListRequestProcessModel = new List<ListProcessRequestByDepartmentEmployeeModel>();
 
 
-                var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.ToList();
+                var _objAllRequestProcessModel = _DbWorkPermitSystemEntities.tbl_RequestProcess.ToList();
 
                 foreach (var item in _objAllRequestProcessModel)
                 {
@@ -579,7 +580,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                     {
                         ListProcessRequestByDepartmentEmployeeModel _class = new ListProcessRequestByDepartmentEmployeeModel();
 
-                        var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == item.EmployeeId).FirstOrDefault();
+                        var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == item.EmployeeId).FirstOrDefault();
 
                         _class.RequestProcessSrNo = item.RequestProcessSrNo;
                         _class.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
@@ -595,7 +596,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                     {
                         ListProcessRequestByDepartmentEmployeeModel _class = new ListProcessRequestByDepartmentEmployeeModel();
 
-                        var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == item.EmployeeId).FirstOrDefault();
+                        var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == item.EmployeeId).FirstOrDefault();
 
                         _class.RequestProcessSrNo = item.RequestProcessSrNo;
                         _class.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
@@ -610,7 +611,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                     {
                         ListProcessRequestByDepartmentEmployeeModel _class = new ListProcessRequestByDepartmentEmployeeModel();
 
-                        var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == item.EmployeeId).FirstOrDefault();
+                        var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == item.EmployeeId).FirstOrDefault();
 
                         _class.RequestProcessSrNo = item.RequestProcessSrNo;
                         _class.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
@@ -635,27 +636,27 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetProcessRequestByVisitorUserSrNo(ListProcessRequestByVisitorUserModel collection)
+        public JsonResult GetProcessRequestByVendorUserSrNo(ListProcessRequestByVendorUserModel collection)
         {
             try
             {
-                List<ListProcessRequestByVisitorUserModel> _objListRequestProcessModel = new List<ListProcessRequestByVisitorUserModel>();
+                List<ListProcessRequestByVendorUserModel> _objListRequestProcessModel = new List<ListProcessRequestByVendorUserModel>();
 
 
-                var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(P => P.VisitorSrNo == collection.VisitorSrNo).ToList();
+                var _objAllRequestProcessModel = _DbWorkPermitSystemEntities.tbl_RequestProcess.Where(P => P.VendorSrNo == collection.VendorSrNo).ToList();
 
                 foreach (var item in _objAllRequestProcessModel)
                 {
-                    ListProcessRequestByVisitorUserModel _class = new ListProcessRequestByVisitorUserModel();
+                    ListProcessRequestByVendorUserModel _class = new ListProcessRequestByVendorUserModel();
 
-                    var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == item.EmployeeId).FirstOrDefault();
+                    var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == item.EmployeeId).FirstOrDefault();
 
                     _class.RequestProcessSrNo = item.RequestProcessSrNo;
                     _class.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
                     _class.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
                     _class.VisitStartTime = Convert.ToDateTime(item.VisitStartTime);
                     _class.VisitEndTime = Convert.ToDateTime(item.VisitEndTime);
-                    _class.VisitorVisitResons = item.VisitorVisitResons;
+                    _class.VendorVisitResons = item.VendorVisitResons;
                     _objListRequestProcessModel.Add(_class);
                 }
 
@@ -680,31 +681,31 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
                 ProcessRequestDetailsByRequestIDModel _objProcessRequestDetailsByRequestID = new ProcessRequestDetailsByRequestIDModel();
 
 
-                var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(p => p.RequestProcessSrNo == collection.RequestProcessSrNo).FirstOrDefault();
+                var _objAllRequestProcessModel = _DbWorkPermitSystemEntities.tbl_RequestProcess.Where(p => p.RequestProcessSrNo == collection.RequestProcessSrNo).FirstOrDefault();
 
-                var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == _objAllRequestProcessModel.EmployeeId).FirstOrDefault();
+                var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == _objAllRequestProcessModel.EmployeeId).FirstOrDefault();
 
-                var _objDepartmentMaster = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objDepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
+                var _objDepartmentMaster = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objDepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
 
-                var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == _objAllRequestProcessModel.VisitorSrNo).FirstOrDefault();
+                var _objVendorUserRegistration = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.Where(p => p.VendorSrNo == _objAllRequestProcessModel.VendorSrNo).FirstOrDefault();
 
-                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVisitorUserRegistration.VisitorContractorSrNo).FirstOrDefault();
+                var _objContractor = _DbWorkPermitSystemEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVendorUserRegistration.VendorContractorSrNo).FirstOrDefault();
 
                 _objProcessRequestDetailsByRequestID.RequestProcessSrNo = _objAllRequestProcessModel.RequestProcessSrNo;
                 _objProcessRequestDetailsByRequestID.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
                 _objProcessRequestDetailsByRequestID.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
                 _objProcessRequestDetailsByRequestID.EmployeeDepartmentName = _objDepartmentMaster.DepartmentName;
-                _objProcessRequestDetailsByRequestID.VisitorName = _objVisitorUserRegistration.VisitorName;
+                _objProcessRequestDetailsByRequestID.VendorName = _objVendorUserRegistration.VendorName;
                 _objProcessRequestDetailsByRequestID.ContractorName = _objContractor.ContractorName;
                 _objProcessRequestDetailsByRequestID.VisitStartTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitStartTime);
                 _objProcessRequestDetailsByRequestID.VisitEndTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitEndTime);
-                _objProcessRequestDetailsByRequestID.NatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;
-                _objProcessRequestDetailsByRequestID.NoOfVisitors = _objAllRequestProcessModel.NoOfVisitors;
-                _objProcessRequestDetailsByRequestID.VisitorVisitResons = _objAllRequestProcessModel.VisitorVisitResons;
+                _objProcessRequestDetailsByRequestID.NatureOfWork = _objVendorUserRegistration.VendorNatureOfWork;
+                _objProcessRequestDetailsByRequestID.NoOfVendors = _objAllRequestProcessModel.NoOfVendors;
+                _objProcessRequestDetailsByRequestID.VendorVisitResons = _objAllRequestProcessModel.VendorVisitResons;
                 _objProcessRequestDetailsByRequestID.EmployeeId = _objAllRequestProcessModel.EmployeeId;
-                _objProcessRequestDetailsByRequestID.VisitorSrNo = _objAllRequestProcessModel.VisitorSrNo;
+                _objProcessRequestDetailsByRequestID.VendorSrNo = _objAllRequestProcessModel.VendorSrNo;
                 _objProcessRequestDetailsByRequestID.EmployeeDepartmentID = _objAllRequestProcessModel.EmployeeDepartmentID;
-                _objProcessRequestDetailsByRequestID.VisitorAccessories = _objAllRequestProcessModel.VisitorAccessories;
+                _objProcessRequestDetailsByRequestID.VendorAccessories = _objAllRequestProcessModel.VendorAccessories;
                 _objProcessRequestDetailsByRequestID.RequestProcessDate = _objAllRequestProcessModel.RequestProcessDate;
                 _objProcessRequestDetailsByRequestID.ActivityOwnerStatus = _objAllRequestProcessModel.ActivityOwnerStatus;
                 _objProcessRequestDetailsByRequestID.AreaOwnerStatus = _objAllRequestProcessModel.AreaOwnerStatus;
@@ -732,31 +733,31 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
             {
                 ProcessRequestDetailsByRequestIDModel _objProcessRequestDetailsByRequestID = new ProcessRequestDetailsByRequestIDModel();
 
-                var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(p => p.RequestProcessSrNo == collection.RequestProcessSrNo).FirstOrDefault();
+                var _objAllRequestProcessModel = _DbWorkPermitSystemEntities.tbl_RequestProcess.Where(p => p.RequestProcessSrNo == collection.RequestProcessSrNo).FirstOrDefault();
 
-                var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == _objAllRequestProcessModel.EmployeeId).FirstOrDefault();
+                var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeSrNo == _objAllRequestProcessModel.EmployeeId).FirstOrDefault();
 
-                var _objDepartmentMaster = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objDepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
+                var _objDepartmentMaster = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == _objDepartmentEmployeeRegistration.EmployeeDepartmentID).FirstOrDefault();
 
-                var _objVisitorUserRegistration = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorSrNo == _objAllRequestProcessModel.VisitorSrNo).FirstOrDefault();
+                var _objVendorUserRegistration = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.Where(p => p.VendorSrNo == _objAllRequestProcessModel.VendorSrNo).FirstOrDefault();
 
-                var _objContractor = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVisitorUserRegistration.VisitorContractorSrNo).FirstOrDefault();
+                var _objContractor = _DbWorkPermitSystemEntities.tbl_ContractorMaster.Where(p => p.ContractorSrNo == _objVendorUserRegistration.VendorContractorSrNo).FirstOrDefault();
 
                 _objProcessRequestDetailsByRequestID.RequestProcessSrNo = _objAllRequestProcessModel.RequestProcessSrNo;
                 _objProcessRequestDetailsByRequestID.EmployeeTokenNo = _objDepartmentEmployeeRegistration.EmployeeTokenNo;
                 _objProcessRequestDetailsByRequestID.EmployeeName = _objDepartmentEmployeeRegistration.EmployeeName;
                 _objProcessRequestDetailsByRequestID.EmployeeDepartmentName = _objDepartmentMaster.DepartmentName;
-                _objProcessRequestDetailsByRequestID.VisitorName = _objVisitorUserRegistration.VisitorName;
+                _objProcessRequestDetailsByRequestID.VendorName = _objVendorUserRegistration.VendorName;
                 _objProcessRequestDetailsByRequestID.ContractorName = _objContractor.ContractorName;
                 _objProcessRequestDetailsByRequestID.VisitStartTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitStartTime);
                 _objProcessRequestDetailsByRequestID.VisitEndTime = Convert.ToDateTime(_objAllRequestProcessModel.VisitEndTime);
-                _objProcessRequestDetailsByRequestID.NatureOfWork = _objVisitorUserRegistration.VisitorNatureOfWork;
-                _objProcessRequestDetailsByRequestID.NoOfVisitors = _objAllRequestProcessModel.NoOfVisitors;
-                _objProcessRequestDetailsByRequestID.VisitorVisitResons = _objAllRequestProcessModel.VisitorVisitResons;
+                _objProcessRequestDetailsByRequestID.NatureOfWork = _objVendorUserRegistration.VendorNatureOfWork;
+                _objProcessRequestDetailsByRequestID.NoOfVendors = _objAllRequestProcessModel.NoOfVendors;
+                _objProcessRequestDetailsByRequestID.VendorVisitResons = _objAllRequestProcessModel.VendorVisitResons;
                 _objProcessRequestDetailsByRequestID.EmployeeId = _objAllRequestProcessModel.EmployeeId;
-                _objProcessRequestDetailsByRequestID.VisitorSrNo = _objAllRequestProcessModel.VisitorSrNo;
+                _objProcessRequestDetailsByRequestID.VendorSrNo = _objAllRequestProcessModel.VendorSrNo;
                 _objProcessRequestDetailsByRequestID.EmployeeDepartmentID = _objAllRequestProcessModel.EmployeeDepartmentID;
-                _objProcessRequestDetailsByRequestID.VisitorAccessories = _objAllRequestProcessModel.VisitorAccessories;
+                _objProcessRequestDetailsByRequestID.VendorAccessories = _objAllRequestProcessModel.VendorAccessories;
                 _objProcessRequestDetailsByRequestID.RequestProcessDate = _objAllRequestProcessModel.RequestProcessDate;
                 _objProcessRequestDetailsByRequestID.ActivityOwnerStatus = _objAllRequestProcessModel.ActivityOwnerStatus;
                 _objProcessRequestDetailsByRequestID.AreaOwnerStatus = _objAllRequestProcessModel.AreaOwnerStatus;
@@ -782,11 +783,11 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
         {
             try
             {
-                var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(a => a.EmployeeTokenNo == collection.EmployeeTokenNo).FirstOrDefault();
+                var _objAllRequestProcessModel = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(a => a.EmployeeTokenNo == collection.EmployeeTokenNo).FirstOrDefault();
 
                 _objAllRequestProcessModel.DeviceTokenId = collection.DeviceTokenId;
-                _DbManageVisitorsEntities.Entry(_objAllRequestProcessModel).State = EntityState.Modified;
-                _DbManageVisitorsEntities.SaveChanges();
+                _DbWorkPermitSystemEntities.Entry(_objAllRequestProcessModel).State = EntityState.Modified;
+                _DbWorkPermitSystemEntities.SaveChanges();
                 ResultModel _objResult = new ResultModel();
                 _objResult.success = 1;
                 _objResult.msg = "Save Successfully";
@@ -805,15 +806,15 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public JsonResult UpdateVisitorDeviceTokenNumber(VisitorUserRegistrationModel collection)
+        public JsonResult UpdateVendorDeviceTokenNumber(VendorUserRegistrationModel collection)
         {
             try
             {
-                var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(a => a.VisitorUserID == collection.VisitorUserID).FirstOrDefault();
+                var _objAllRequestProcessModel = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.Where(a => a.VendorUserID == collection.VendorUserID).FirstOrDefault();
 
                 _objAllRequestProcessModel.DeviceTokenId = collection.DeviceTokenId;
-                _DbManageVisitorsEntities.Entry(_objAllRequestProcessModel).State = EntityState.Modified;
-                _DbManageVisitorsEntities.SaveChanges();
+                _DbWorkPermitSystemEntities.Entry(_objAllRequestProcessModel).State = EntityState.Modified;
+                _DbWorkPermitSystemEntities.SaveChanges();
                 ResultModel _objResult = new ResultModel();
                 _objResult.success = 1;
                 _objResult.msg = "Save Successfully";
@@ -836,23 +837,23 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
         {
             try
             {
-                var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(a => a.RequestProcessSrNo == collection.RequestProcessSrNo).FirstOrDefault();
+                var _objAllRequestProcessModel = _DbWorkPermitSystemEntities.tbl_RequestProcess.Where(a => a.RequestProcessSrNo == collection.RequestProcessSrNo).FirstOrDefault();
 
                 _objAllRequestProcessModel.SafetyStatus = collection.SafetyStatus;
                 _objAllRequestProcessModel.AreaOwnerStatus = collection.AreaOwnerStatus;
                 _objAllRequestProcessModel.ActivityOwnerStatus = collection.ActivityOwnerStatus;
                 _objAllRequestProcessModel.ContractorStatus = collection.ContractorStatus;
-                _DbManageVisitorsEntities.Entry(_objAllRequestProcessModel).State = EntityState.Modified;
-                _DbManageVisitorsEntities.SaveChanges();
+                _DbWorkPermitSystemEntities.Entry(_objAllRequestProcessModel).State = EntityState.Modified;
+                _DbWorkPermitSystemEntities.SaveChanges();
                 ResultModel _objResult = new ResultModel();
                 _objResult.success = 1;
                 _objResult.msg = "Save Successfully";
 
-                var _objAllRequestProcessNewModel = _DbManageVisitorsEntities.tbl_RequestProcess.Where(a => a.RequestProcessSrNo == collection.RequestProcessSrNo).FirstOrDefault();
+                var _objAllRequestProcessNewModel = _DbWorkPermitSystemEntities.tbl_RequestProcess.Where(a => a.RequestProcessSrNo == collection.RequestProcessSrNo).FirstOrDefault();
 
                 if (_objAllRequestProcessNewModel.EmployeeDepartmentID == collection.EmployeeDepartmentID && _objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.AreaOwnerStatus == "None" && _objAllRequestProcessNewModel.SafetyStatus == "None" && _objAllRequestProcessNewModel.ContractorStatus == "None")
                 {
-                    var _owneractivitylist = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == collection.EmployeeDepartmentID && a.tbl_DesignationMaster.DesignationName == "Area Owner");
+                    var _owneractivitylist = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == collection.EmployeeDepartmentID && a.tbl_DesignationMaster.DesignationName == "Area Owner");
 
                     //Notification Area Owner
 
@@ -864,37 +865,37 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
 
                 else if (_objAllRequestProcessNewModel.EmployeeDepartmentID == collection.EmployeeDepartmentID && _objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.AreaOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.SafetyStatus == "None" && _objAllRequestProcessNewModel.ContractorStatus == "None")
                 {
-                    var _owneractivitylist = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == collection.EmployeeDepartmentID && a.tbl_DesignationMaster.DesignationName == "Safety");
+                    var _owneractivitylist = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == collection.EmployeeDepartmentID && a.tbl_DesignationMaster.DesignationName == "Safety");
 
                     //Notification Safety
 
                     foreach (var item in _owneractivitylist)
                     {
-                        SendPushNotification(item.DeviceTokenId, "Area Owner", "Manage Visitors");
+                        SendPushNotification(item.DeviceTokenId, "Area Owner", "Manage Vendors");
                     }
                 }
 
                 else if (_objAllRequestProcessNewModel.EmployeeDepartmentID == collection.EmployeeDepartmentID && _objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.AreaOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.SafetyStatus == "Accepted" && _objAllRequestProcessNewModel.ContractorStatus == "None")
                 {
-                    var _owneractivitylist = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.ToList().Where(a => a.VisitorSrNo == collection.VisitorSrNo);
+                    var _owneractivitylist = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.ToList().Where(a => a.VendorSrNo == collection.VendorSrNo);
 
-                    //Notification VisitorUser
+                    //Notification VendorUser
 
                     foreach (var item in _owneractivitylist)
                     {
-                        SendPushNotification(item.DeviceTokenId, "Safety", "Manage Visitors");
+                        SendPushNotification(item.DeviceTokenId, "Safety", "Manage Vendors");
                     }
                 }
 
                 else if (_objAllRequestProcessNewModel.EmployeeDepartmentID == collection.EmployeeDepartmentID && _objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.AreaOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.SafetyStatus == "Accepted" && _objAllRequestProcessNewModel.ContractorStatus == "Accepted")
                 {
-                    var _owneractivitylist = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DesignationMaster.DesignationName == "Activity Owner" || a.tbl_DesignationMaster.DesignationName == "Area Owner" || a.tbl_DesignationMaster.DesignationName == "Safety");
+                    var _owneractivitylist = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DesignationMaster.DesignationName == "Activity Owner" || a.tbl_DesignationMaster.DesignationName == "Area Owner" || a.tbl_DesignationMaster.DesignationName == "Safety");
 
                     //Notification All Department
 
                     foreach (var item in _owneractivitylist)
                     {
-                        SendPushNotification(item.DeviceTokenId, "Contractor Submit Request", "Manage Visitors");
+                        SendPushNotification(item.DeviceTokenId, "Contractor Submit Request", "Manage Vendors");
                     }
                 }
 
@@ -912,14 +913,14 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public JsonResult VisitorLogIn(UserLoginModel collection)
+        public JsonResult VendorLogIn(UserLoginModel collection)
         {
             try
             {
-                var _objVisitorLogIn = _DbManageVisitorsEntities.tbl_VisitorUserRegistration.Where(p => p.VisitorUserID == collection.UserName && p.VisitorPassword == collection.Password).FirstOrDefault();
+                var _objVendorLogIn = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.Where(p => p.VendorUserID == collection.UserName && p.VendorPassword == collection.Password).FirstOrDefault();
 
                 ResultModel _objResult = new ResultModel();
-                if (_objVisitorLogIn != null)
+                if (_objVendorLogIn != null)
                 {
                     _objResult.success = 1;
                     _objResult.msg = "LogIn Successfull";
@@ -948,7 +949,7 @@ namespace WebApiForManageVisitors.Areas.Admin.Controllers
         {
             try
             {
-                var _objEmployeeLogIn = _DbManageVisitorsEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeTokenNo == collection.UserName && p.EmployeePassword == collection.Password).FirstOrDefault();
+                var _objEmployeeLogIn = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.Where(p => p.EmployeeTokenNo == collection.UserName && p.EmployeePassword == collection.Password).FirstOrDefault();
 
                 ResultModel _objResult = new ResultModel();
                 if (_objEmployeeLogIn != null)

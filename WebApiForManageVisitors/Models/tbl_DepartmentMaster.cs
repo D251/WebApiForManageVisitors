@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApiForManageVisitors.Models
+namespace WebApiForWorkPermitSystem.Models
 {
     using System;
     using System.Collections.Generic;

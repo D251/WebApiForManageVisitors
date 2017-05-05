@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApiForManageVisitors.Models
+namespace WebApiForWorkPermitSystem.Models
 {
     using System;
     using System.Collections.Generic;
@@ -16,13 +16,13 @@ namespace WebApiForManageVisitors.Models
     {
         public Nullable<long> EmployeeId { get; set; }
         public long RequestProcessSrNo { get; set; }
-        public Nullable<long> VisitorSrNo { get; set; }
+        public Nullable<long> VendorSrNo { get; set; }
         public Nullable<long> EmployeeDepartmentID { get; set; }
         public Nullable<System.DateTime> VisitStartTime { get; set; }
         public Nullable<System.DateTime> VisitEndTime { get; set; }
-        public string VisitorAccessories { get; set; }
-        public Nullable<long> NoOfVisitors { get; set; }
-        public string VisitorVisitResons { get; set; }
+        public string VendorAccessories { get; set; }
+        public Nullable<long> NoOfVendors { get; set; }
+        public string VendorVisitResons { get; set; }
         public Nullable<System.DateTime> RequestProcessDate { get; set; }
         public string ActivityOwnerStatus { get; set; }
         public string AreaOwnerStatus { get; set; }
@@ -30,6 +30,6 @@ namespace WebApiForManageVisitors.Models
         public string ContractorStatus { get; set; }
     
         public virtual tbl_DepartmentEmployeeRegistration tbl_DepartmentEmployeeRegistration { get; set; }
-        public virtual tbl_VisitorUserRegistration tbl_VisitorUserRegistration { get; set; }
+        public virtual tbl_VendorUserRegistration tbl_VendorUserRegistration { get; set; }
     }
 }

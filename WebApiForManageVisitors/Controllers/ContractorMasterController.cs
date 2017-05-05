@@ -4,18 +4,19 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebApiForManageVisitors.Models;
+using WebApiForWorkPermitSystem.Models;
+using WebApiForWorkPermitSystem.Models;
 
-namespace WebApiForManageVisitors.Controllers
+namespace WebApiForWorkPermitSystem.Controllers
 {
     public class ContractorMasterController : Controller
     {
-        ManageVisitorsEntities _DbManageVisitorsEntities = new ManageVisitorsEntities();
+        WorkPermitSystemEntities _DbWorkPermitSystemEntities = new WorkPermitSystemEntities();
         public void CheckViewBagData()
         {
             @ViewBag.Account = false;
             @ViewBag.EmployeeRegistration = false;
-            @ViewBag.VisitorRegistration = false;
+            @ViewBag.VendorRegistration = false;
             @ViewBag.EmployeeDepartment = false;
             @ViewBag.EmployeeDesignation = false;
             @ViewBag.ContractorMaster = true;
@@ -28,7 +29,7 @@ namespace WebApiForManageVisitors.Controllers
              CheckViewBagData();
 
             List<ContractorMasterModel> _objListContractorMasterModel = new List<ContractorMasterModel>();
-            var _objAllContractorMasterModel = _DbManageVisitorsEntities.tbl_ContractorMaster.ToList();
+            var _objAllContractorMasterModel = _DbWorkPermitSystemEntities.tbl_ContractorMaster.ToList();
 
             foreach (var item in _objAllContractorMasterModel)
             {
@@ -51,7 +52,7 @@ namespace WebApiForManageVisitors.Controllers
             CheckViewBagData();
 
             ContractorMasterModel _objContractorMasterModel = new ContractorMasterModel();
-            var model = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(a => a.ContractorSrNo == id).FirstOrDefault();
+            var model = _DbWorkPermitSystemEntities.tbl_ContractorMaster.Where(a => a.ContractorSrNo == id).FirstOrDefault();
             {
                 _objContractorMasterModel.ContractorSrNo = model.ContractorSrNo;
                 _objContractorMasterModel.CompanyName = model.CompanyName;
@@ -86,8 +87,8 @@ namespace WebApiForManageVisitors.Controllers
                         ContractorCreateDate = DateTime.Now
                     };
 
-                    _DbManageVisitorsEntities.tbl_ContractorMaster.Add(data);
-                    _DbManageVisitorsEntities.SaveChanges();
+                    _DbWorkPermitSystemEntities.tbl_ContractorMaster.Add(data);
+                    _DbWorkPermitSystemEntities.SaveChanges();
 
                     return RedirectToAction("Index");
                 }
@@ -105,7 +106,7 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             ContractorMasterModel _objContractorMasterModel = new ContractorMasterModel();
-            var model = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(a => a.ContractorSrNo == id).FirstOrDefault();
+            var model = _DbWorkPermitSystemEntities.tbl_ContractorMaster.Where(a => a.ContractorSrNo == id).FirstOrDefault();
             {
                 _objContractorMasterModel.ContractorSrNo = model.ContractorSrNo;
                 _objContractorMasterModel.CompanyName = model.CompanyName;
@@ -129,7 +130,7 @@ namespace WebApiForManageVisitors.Controllers
                 if (ModelState.IsValid)
                 {
                     ContractorMasterModel _objContractorMasterModel = new ContractorMasterModel();
-                    var model = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(a => a.ContractorSrNo == id).FirstOrDefault();
+                    var model = _DbWorkPermitSystemEntities.tbl_ContractorMaster.Where(a => a.ContractorSrNo == id).FirstOrDefault();
                     {
                         //_objContractorMasterModel.ContractorSrNo = model.ContractorSrNo;
                         //_objContractorMasterModel.CompanyName = collection.CompanyName;
@@ -143,8 +144,8 @@ namespace WebApiForManageVisitors.Controllers
                         model.ContractorCreateDate = collection.ContractorCreateDate;
                     };
 
-                    _DbManageVisitorsEntities.Entry(model).State = EntityState.Modified;
-                    _DbManageVisitorsEntities.SaveChanges();
+                    _DbWorkPermitSystemEntities.Entry(model).State = EntityState.Modified;
+                    _DbWorkPermitSystemEntities.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 return View();
@@ -160,7 +161,7 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             ContractorMasterModel _objContractorMasterModel = new ContractorMasterModel();
-            var model = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(a => a.ContractorSrNo == id).FirstOrDefault();
+            var model = _DbWorkPermitSystemEntities.tbl_ContractorMaster.Where(a => a.ContractorSrNo == id).FirstOrDefault();
          
             _objContractorMasterModel.ContractorSrNo = model.ContractorSrNo;
             _objContractorMasterModel.CompanyName = model.CompanyName;
@@ -179,9 +180,9 @@ namespace WebApiForManageVisitors.Controllers
             {
                 CheckViewBagData();
                 // TODO: Add delete logic here
-                var model = _DbManageVisitorsEntities.tbl_ContractorMaster.Where(a => a.ContractorSrNo == id).FirstOrDefault();
-                _DbManageVisitorsEntities.tbl_ContractorMaster.Remove(model);
-                _DbManageVisitorsEntities.SaveChanges();
+                var model = _DbWorkPermitSystemEntities.tbl_ContractorMaster.Where(a => a.ContractorSrNo == id).FirstOrDefault();
+                _DbWorkPermitSystemEntities.tbl_ContractorMaster.Remove(model);
+                _DbWorkPermitSystemEntities.SaveChanges();
                 return RedirectToAction("Index");
 
             }

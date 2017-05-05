@@ -4,19 +4,20 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebApiForManageVisitors.Models;
+using WebApiForWorkPermitSystem.Models;
+using WebApiForWorkPermitSystem.Models;
 
-namespace WebApiForManageVisitors.Controllers
+namespace WebApiForWorkPermitSystem.Controllers
 {
     public class EmployeeDesignationController : Controller
     {
-        ManageVisitorsEntities _DbManageVisitorsEntities = new ManageVisitorsEntities();
+        WorkPermitSystemEntities _DbWorkPermitSystemEntities = new WorkPermitSystemEntities();
         // GET: EmployeeDesignation
         public void CheckViewBagData()
         {
             @ViewBag.Account = false;
             @ViewBag.EmployeeRegistration = false;
-            @ViewBag.VisitorRegistration = false;
+            @ViewBag.VendorRegistration = false;
             @ViewBag.EmployeeDepartment = false;
             @ViewBag.EmployeeDesignation = true;
             @ViewBag.ContractorMaster = false;
@@ -28,13 +29,13 @@ namespace WebApiForManageVisitors.Controllers
             CheckViewBagData();
 
             List<DesignationMasterModel> _objListRequestProcessModel = new List<DesignationMasterModel>();
-            var _objAllRequestProcessModel = _DbManageVisitorsEntities.tbl_DesignationMaster.ToList();
+            var _objAllRequestProcessModel = _DbWorkPermitSystemEntities.tbl_DesignationMaster.ToList();
 
             foreach (var item in _objAllRequestProcessModel)
             {
                 DesignationMasterModel _class = new DesignationMasterModel();
 
-                var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == item.DepartmentID).FirstOrDefault();
+                var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == item.DepartmentID).FirstOrDefault();
 
                 _class.DesignationID = item.DesignationID;
                 _class.DepartmentID = item.DepartmentID;
@@ -54,9 +55,9 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             DesignationMasterModel _objDesignationModel = new DesignationMasterModel();
-            var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
+            var model = _DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
             {
-                var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
+                var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
                 _objDesignationModel.DesignationID = model.DesignationID;
                 _objDesignationModel.DesignationName = model.DesignationName;
                 _objDesignationModel.DepartmentName = _objDepartmentEmployeeRegistration.DepartmentName;
@@ -71,7 +72,7 @@ namespace WebApiForManageVisitors.Controllers
         public ActionResult Create()
         {
             CheckViewBagData();
-            ViewBag.DepartmentCombo = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
+            ViewBag.DepartmentCombo = new SelectList(_DbWorkPermitSystemEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
             return View();
         }
 
@@ -90,13 +91,13 @@ namespace WebApiForManageVisitors.Controllers
                     DesignationCreateDate = DateTime.Now
                 };
 
-                if (!_DbManageVisitorsEntities.tbl_DesignationMaster.Any(p => p.DesignationName == collection.DesignationName && p.DepartmentID == DepartmentCombo))
+                if (!_DbWorkPermitSystemEntities.tbl_DesignationMaster.Any(p => p.DesignationName == collection.DesignationName && p.DepartmentID == DepartmentCombo))
                 {
                   
                     try
                     {
-                        _DbManageVisitorsEntities.tbl_DesignationMaster.Add(data);
-                        _DbManageVisitorsEntities.SaveChanges();
+                        _DbWorkPermitSystemEntities.tbl_DesignationMaster.Add(data);
+                        _DbWorkPermitSystemEntities.SaveChanges();
                         return RedirectToAction("Index");
                     }
                     catch (Exception ex)
@@ -111,7 +112,7 @@ namespace WebApiForManageVisitors.Controllers
                 }
                 
             }
-            ViewBag.DepartmentCombo = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
+            ViewBag.DepartmentCombo = new SelectList(_DbWorkPermitSystemEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName");
             return View();
         }
            
@@ -121,9 +122,9 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             DesignationMasterModel _objDesignationModel = new DesignationMasterModel();
-            var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
+            var model = _DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
             {
-                var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
+                var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
                 _objDesignationModel.DesignationCreateDate = model.DesignationCreateDate;
                 _objDesignationModel.DesignationID = model.DesignationID;
                 _objDesignationModel.DepartmentID = model.DepartmentID;
@@ -132,7 +133,7 @@ namespace WebApiForManageVisitors.Controllers
                 //_objDesignationModel.DesignationCreateDate = model.DesignationCreateDate;
                 //_objDesignationModel.DesignationCreateDate = model.DesignationCreateDate;
             };
-            ViewBag.DepartmentCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName", model.DepartmentID);
+            ViewBag.DepartmentCombo1 = new SelectList(_DbWorkPermitSystemEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName", model.DepartmentID);
             return View(_objDesignationModel);
         }
 
@@ -146,19 +147,19 @@ namespace WebApiForManageVisitors.Controllers
                 // TODO: Add update logic here
                 if (ModelState.IsValid)
                 {
-                    var data = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(b => b.DesignationID == id).FirstOrDefault();
+                    var data = _DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(b => b.DesignationID == id).FirstOrDefault();
                     {
                         //data.DesignationID = collection.DesignationID;
                         //data.DepartmentID = collection.DepartmentID;
                          data.DesignationName = collection.DesignationName;
                          data.DepartmentID =Convert.ToInt32( collection.DepartmentCombo);
                         //data.DesignationCreateDate = data.DesignationCreateDate;
-                        _DbManageVisitorsEntities.Entry(data).State = EntityState.Modified;
-                        _DbManageVisitorsEntities.SaveChanges();
+                        _DbWorkPermitSystemEntities.Entry(data).State = EntityState.Modified;
+                        _DbWorkPermitSystemEntities.SaveChanges();
                         return RedirectToAction("Index");
                     }
                 }
-               ViewBag.DepartmentCombo1 = new SelectList(_DbManageVisitorsEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName", Convert.ToInt32(collection.DepartmentCombo));
+               ViewBag.DepartmentCombo1 = new SelectList(_DbWorkPermitSystemEntities.tbl_DepartmentMaster, "DepartmentID", "DepartmentName", Convert.ToInt32(collection.DepartmentCombo));
                 return View();
             }
             catch(Exception ex)
@@ -172,8 +173,8 @@ namespace WebApiForManageVisitors.Controllers
         {
             CheckViewBagData();
             DesignationMasterModel _objtbl_DesignationMasterModel = new DesignationMasterModel();
-            var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
-            var _objDepartmentEmployeeRegistration = _DbManageVisitorsEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
+            var model = _DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
+            var _objDepartmentEmployeeRegistration = _DbWorkPermitSystemEntities.tbl_DepartmentMaster.Where(p => p.DepartmentID == model.DepartmentID).FirstOrDefault();
 
             _objtbl_DesignationMasterModel.DesignationID = model.DesignationID;
             _objtbl_DesignationMasterModel.DepartmentID = model.DepartmentID;
@@ -192,9 +193,9 @@ namespace WebApiForManageVisitors.Controllers
             {
                 CheckViewBagData();
                 // TODO: Add delete logic here
-                var model = _DbManageVisitorsEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
-                _DbManageVisitorsEntities.tbl_DesignationMaster.Remove(model);
-                _DbManageVisitorsEntities.SaveChanges();
+                var model = _DbWorkPermitSystemEntities.tbl_DesignationMaster.Where(a => a.DesignationID == id).FirstOrDefault();
+                _DbWorkPermitSystemEntities.tbl_DesignationMaster.Remove(model);
+                _DbWorkPermitSystemEntities.SaveChanges();
                 return RedirectToAction("Index");
               
             }

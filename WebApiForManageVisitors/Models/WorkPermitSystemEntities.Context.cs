@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApiForManageVisitors.Models
+namespace WebApiForWorkPermitSystem.Models
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ManageVisitorsEntities : DbContext
+    public partial class WorkPermitSystemEntities : DbContext
     {
-        public ManageVisitorsEntities()
-            : base("name=ManageVisitorsEntities")
+        public WorkPermitSystemEntities()
+            : base("name=WorkPermitSystemEntities")
         {
         }
     
@@ -35,6 +35,6 @@ namespace WebApiForManageVisitors.Models
         public virtual DbSet<tbl_DepartmentMaster> tbl_DepartmentMaster { get; set; }
         public virtual DbSet<tbl_DesignationMaster> tbl_DesignationMaster { get; set; }
         public virtual DbSet<tbl_RequestProcess> tbl_RequestProcess { get; set; }
-        public virtual DbSet<tbl_VisitorUserRegistration> tbl_VisitorUserRegistration { get; set; }
+        public virtual DbSet<tbl_VendorUserRegistration> tbl_VendorUserRegistration { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ManageVisitorsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="WorkPermitSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -115,35 +115,35 @@
           </Key>
           <Property Name="EmployeeId" Type="bigint" />
           <Property Name="RequestProcessSrNo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="VisitorSrNo" Type="bigint" />
+          <Property Name="VendorSrNo" Type="bigint" />
           <Property Name="EmployeeDepartmentID" Type="bigint" />
           <Property Name="VisitStartTime" Type="datetime" />
           <Property Name="VisitEndTime" Type="datetime" />
-          <Property Name="VisitorAccessories" Type="varchar(max)" />
-          <Property Name="NoOfVisitors" Type="bigint" />
-          <Property Name="VisitorVisitResons" Type="varchar(max)" />
+          <Property Name="VendorAccessories" Type="varchar(max)" />
+          <Property Name="NoOfVendors" Type="bigint" />
+          <Property Name="VendorVisitResons" Type="varchar(max)" />
           <Property Name="RequestProcessDate" Type="datetime" />
           <Property Name="ActivityOwnerStatus" Type="varchar(max)" />
           <Property Name="AreaOwnerStatus" Type="varchar(max)" />
           <Property Name="SafetyStatus" Type="varchar(max)" />
           <Property Name="ContractorStatus" Type="varchar(max)" />
         </EntityType>
-        <EntityType Name="tbl_VisitorUserRegistration">
+        <EntityType Name="tbl_VendorUserRegistration">
           <Key>
-            <PropertyRef Name="VisitorSrNo" />
+            <PropertyRef Name="VendorSrNo" />
           </Key>
-          <Property Name="VisitorSrNo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="VisitorUserID" Type="varchar(max)" Nullable="false" />
+          <Property Name="VendorSrNo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VendorUserID" Type="varchar(max)" Nullable="false" />
           <Property Name="DeviceTokenId" Type="varchar(max)" />
-          <Property Name="VisitorName" Type="varchar(max)" />
-          <Property Name="VisitorAddress" Type="varchar(max)" />
-          <Property Name="VisitorContactNo" Type="varchar(max)" />
-          <Property Name="VisitorEmailID" Type="varchar(max)" />
-          <Property Name="VisitorNatureOfWork" Type="varchar(max)" />
-          <Property Name="VisitorContractorSrNo" Type="bigint" />
-          <Property Name="VisitorContractorCoNo" Type="varchar(max)" />
-          <Property Name="VisitorPassword" Type="varchar(max)" />
-          <Property Name="VisitorRegistrationDate" Type="datetime" />
+          <Property Name="VendorName" Type="varchar(max)" />
+          <Property Name="VendorAddress" Type="varchar(max)" />
+          <Property Name="VendorContactNo" Type="varchar(max)" />
+          <Property Name="VendorEmailID" Type="varchar(max)" />
+          <Property Name="VendorNatureOfWork" Type="varchar(max)" />
+          <Property Name="VendorContractorSrNo" Type="bigint" />
+          <Property Name="VendorContractorCoNo" Type="varchar(max)" />
+          <Property Name="VendorPassword" Type="varchar(max)" />
+          <Property Name="VendorRegistrationDate" Type="datetime" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -237,19 +237,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_RequestProcess_tbl_VisitorUserRegistration">
-          <End Role="tbl_VisitorUserRegistration" Type="Self.tbl_VisitorUserRegistration" Multiplicity="0..1" />
+        <Association Name="FK_tbl_RequestProcess_tbl_VendorUserRegistration">
+          <End Role="tbl_VendorUserRegistration" Type="Self.tbl_VendorUserRegistration" Multiplicity="0..1" />
           <End Role="tbl_RequestProcess" Type="Self.tbl_RequestProcess" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tbl_VisitorUserRegistration">
-              <PropertyRef Name="VisitorSrNo" />
+            <Principal Role="tbl_VendorUserRegistration">
+              <PropertyRef Name="VendorSrNo" />
             </Principal>
             <Dependent Role="tbl_RequestProcess">
-              <PropertyRef Name="VisitorSrNo" />
+              <PropertyRef Name="VendorSrNo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ManageVisitorsModelStoreContainer">
+        <EntityContainer Name="WorkPermitSystemModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -261,7 +261,7 @@
           <EntitySet Name="tbl_DepartmentMaster" EntityType="Self.tbl_DepartmentMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DesignationMaster" EntityType="Self.tbl_DesignationMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_RequestProcess" EntityType="Self.tbl_RequestProcess" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_VisitorUserRegistration" EntityType="Self.tbl_VisitorUserRegistration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_VendorUserRegistration" EntityType="Self.tbl_VendorUserRegistration" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -290,15 +290,16 @@
             <End Role="tbl_DepartmentEmployeeRegistration" EntitySet="tbl_DepartmentEmployeeRegistration" />
             <End Role="tbl_RequestProcess" EntitySet="tbl_RequestProcess" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_RequestProcess_tbl_VisitorUserRegistration" Association="Self.FK_tbl_RequestProcess_tbl_VisitorUserRegistration">
-            <End Role="tbl_VisitorUserRegistration" EntitySet="tbl_VisitorUserRegistration" />
+          <AssociationSet Name="FK_tbl_RequestProcess_tbl_VendorUserRegistration" Association="Self.FK_tbl_RequestProcess_tbl_VendorUserRegistration">
+            <End Role="tbl_VendorUserRegistration" EntitySet="tbl_VendorUserRegistration" />
             <End Role="tbl_RequestProcess" EntitySet="tbl_RequestProcess" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ManageVisitorsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="WorkPermitSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -374,6 +375,7 @@
           </Key>
           <Property Name="EmployeeSrNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeTokenNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DeviceTokenId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="EmployeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="EmployeeAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="EmployeeContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -385,7 +387,6 @@
           <NavigationProperty Name="tbl_DepartmentMaster" Relationship="Self.FK_tbl_DepartmentEmployeeRegistration_tbl_DepartmentMaster" FromRole="tbl_DepartmentEmployeeRegistration" ToRole="tbl_DepartmentMaster" />
           <NavigationProperty Name="tbl_DesignationMaster" Relationship="Self.FK_tbl_DepartmentEmployeeRegistration_tbl_DesignationMaster" FromRole="tbl_DepartmentEmployeeRegistration" ToRole="tbl_DesignationMaster" />
           <NavigationProperty Name="tbl_RequestProcess" Relationship="Self.FK_tbl_RequestProcess_tbl_DepartmentEmployeeRegistration" FromRole="tbl_DepartmentEmployeeRegistration" ToRole="tbl_RequestProcess" />
-          <Property Name="DeviceTokenId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_DepartmentMaster">
           <Key>
@@ -412,38 +413,38 @@
           </Key>
           <Property Name="EmployeeId" Type="Int64" />
           <Property Name="RequestProcessSrNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="VisitorSrNo" Type="Int64" />
+          <Property Name="VendorSrNo" Type="Int64" />
           <Property Name="EmployeeDepartmentID" Type="Int64" />
           <Property Name="VisitStartTime" Type="DateTime" Precision="3" />
           <Property Name="VisitEndTime" Type="DateTime" Precision="3" />
-          <Property Name="VisitorAccessories" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="NoOfVisitors" Type="Int64" />
-          <Property Name="VisitorVisitResons" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorAccessories" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NoOfVendors" Type="Int64" />
+          <Property Name="VendorVisitResons" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="RequestProcessDate" Type="DateTime" Precision="3" />
           <Property Name="ActivityOwnerStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="AreaOwnerStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SafetyStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ContractorStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_DepartmentEmployeeRegistration" Relationship="Self.FK_tbl_RequestProcess_tbl_DepartmentEmployeeRegistration" FromRole="tbl_RequestProcess" ToRole="tbl_DepartmentEmployeeRegistration" />
-          <NavigationProperty Name="tbl_VisitorUserRegistration" Relationship="Self.FK_tbl_RequestProcess_tbl_VisitorUserRegistration" FromRole="tbl_RequestProcess" ToRole="tbl_VisitorUserRegistration" />
+          <NavigationProperty Name="tbl_VendorUserRegistration" Relationship="Self.FK_tbl_RequestProcess_tbl_VendorUserRegistration" FromRole="tbl_RequestProcess" ToRole="tbl_VendorUserRegistration" />
         </EntityType>
-        <EntityType Name="tbl_VisitorUserRegistration">
+        <EntityType Name="tbl_VendorUserRegistration">
           <Key>
-            <PropertyRef Name="VisitorSrNo" />
+            <PropertyRef Name="VendorSrNo" />
           </Key>
-          <Property Name="VisitorSrNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="VisitorUserID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="VisitorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="VisitorAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="VisitorContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="VisitorEmailID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="VisitorNatureOfWork" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="VisitorContractorSrNo" Type="Int64" />
-          <Property Name="VisitorContractorCoNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="VisitorPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="VisitorRegistrationDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_RequestProcess" Relationship="Self.FK_tbl_RequestProcess_tbl_VisitorUserRegistration" FromRole="tbl_VisitorUserRegistration" ToRole="tbl_RequestProcess" />
+          <Property Name="VendorSrNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VendorUserID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DeviceTokenId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorEmailID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorNatureOfWork" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorContractorSrNo" Type="Int64" />
+          <Property Name="VendorContractorCoNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorRegistrationDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_RequestProcess" Relationship="Self.FK_tbl_RequestProcess_tbl_VendorUserRegistration" FromRole="tbl_VendorUserRegistration" ToRole="tbl_RequestProcess" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -509,15 +510,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_RequestProcess_tbl_VisitorUserRegistration">
-          <End Role="tbl_VisitorUserRegistration" Type="Self.tbl_VisitorUserRegistration" Multiplicity="0..1" />
+        <Association Name="FK_tbl_RequestProcess_tbl_VendorUserRegistration">
+          <End Role="tbl_VendorUserRegistration" Type="Self.tbl_VendorUserRegistration" Multiplicity="0..1" />
           <End Role="tbl_RequestProcess" Type="Self.tbl_RequestProcess" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tbl_VisitorUserRegistration">
-              <PropertyRef Name="VisitorSrNo" />
+            <Principal Role="tbl_VendorUserRegistration">
+              <PropertyRef Name="VendorSrNo" />
             </Principal>
             <Dependent Role="tbl_RequestProcess">
-              <PropertyRef Name="VisitorSrNo" />
+              <PropertyRef Name="VendorSrNo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -525,7 +526,7 @@
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="ManageVisitorsEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="WorkPermitSystemEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
@@ -536,7 +537,7 @@
           <EntitySet Name="tbl_DepartmentMaster" EntityType="Self.tbl_DepartmentMaster" />
           <EntitySet Name="tbl_DesignationMaster" EntityType="Self.tbl_DesignationMaster" />
           <EntitySet Name="tbl_RequestProcess" EntityType="Self.tbl_RequestProcess" />
-          <EntitySet Name="tbl_VisitorUserRegistration" EntityType="Self.tbl_VisitorUserRegistration" />
+          <EntitySet Name="tbl_VendorUserRegistration" EntityType="Self.tbl_VendorUserRegistration" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -557,8 +558,8 @@
             <End Role="tbl_DepartmentEmployeeRegistration" EntitySet="tbl_DepartmentEmployeeRegistration" />
             <End Role="tbl_RequestProcess" EntitySet="tbl_RequestProcess" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_RequestProcess_tbl_VisitorUserRegistration" Association="Self.FK_tbl_RequestProcess_tbl_VisitorUserRegistration">
-            <End Role="tbl_VisitorUserRegistration" EntitySet="tbl_VisitorUserRegistration" />
+          <AssociationSet Name="FK_tbl_RequestProcess_tbl_VendorUserRegistration" Association="Self.FK_tbl_RequestProcess_tbl_VendorUserRegistration">
+            <End Role="tbl_VendorUserRegistration" EntitySet="tbl_VendorUserRegistration" />
             <End Role="tbl_RequestProcess" EntitySet="tbl_RequestProcess" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
@@ -571,9 +572,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ManageVisitorsModelStoreContainer" CdmEntityContainer="ManageVisitorsEntities">
+        <EntityContainerMapping StorageEntityContainer="WorkPermitSystemModelStoreContainer" CdmEntityContainer="WorkPermitSystemEntities">
           <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="ManageVisitorsModel.C__MigrationHistory">
+            <EntityTypeMapping TypeName="WorkPermitSystemModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
@@ -583,7 +584,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="ManageVisitorsModel.AspNetRole">
+            <EntityTypeMapping TypeName="WorkPermitSystemModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -591,7 +592,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="ManageVisitorsModel.AspNetUserClaim">
+            <EntityTypeMapping TypeName="WorkPermitSystemModel.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -601,7 +602,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="ManageVisitorsModel.AspNetUserLogin">
+            <EntityTypeMapping TypeName="WorkPermitSystemModel.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -610,7 +611,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="ManageVisitorsModel.AspNetUser">
+            <EntityTypeMapping TypeName="WorkPermitSystemModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -628,7 +629,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_ContractorMaster">
-            <EntityTypeMapping TypeName="ManageVisitorsModel.tbl_ContractorMaster">
+            <EntityTypeMapping TypeName="WorkPermitSystemModel.tbl_ContractorMaster">
               <MappingFragment StoreEntitySet="tbl_ContractorMaster">
                 <ScalarProperty Name="ContractorSrNo" ColumnName="ContractorSrNo" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
@@ -639,11 +640,11 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_DepartmentEmployeeRegistration">
-            <EntityTypeMapping TypeName="ManageVisitorsModel.tbl_DepartmentEmployeeRegistration">
+            <EntityTypeMapping TypeName="WorkPermitSystemModel.tbl_DepartmentEmployeeRegistration">
               <MappingFragment StoreEntitySet="tbl_DepartmentEmployeeRegistration">
-                <ScalarProperty Name="DeviceTokenId" ColumnName="DeviceTokenId" />
                 <ScalarProperty Name="EmployeeSrNo" ColumnName="EmployeeSrNo" />
                 <ScalarProperty Name="EmployeeTokenNo" ColumnName="EmployeeTokenNo" />
+                <ScalarProperty Name="DeviceTokenId" ColumnName="DeviceTokenId" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="EmployeeAddress" ColumnName="EmployeeAddress" />
                 <ScalarProperty Name="EmployeeContactNo" ColumnName="EmployeeContactNo" />
@@ -656,7 +657,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_DepartmentMaster">
-            <EntityTypeMapping TypeName="ManageVisitorsModel.tbl_DepartmentMaster">
+            <EntityTypeMapping TypeName="WorkPermitSystemModel.tbl_DepartmentMaster">
               <MappingFragment StoreEntitySet="tbl_DepartmentMaster">
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
                 <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
@@ -665,7 +666,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_DesignationMaster">
-            <EntityTypeMapping TypeName="ManageVisitorsModel.tbl_DesignationMaster">
+            <EntityTypeMapping TypeName="WorkPermitSystemModel.tbl_DesignationMaster">
               <MappingFragment StoreEntitySet="tbl_DesignationMaster">
                 <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
@@ -675,17 +676,17 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_RequestProcess">
-            <EntityTypeMapping TypeName="ManageVisitorsModel.tbl_RequestProcess">
+            <EntityTypeMapping TypeName="WorkPermitSystemModel.tbl_RequestProcess">
               <MappingFragment StoreEntitySet="tbl_RequestProcess">
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="RequestProcessSrNo" ColumnName="RequestProcessSrNo" />
-                <ScalarProperty Name="VisitorSrNo" ColumnName="VisitorSrNo" />
+                <ScalarProperty Name="VendorSrNo" ColumnName="VendorSrNo" />
                 <ScalarProperty Name="EmployeeDepartmentID" ColumnName="EmployeeDepartmentID" />
                 <ScalarProperty Name="VisitStartTime" ColumnName="VisitStartTime" />
                 <ScalarProperty Name="VisitEndTime" ColumnName="VisitEndTime" />
-                <ScalarProperty Name="VisitorAccessories" ColumnName="VisitorAccessories" />
-                <ScalarProperty Name="NoOfVisitors" ColumnName="NoOfVisitors" />
-                <ScalarProperty Name="VisitorVisitResons" ColumnName="VisitorVisitResons" />
+                <ScalarProperty Name="VendorAccessories" ColumnName="VendorAccessories" />
+                <ScalarProperty Name="NoOfVendors" ColumnName="NoOfVendors" />
+                <ScalarProperty Name="VendorVisitResons" ColumnName="VendorVisitResons" />
                 <ScalarProperty Name="RequestProcessDate" ColumnName="RequestProcessDate" />
                 <ScalarProperty Name="ActivityOwnerStatus" ColumnName="ActivityOwnerStatus" />
                 <ScalarProperty Name="AreaOwnerStatus" ColumnName="AreaOwnerStatus" />
@@ -694,25 +695,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_VisitorUserRegistration">
-            <EntityTypeMapping TypeName="ManageVisitorsModel.tbl_VisitorUserRegistration">
-              <MappingFragment StoreEntitySet="tbl_VisitorUserRegistration">
+          <EntitySetMapping Name="tbl_VendorUserRegistration">
+            <EntityTypeMapping TypeName="WorkPermitSystemModel.tbl_VendorUserRegistration">
+              <MappingFragment StoreEntitySet="tbl_VendorUserRegistration">
+                <ScalarProperty Name="VendorSrNo" ColumnName="VendorSrNo" />
+                <ScalarProperty Name="VendorUserID" ColumnName="VendorUserID" />
                 <ScalarProperty Name="DeviceTokenId" ColumnName="DeviceTokenId" />
-                <ScalarProperty Name="VisitorSrNo" ColumnName="VisitorSrNo" />
-                <ScalarProperty Name="VisitorUserID" ColumnName="VisitorUserID" />
-                <ScalarProperty Name="VisitorName" ColumnName="VisitorName" />
-                <ScalarProperty Name="VisitorAddress" ColumnName="VisitorAddress" />
-                <ScalarProperty Name="VisitorContactNo" ColumnName="VisitorContactNo" />
-                <ScalarProperty Name="VisitorEmailID" ColumnName="VisitorEmailID" />
-                <ScalarProperty Name="VisitorNatureOfWork" ColumnName="VisitorNatureOfWork" />
-                <ScalarProperty Name="VisitorContractorSrNo" ColumnName="VisitorContractorSrNo" />
-                <ScalarProperty Name="VisitorContractorCoNo" ColumnName="VisitorContractorCoNo" />
-                <ScalarProperty Name="VisitorPassword" ColumnName="VisitorPassword" />
-                <ScalarProperty Name="VisitorRegistrationDate" ColumnName="VisitorRegistrationDate" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="VendorAddress" ColumnName="VendorAddress" />
+                <ScalarProperty Name="VendorContactNo" ColumnName="VendorContactNo" />
+                <ScalarProperty Name="VendorEmailID" ColumnName="VendorEmailID" />
+                <ScalarProperty Name="VendorNatureOfWork" ColumnName="VendorNatureOfWork" />
+                <ScalarProperty Name="VendorContractorSrNo" ColumnName="VendorContractorSrNo" />
+                <ScalarProperty Name="VendorContractorCoNo" ColumnName="VendorContractorCoNo" />
+                <ScalarProperty Name="VendorPassword" ColumnName="VendorPassword" />
+                <ScalarProperty Name="VendorRegistrationDate" ColumnName="VendorRegistrationDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="ManageVisitorsModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="WorkPermitSystemModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
