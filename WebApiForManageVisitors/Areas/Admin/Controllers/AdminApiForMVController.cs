@@ -143,12 +143,10 @@ namespace WebApiForWorkPermitSystem.Areas.Admin.Controllers
         {
             try
             {
-
                 VendorUserRegistrationModel VendorUserMaxSrNo = new VendorUserRegistrationModel();
-                var _objVendorUserRegistration = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.ToList();
-                var max = _objVendorUserRegistration.Max(x => (int?)x.VendorContractorSrNo) ?? 0;
-
-                VendorUserMaxSrNo.VendorSrNo = max + 1;
+                var _objVendorUserRegistration = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.DefaultIfEmpty().Max(p => p == null ? 0 : p.VendorSrNo);
+                var max = _objVendorUserRegistration + 1;
+                VendorUserMaxSrNo.VendorSrNo = max;
 
                 return Json(VendorUserMaxSrNo, JsonRequestBehavior.AllowGet);
             }
@@ -328,7 +326,7 @@ namespace WebApiForWorkPermitSystem.Areas.Admin.Controllers
                     _objResult.success = 1;
                     _objResult.msg = "Save Successfully";
 
-                    var _owneractivitylist = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == collection.EmployeeDepartmentID && a.tbl_DesignationMaster.DesignationName == "Activity Owner");
+                    var _owneractivitylist = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == collection.EmployeeDepartmentID && a.tbl_DesignationMaster.DesignationName == "Area Owner");
 
                     //Notification Activity Owner
 
@@ -851,48 +849,60 @@ namespace WebApiForWorkPermitSystem.Areas.Admin.Controllers
 
                 var _objAllRequestProcessNewModel = _DbWorkPermitSystemEntities.tbl_RequestProcess.Where(a => a.RequestProcessSrNo == collection.RequestProcessSrNo).FirstOrDefault();
 
-                if (_objAllRequestProcessNewModel.EmployeeDepartmentID == collection.EmployeeDepartmentID && _objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.AreaOwnerStatus == "None" && _objAllRequestProcessNewModel.SafetyStatus == "None" && _objAllRequestProcessNewModel.ContractorStatus == "None")
+                if (_objAllRequestProcessNewModel.EmployeeDepartmentID == collection.EmployeeDepartmentID && _objAllRequestProcessNewModel.AreaOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.ActivityOwnerStatus == "None" && _objAllRequestProcessNewModel.SafetyStatus == "None" && _objAllRequestProcessNewModel.ContractorStatus == "None")
                 {
                     var _departmentlist = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == collection.EmployeeDepartmentID && a.tbl_DesignationMaster.DesignationName == "Area Owner");
 
-                    //Notification Area Owner
+                    //Notification For Area Owner
 
                     foreach (var item in _departmentlist)
                     {
-                        SendPushNotification(item.DeviceTokenId, "Activity Owner", "Activity Owner");
+                        SendPushNotification(item.DeviceTokenId, "New Vendor Request", "Manage Vendors");
                     }
                 }
 
-                else if (_objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.AreaOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.SafetyStatus == "None" && _objAllRequestProcessNewModel.ContractorStatus == "None")
+                else if (_objAllRequestProcessNewModel.EmployeeDepartmentID == collection.EmployeeDepartmentID && _objAllRequestProcessNewModel.AreaOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.SafetyStatus == "None" && _objAllRequestProcessNewModel.ContractorStatus == "None")
+                {
+                    var _departmentlist = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DepartmentMaster.DepartmentID == collection.EmployeeDepartmentID && a.tbl_DesignationMaster.DesignationName == "Activity Owner");
+
+                    //Notification For Activity Owner
+
+                    foreach (var item in _departmentlist)
+                    {
+                        SendPushNotification(item.DeviceTokenId, "Request Accepted From Area Owner..! Request ID " + _objAllRequestProcessNewModel.RequestProcessSrNo.ToString(), "Manage Vendors");
+                    }
+                }
+
+                else if (_objAllRequestProcessNewModel.AreaOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.SafetyStatus == "None" && _objAllRequestProcessNewModel.ContractorStatus == "None")
                 {
                     var _departmentlist = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => a.tbl_DesignationMaster.DesignationName == "Safety");
 
-                    //Notification Safety
+                    //Notification For Safety
 
                     foreach (var item in _departmentlist)
                     {
-                        SendPushNotification(item.DeviceTokenId, "Area Owner", "Manage Vendors");
+                        SendPushNotification(item.DeviceTokenId, "Request Accepted From Activity Owner..! Request ID " + _objAllRequestProcessNewModel.RequestProcessSrNo.ToString(), "Manage Vendors");
                     }
                 }
 
-                else if (_objAllRequestProcessNewModel.EmployeeDepartmentID == collection.EmployeeDepartmentID && _objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.AreaOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.SafetyStatus == "Accepted" && _objAllRequestProcessNewModel.ContractorStatus == "None")
+                else if (_objAllRequestProcessNewModel.AreaOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.SafetyStatus == "Accepted" && _objAllRequestProcessNewModel.ContractorStatus == "None")
                 {
-                    var _departmentlist = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.ToList().Where(a => a.VendorSrNo == collection.VendorSrNo);
+                    var _venderlist = _DbWorkPermitSystemEntities.tbl_VendorUserRegistration.ToList().Where(a => a.VendorSrNo == collection.VendorSrNo);
 
                     //Notification VendorUser
 
-                    foreach (var item in _departmentlist)
+                    foreach (var item in _venderlist)
                     {
-                        SendPushNotification(item.DeviceTokenId, "Safety", "Manage Vendors");
+                        SendPushNotification(item.DeviceTokenId, "Request Accepted From Department...! Request ID " + _objAllRequestProcessNewModel.RequestProcessSrNo.ToString(), "Manage Vendors");
                     }
                 }
 
-                else if (_objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.AreaOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.SafetyStatus == "Accepted" && _objAllRequestProcessNewModel.ContractorStatus == "Accepted")
+                else if (_objAllRequestProcessNewModel.AreaOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.ActivityOwnerStatus == "Accepted" && _objAllRequestProcessNewModel.SafetyStatus == "Accepted" && _objAllRequestProcessNewModel.ContractorStatus == "Accepted")
                 {
                     var _departmentlist = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a => _objAllRequestProcessNewModel.EmployeeDepartmentID == collection.EmployeeDepartmentID && a.tbl_DesignationMaster.DesignationName == "Activity Owner" || a.tbl_DesignationMaster.DesignationName == "Area Owner");
                     var _safetylist = _DbWorkPermitSystemEntities.tbl_DepartmentEmployeeRegistration.ToList().Where(a =>  a.tbl_DesignationMaster.DesignationName == "Safety");
                     var AllList = _departmentlist.Union(_safetylist);
-                    //Notification All Department
+                    //Notification For All Department Send From Vendor
 
                     foreach (var item in AllList)
                     {
